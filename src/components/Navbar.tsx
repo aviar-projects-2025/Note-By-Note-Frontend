@@ -71,7 +71,7 @@ export default function Navbar() {
     href="/donate"
     className="ml-3 rounded-xl bg-[#C0392B] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#C0392B]/30 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#a93226] hover:shadow-[#C0392B]/40"
   >
-   <p style={{color:"white"}}>Donate</p> 
+   <p style={{color:"wh"}}>Donate</p> 
   </Link>
 </div>
         {/* MOBILE BUTTON */}
@@ -109,7 +109,7 @@ export default function Navbar() {
                     : 'text-gray-400 hover:bg-white/5 hover:text-white'
                 }`}
               >
-                {label}
+               <p style={{color:"white"}}>{label}</p> 
               </Link>
             )
           })}
@@ -121,7 +121,7 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
               className="block rounded-xl bg-[#C0392B] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#a93226]"
             >
-              Donate Now
+           Donate Now
             </Link>
           </div>
         </div>

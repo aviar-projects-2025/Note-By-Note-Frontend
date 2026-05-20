@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PageHero from '@/components/PageHero'
 import FadeUp from '@/components/FadeUp'
-
+import foundme from "./assets/foundme"
 const trustItems = [
   { icon: 'bi-shield-check-fill', title: '100% Secure & Tax-Deductible', desc: 'Note By Note AZ is a 501(c)(3) nonprofit. All donations are tax-deductible to the fullest extent allowed by law.' },
   { icon: 'bi-receipt-cutoff', title: 'Federal Tax ID', desc: <span>Tax ID: <strong className="text-[#C0392B]">93-4567891</strong></span> },
@@ -29,9 +29,15 @@ export default function DonatePage() {
               {/* Left — Donation options */}
               <div className="lg:col-span-4">
                 <FadeUp>
-                  <h2 className="text-2xl font-bold mb-2">Your gift helps us provide free music education to middle school students across Arizona.</h2>
-                  <p className="text-gray-500 mb-8">Every dollar goes directly toward supporting students, instruments, and resources.</p>
+                  <h2 className="text-2xl font-bold mb-2">Volunteer With Us</h2>
+<p>We are so grateful that you’re here to help us on our journey. Please fill out this Google Form so we can learn more about you and get in contact!</p>
+                  <p className="text-gray-500 mb-8">
+Donate To Us
+Are you unable to volunteer? No worries at all. If you would still like to support us, we would much appreciate monetary donations!
 
+With increasing costs of instruments and guide books, many of our pupils are unable to practice their newly loved craft at home, so 100% of these proceeds will go into purchasing materials for them! We will happily add your name to our sponsor board as well.
+
+</p>
                   {/* Tabs */}
                   <div className="flex border-b border-gray-200 mb-0">
                     {[['online', 'Donate Online'], ['other', 'Other Ways to Give']].map(([key, label]) => (

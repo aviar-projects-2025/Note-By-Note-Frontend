@@ -8,19 +8,19 @@ import { useRef, useEffect, useState } from 'react'
 
 const testimonials = [
   {
-    name: 'Priya S.',
+    name: 'Peter S.',
     role: 'Parent',
     quote:
       'The instructors are patient, inspiring, and deeply committed to every student’s growth.',
   },
   {
-    name: 'Arjun K.',
+    name: 'David K.',
     role: 'Student',
     quote:
       'I gained confidence performing on stage and improved my technique dramatically.',
   },
   {
-    name: 'Meera R.',
+    name: 'John R.',
     role: 'Parent',
     quote:
       'An excellent music program with a warm and supportive learning environment.',
