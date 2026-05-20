@@ -1,23 +1,41 @@
 @import "tailwindcss";
+/* @import "bootstrap-icons/font/bootstrap-icons.css"; */
 
-@theme {
-  --font-playfair: "Playfair Display", Georgia, serif;
-  --font-inter: "Inter", system-ui, sans-serif;
-  
-  --color-charcoal: #2B2B2B;
-  --color-charcoal-light: #3D3D3D;
-  --color-charcoal-dark: #1A1A1A;
-  --color-crimson: #C0392B;
-  --color-crimson-light: #E74C3C;
-  --color-crimson-dark: #96281B;
-  --color-cream: #FAF8F5;
-  --color-gold: #D4AF37;
+/* =========================
+   THEME
+========================= */
+
+:root {
+  --nbn-charcoal: #2b2b2b;
+  --nbn-red: #c0392b;
+  --nbn-red-dark: #a93226;
+  --nbn-cream: #fafaf8;
+  --nbn-gold: #b8962e;
+  --nbn-text: #444444;
+  --nbn-border: #ececec;
 }
 
-* {
+/* Tailwind v4 theme tokens */
+@theme inline {
+  --color-nbn-charcoal: #2b2b2b;
+  --color-nbn-red: #c0392b;
+  --color-nbn-red-dark: #a93226;
+  --color-nbn-cream: #fafaf8;
+  --color-nbn-gold: #b8962e;
+
+  --font-poppins: "Poppins", sans-serif;
+  --font-playfair: "Playfair Display", serif;
+  --font-roboto: "Roboto", sans-serif;
+}
+
+/* =========================
+   RESET
+========================= */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
@@ -25,139 +43,184 @@ html {
 }
 
 body {
-  font-family: "Inter", system-ui, sans-serif;
-  color: #2B2B2B;
-  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  color: var(--nbn-text);
+  background: var(--nbn-cream);
   line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Playfair Display", Georgia, serif;
-  line-height: 1.2;
+/* Prevent giant image overflow */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
 }
 
-.container-custom {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+/* Better default links */
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-@media (min-width: 768px) {
-  .container-custom {
-    padding: 0 2rem;
-  }
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+  color: var(--nbn-charcoal);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
-@media (min-width: 1024px) {
-  .container-custom {
-    padding: 0 3rem;
-  }
+p {
+  line-height: 1.75;
 }
+
+/* =========================
+   REUSABLE UTILITIES
+========================= */
 
 .section-padding {
-  padding: 5rem 0;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
-@media (min-width: 768px) {
+.container-nbn {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* Card style */
+.nbn-card {
+  background: white;
+  border-radius: 1.5rem;
+  border: 1px solid var(--nbn-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* Button base */
+.nbn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.9rem;
+  font-weight: 700;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+/* Primary button */
+.nbn-btn-primary {
+  background: var(--nbn-red);
+  color: white;
+}
+
+.nbn-btn-primary:hover {
+  background: var(--nbn-red-dark);
+  transform: translateY(-2px);
+}
+
+/* Outline button */
+.nbn-btn-outline {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.nbn-btn-outline:hover {
+  background: white;
+  color: black;
+}
+
+/* =========================
+   FADE UP
+========================= */
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   TESTIMONIAL CAROUSEL
+========================= */
+
+.testimonial-carousel button {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.testimonial-carousel button:hover {
+  background: white;
+  color: black;
+  transform: translateY(-2px);
+}
+
+/* =========================
+   CUSTOM SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f3f3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c8c8c8;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
   .section-padding {
-    padding: 7rem 0;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  h1 {
+    line-height: 1.05;
+  }
+
+  p {
+    line-height: 1.65;
   }
 }
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #C0392B;
-  color: white;
-  font-family: "Inter", system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
-  padding: 0.875rem 2rem;
-  border-radius: 4px;
-  transition: all 0.25s ease;
-  border: 2px solid #C0392B;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btn-primary:hover {
-  background-color: #96281B;
-  border-color: #96281B;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(192, 57, 43, 0.35);
-}
-
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: transparent;
-  color: white;
-  font-family: "Inter", system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
-  padding: 0.875rem 2rem;
-  border-radius: 4px;
-  transition: all 0.25s ease;
-  border: 2px solid white;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btn-secondary:hover {
-  background-color: white;
-  color: #2B2B2B;
-  transform: translateY(-1px);
-}
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: transparent;
-  color: #C0392B;
-  font-family: "Inter", system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
-  padding: 0.875rem 2rem;
-  border-radius: 4px;
-  transition: all 0.25s ease;
-  border: 2px solid #C0392B;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btn-outline:hover {
-  background-color: #C0392B;
-  color: white;
-  transform: translateY(-1px);
-}
-
-.section-tag {
-  display: inline-block;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #C0392B;
-  margin-bottom: 1rem;
-}
-
-.divider {
-  width: 60px;
-  height: 3px;
-  background-color: #C0392B;
-  margin: 1.25rem 0;
-}
-
-.divider-center {
-  margin-left: auto;
-  margin-right: auto;
-}
-
