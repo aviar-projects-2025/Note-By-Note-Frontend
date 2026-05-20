@@ -247,7 +247,7 @@ export default function MusicProgramPage() {
                   href="/apply"
                   className="rounded-full bg-[#C0392B] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#A93226] inline-block"
                 >
-                  Apply Now
+                 <p style={{color:"white"}}>Apply Now</p> 
                 </Link>
               </motion.div>
 

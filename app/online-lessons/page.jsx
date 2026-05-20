@@ -69,7 +69,7 @@ export default function OnlineLessonsPage() {
                   href="/sign-up"
                   className="inline-block bg-[#C0392B] hover:bg-[#a93226] text-white font-bold px-8 py-3 rounded text-sm no-underline transition-colors"
                 >
-                  SIGN UP NOW
+                 <p style={{color:"white"}}>SIGN UP NOW</p> 
                 </Link>
               </FadeUp>
             </div>

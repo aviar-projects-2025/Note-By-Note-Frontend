@@ -61,7 +61,7 @@ export default function SignUpPage() {
                           rel="noreferrer"
                           className="inline-block bg-[#C0392B] hover:bg-[#a93226] text-white font-bold text-xs px-5 py-2 rounded no-underline transition-colors"
                         >
-                          {opt.btnLabel}
+                     <p style={{color:"white"}}>{opt.btnLabel}</p>
                         </a>
                       ) : (
                         <span className="text-[#B8962E] text-xs font-semibold">

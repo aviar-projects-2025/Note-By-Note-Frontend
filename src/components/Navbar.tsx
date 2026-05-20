@@ -12,6 +12,7 @@ const navLinks = [
   { href: '/sign-up', label: 'Sign Up' },
   { href: '/media', label: 'Media' },
   { href: '/online-lessons', label: 'Online Lessons' },
+  {href:'/donate', label:'Donation'}
 ]
 
 export default function Navbar() {
@@ -70,7 +71,7 @@ export default function Navbar() {
     href="/donate"
     className="ml-3 rounded-xl bg-[#C0392B] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#C0392B]/30 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#a93226] hover:shadow-[#C0392B]/40"
   >
-    Donate
+   <p style={{color:"white"}}>Donate</p> 
   </Link>
 </div>
         {/* MOBILE BUTTON */}
