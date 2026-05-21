@@ -219,7 +219,7 @@ export default function WhoWeArePage() {
                   href="/donate"
                   className="bg-[#C0392B] px-6 py-3 rounded-full text-white font-semibold"
                 >
-                  Support Us
+                  <p style={{color:"white"}}>Support Us</p>
                 </Link>
 
                 <Link

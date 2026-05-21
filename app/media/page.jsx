@@ -56,10 +56,10 @@ export default function MediaPage() {
                   href="https://drive.google.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 border-2 border-[#2B2B2B] hover:bg-[#2B2B2B] hover:text-white text-[#2B2B2B] font-bold px-7 py-3 rounded-lg text-sm no-underline transition-all"
+                  className="inline-flex items-center gap-2 bg-[red]  hover:bg-[#2B2B2B] hover:text-white text-[#2B2B2B] font-bold px-7 py-3 rounded-lg text-sm no-underline transition-all"
                 >
                   <i className="bi bi-google text-[#4285F4]"></i>
-                  VIEW MORE IN GOOGLE DRIVE
+                 <p style={{color:"white"}}> VIEW MORE IN GOOGLE DRIVE</p>
                 </a>
               </div>
             </FadeUp>

@@ -21,11 +21,11 @@ export default function PageHero({ title, breadcrumb, variant = 'who' }) {
     >
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-4xl md:text-5xl font-extrabold font-poppins mb-4">{title}</h1>
-        <nav className="flex justify-center items-center gap-2 text-sm text-white/70">
+        {/* <nav className="flex justify-center items-center gap-2 text-sm text-white/70">
           <Link href="/" className="text-white/70 hover:text-white no-underline transition-colors">Home</Link>
           <span>/</span>
           <span className="text-white">{breadcrumb || title}</span>
-        </nav>
+        </nav> */}
       </div>
     </div>
   )
