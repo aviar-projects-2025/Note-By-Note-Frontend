@@ -6,14 +6,14 @@ import Link from 'next/link'
 // ── Custom SVG Icons ──────────────────────────────────────────
 
 const VideoIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
     <rect x="2" y="10" width="30" height="28" rx="4" stroke="#C0392B" strokeWidth="3" fill="none"/>
     <path d="M32 19l12-7v24l-12-7V19z" fill="#C0392B"/>
   </svg>
 )
 
 const CalendarIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
     <rect x="4" y="8" width="40" height="36" rx="4" stroke="#C0392B" strokeWidth="3" fill="none"/>
     <line x1="4" y1="18" x2="44" y2="18" stroke="#C0392B" strokeWidth="3"/>
     <line x1="14" y1="2" x2="14" y2="12" stroke="#C0392B" strokeWidth="3" strokeLinecap="round"/>
@@ -23,7 +23,7 @@ const CalendarIcon = () => (
 )
 
 const MusicNoteIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
     <path d="M18 36V12l24-4v24" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
     <circle cx="12" cy="36" r="6" stroke="#C0392B" strokeWidth="3" fill="none"/>
     <circle cx="36" cy="32" r="6" stroke="#C0392B" strokeWidth="3" fill="none"/>
@@ -31,7 +31,7 @@ const MusicNoteIcon = () => (
 )
 
 const PeopleIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
     <circle cx="16" cy="16" r="7" stroke="#C0392B" strokeWidth="3" fill="none"/>
     <path d="M2 40c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" fill="none"/>
     <circle cx="36" cy="14" r="5" stroke="#C0392B" strokeWidth="2.5" fill="none"/>
@@ -40,7 +40,7 @@ const PeopleIcon = () => (
 )
 
 const ClockIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 inline-block mr-2">
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 inline-block mr-2" aria-hidden="true">
     <circle cx="24" cy="24" r="20" stroke="#C0392B" strokeWidth="3" fill="none"/>
     <line x1="24" y1="24" x2="24" y2="12" stroke="#C0392B" strokeWidth="3" strokeLinecap="round"/>
     <line x1="24" y1="24" x2="33" y2="30" stroke="#C0392B" strokeWidth="3" strokeLinecap="round"/>
@@ -66,15 +66,26 @@ export default function OnlineLessonsPage() {
 
         {/* ── Banner ── */}
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
+          {/*
+            Performance: priority image (above fold) gets loading="eager" + fetchpriority="high".
+            Explicit width/height prevent layout shift (CLS).
+          */}
           <img
-         src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1400&q=80&auto=format&fit=crop&crop=top"
+            src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1400&q=80&auto=format&fit=crop&crop=top"
             alt="Student with headphones learning online"
             className="w-full h-full object-cover object-top"
+            loading="eager"
+            // @ts-ignore
+            fetchpriority="high"
+            decoding="sync"
+            width={1400}
+            height={320}
           />
           <div className="absolute inset-0 bg-black/55" />
           <div className="absolute inset-0 flex flex-col justify-end px-6 pb-8 sm:px-12">
-            <h1 className="text-white text-3xl sm:text-4xl font-bold drop-shadow"><p style={{color:"white"}}>Online Lessons</p></h1>
-            {/* <p className="text-white/70 text-sm mt-1">Home / Online Lessons</p> */}
+            <h1 className="text-white text-3xl sm:text-4xl font-bold drop-shadow">
+              <p style={{color:"white"}}>Online Lessons</p>
+            </h1>
           </div>
         </div>
 
@@ -110,11 +121,16 @@ export default function OnlineLessonsPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <FadeUp>
+                {/* Performance: lazy-load below-fold image */}
                 <img
                   src="https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?w=700&q=80&auto=format&fit=crop"
                   alt="Student in online video lesson"
                   className="rounded-2xl shadow-xl w-full object-cover"
                   style={{ height: 340 }}
+                  loading="lazy"
+                  decoding="async"
+                  width={700}
+                  height={340}
                 />
               </FadeUp>
               <FadeUp delay={150}>

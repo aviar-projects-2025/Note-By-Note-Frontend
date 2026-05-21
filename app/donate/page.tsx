@@ -53,7 +53,7 @@ const fadeInUp = {
     y: 0,
     transition: { duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98], delay },
   }),
-}
+};
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -50 },
@@ -90,7 +90,9 @@ function InView({
   custom?: number
   className?: string
 }) {
+  
   const ref = useRef<HTMLDivElement>(null)
+  
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   return (
     <motion.div

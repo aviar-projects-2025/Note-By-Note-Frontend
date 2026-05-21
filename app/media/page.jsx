@@ -40,11 +40,20 @@ export default function MediaPage() {
               {photos.map((src, i) => (
                 <FadeUp key={i} delay={i * 60}>
                   <div className="overflow-hidden rounded-xl group cursor-pointer">
+                    {/*
+                      Performance: added loading="lazy" + decoding="async" + explicit
+                      width/height to eliminate layout shift. First image loads eagerly
+                      since it's above the fold.
+                    */}
                     <img
                       src={src}
                       alt={`Media ${i + 1}`}
                       className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
                       style={{ height: 190 }}
+                      loading={i === 0 ? 'eager' : 'lazy'}
+                      decoding="async"
+                      width={500}
+                      height={190}
                     />
                   </div>
                 </FadeUp>
@@ -56,10 +65,10 @@ export default function MediaPage() {
                   href="https://drive.google.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 bg-[red]  hover:bg-[#2B2B2B] hover:text-white text-[#2B2B2B] font-bold px-7 py-3 rounded-lg text-sm no-underline transition-all"
+                  className="inline-flex items-center gap-2 bg-[red] hover:bg-[#2B2B2B] hover:text-white text-[#2B2B2B] font-bold px-7 py-3 rounded-lg text-sm no-underline transition-all"
                 >
                   <i className="bi bi-google text-[#4285F4]"></i>
-                 <p style={{color:"white"}}> VIEW MORE IN GOOGLE DRIVE</p>
+                  <p style={{color:"white"}}> VIEW MORE IN GOOGLE DRIVE</p>
                 </a>
               </div>
             </FadeUp>

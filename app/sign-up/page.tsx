@@ -1,17 +1,16 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import PageHero from '@/components/PageHero'
 import FadeUp from '@/components/FadeUp'
 
 const StudentIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
     <circle cx="24" cy="16" r="9" fill="#C0392B" />
     <path d="M6 42c0-9.941 8.059-18 18-18s18 8.059 18 18" stroke="#C0392B" strokeWidth="3.5" strokeLinecap="round" fill="none"/>
   </svg>
 )
 
 const TutorIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
     <path d="M24 8L4 18l20 10 20-10L24 8z" fill="#C0392B" />
     <path d="M10 23v10c0 5 6.268 9 14 9s14-4 14-9V23" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" fill="none"/>
     <line x1="44" y1="18" x2="44" y2="30" stroke="#C0392B" strokeWidth="3" strokeLinecap="round"/>
@@ -20,7 +19,7 @@ const TutorIcon = () => (
 )
 
 const AbsenceIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
     <rect x="4" y="10" width="40" height="34" rx="4" stroke="#C0392B" strokeWidth="3" fill="none"/>
     <line x1="4" y1="20" x2="44" y2="20" stroke="#C0392B" strokeWidth="3"/>
     <line x1="14" y1="4" x2="14" y2="14" stroke="#C0392B" strokeWidth="3" strokeLinecap="round"/>
@@ -31,7 +30,7 @@ const AbsenceIcon = () => (
 )
 
 const LaptopIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
     <rect x="6" y="8" width="36" height="24" rx="3" stroke="#B8962E" strokeWidth="3" fill="none"/>
     <line x1="20" y1="14" x2="28" y2="14" stroke="#B8962E" strokeWidth="2.5" strokeLinecap="round"/>
     <line x1="2" y1="38" x2="46" y2="38" stroke="#B8962E" strokeWidth="3" strokeLinecap="round"/>
@@ -89,20 +88,28 @@ export default function SignUpPage() {
     <>
       <Navbar />
       <main>
-        {/* ── Banner: student with musical instrument ── */}
+        {/* ── Banner ── */}
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-          {/* Unsplash free photo – young student playing violin */}
+          {/*
+            Performance: hero image is above the fold — eager + fetchpriority high.
+            Explicit width/height eliminates layout shift (CLS).
+          */}
           <img
             src="https://images.unsplash.com/photo-1514119412350-e174d90d280e?w=1400&q=80&auto=format&fit=crop"
             alt="Student playing a musical instrument"
             className="w-full h-full object-cover object-center"
+            loading="eager"
+            // @ts-ignore
+            fetchpriority="high"
+            decoding="sync"
+            width={1400}
+            height={320}
           />
-          {/* Dark overlay for text legibility */}
           <div className="absolute inset-0 bg-black/50" />
-          {/* Hero text */}
           <div className="absolute inset-0 flex flex-col justify-end px-6 pb-8 sm:px-12">
-            <h1 className="text-white text-3xl sm:text-4xl font-bold drop-shadow"><p style={{color:"white"}}>Sign Up</p></h1>
-            {/* <p className="text-white/70 text-sm mt-1">Home / Sign Up</p> */}
+            <h1 className="text-white text-3xl sm:text-4xl font-bold drop-shadow">
+              <p style={{color:"white"}}>Sign Up</p>
+            </h1>
           </div>
         </div>
 
@@ -121,9 +128,7 @@ export default function SignUpPage() {
                         : 'bg-white border-gray-200 hover:border-[#C0392B]'
                     }`}
                   >
-                    <div
-                      className={`w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 ${opt.iconBg}`}
-                    >
+                    <div className={`w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 ${opt.iconBg}`}>
                       <opt.Icon />
                     </div>
                     <div className="flex-1">
@@ -131,7 +136,7 @@ export default function SignUpPage() {
                       <p className="text-gray-500 text-sm leading-relaxed mb-3">{opt.desc}</p>
                       {opt.btnLabel ? (
                         <a
-                          href={opt.href}
+                          href={opt.href!}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-block bg-[#C0392B] hover:bg-[#a93226] text-white font-bold text-xs px-5 py-2 rounded no-underline transition-colors"

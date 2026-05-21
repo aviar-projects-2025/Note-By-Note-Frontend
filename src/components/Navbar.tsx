@@ -11,7 +11,7 @@ const navLinks = [
   { href: '/blog', label: 'Blog' },
   { href: '/sign-up', label: 'Sign Up' },
   { href: '/media', label: 'Media' },
-  { href: '/online-lessons', label: 'Online Lessons' },
+  { href: '/online-lessons', label: 'New Initiative' },
   {href:'/donate', label:'Donation'}
 ]
 

@@ -24,12 +24,11 @@ export default function BlogPage() {
     <>
       <Navbar />
       <main>
-<PageHero
-  title="Progress Updates"
-  breadcrumb="Blog"
-  variant="blog"
-
-/> 
+        <PageHero
+          title="Progress Updates"
+          breadcrumb="Blog"
+          variant="blog"
+        />
 
         <section className="py-14">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,7 +56,21 @@ export default function BlogPage() {
               {filtered.map((post, i) => (
                 <FadeUp key={post.id} delay={i * 60}>
                   <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-                    <img src={post.img} alt={post.title} className="w-full object-cover" style={{ height: 200 }} />
+                    {/*
+                      Performance: added loading="lazy", decoding="async", width/height
+                      to prevent layout shift (CLS) and defer off-screen images.
+                      First card uses loading="eager" since it's above the fold.
+                    */}
+                    <img
+                      src={post.img}
+                      alt={post.title}
+                      className="w-full object-cover"
+                      style={{ height: 200 }}
+                      loading={i === 0 ? 'eager' : 'lazy'}
+                      decoding="async"
+                      width={600}
+                      height={200}
+                    />
                     <div className="p-5 flex flex-col flex-1">
                       <span className="text-xs text-gray-400 mb-2">{post.date}</span>
                       <h5 className="font-bold text-base mb-2 flex-1">{post.title}</h5>
