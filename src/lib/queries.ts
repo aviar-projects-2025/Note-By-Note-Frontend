@@ -1,0 +1,16 @@
+export const homePageQuery = `*[_type == "homePage"][0]{
+  title,
+  sections[]{
+    ...,
+    image{
+      asset->{
+        url
+      }
+    },
+    images[]{
+      asset->{
+        url
+      }
+    }
+  }
+}`

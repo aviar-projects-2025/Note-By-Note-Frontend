@@ -6,6 +6,9 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 
+import { client } from '@/sanity/client'
+import { homePageQuery } from '@/lib/queries'
+
 const testimonials = [
   {
     name: 'Priya S.',
@@ -26,6 +29,7 @@ const testimonials = [
       'An excellent music program with a warm and supportive learning environment.',
   },
 ]
+
 
 const studentImages = [
   'https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1200',
@@ -83,7 +87,7 @@ const scaleOnHover = {
 function AnimatedSection({ children, className = "" }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  
+
   return (
     <motion.div
       ref={ref}
@@ -184,9 +188,48 @@ function TestimonialBackground() {
 }
 
 export default function MusicProgramPage() {
+
+  const [hero, setHero] = useState(null);
+  const [mission, setMission] = useState(null);
+
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await client.fetch(homePageQuery)
+      setHero(data?.sections)
+      console.log(data)
+    }
+    getData()
+  }, [])
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await client.fetch(homePageQuery)
+
+      const heroSection = data?.sections?.find(
+        (section) => {
+          if (section._type === "heroSection") {
+            // return <Hero section={section} />
+            setHero(section)
+          }
+
+          if (section._type === "missionSection") {
+            setMission(section)
+          }
+        }
+      )
+    }
+
+    console.log(hero,'hero')
+    console.log(mission,'mission')
+    getData()
+  }, [])
+
   return (
     <main className="bg-[#FFFDF8] text-gray-900 overflow-x-hidden">
       {/* Hero Section */}
+
+
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#FDEBD0] via-white to-[#F9E79F]" />
         <AnimatedBackground />
@@ -204,39 +247,44 @@ export default function MusicProgramPage() {
               transition={{ delay: 0.2, duration: 0.5 }}
               className="mb-4 inline-flex rounded-full bg-[#C0392B]/10 px-4 py-1 text-sm font-medium text-[#C0392B]"
             >
-              Inspiring Young Musicians
+              {/* Inspiring Young Musicians */}
+              {hero?.badge}
             </motion.span>
 
-            <motion.h1 
+            <motion.h1
               className="text-5xl font-bold leading-tight tracking-tight lg:text-6xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              Building Creativity Through
-              <motion.span 
+              {/* Building Creativity Through */}
+              {hero?.title}
+              <motion.span
                 className="block text-[#C0392B]"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
               >
-                Music Education
+                {/* Music Education */}
+                {hero?.highlight}
               </motion.span>
             </motion.h1>
 
-            <motion.p 
+            <motion.p
               className="mt-6 max-w-2xl text-lg leading-8 text-gray-600"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.5 }}
             >
-              Our music program nurtures confidence, discipline, creativity,
+              {/* Our music program nurtures confidence, discipline, creativity,
               and performance skills through expert-led lessons and engaging
-              student experiences.
+              student experiences. */}
+              {hero?.description}
+
             </motion.p>
 
             {/* CTA Buttons */}
-            <motion.div 
+            <motion.div
               className="mt-10 flex flex-wrap gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -269,16 +317,18 @@ export default function MusicProgramPage() {
             transition={{ duration: 0.8, ease: [0.34, 1.2, 0.64, 1] }}
             className="relative mt-16 flex-1 lg:mt-0"
           >
-            <motion.div 
+            <motion.div
               className="relative h-[500px] overflow-hidden rounded-3xl shadow-2xl"
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
-              <Image
-                src="https://images.unsplash.com/photo-1619983081563-430f63602796?q=80&w=1200"
-                alt="Student practicing violin"
-                fill
-                className="object-cover"
-              />
+              {hero?.image?.asset?.url && (
+                <Image
+                  src={hero.image.asset.url}
+                  alt="Hero image"
+                  width={1200}
+                  height={600}
+                />
+              )}
             </motion.div>
           </motion.div>
         </div>
@@ -286,28 +336,30 @@ export default function MusicProgramPage() {
 
       {/* Mission Statement */}
       <AnimatedSection className="mx-auto max-w-5xl px-6 py-20 text-center">
-        <motion.h2 
+        <motion.h2
           variants={fadeInUp}
           className="text-4xl font-bold bg-gradient-to-r from-[#C0392B] to-[#E67E22] bg-clip-text text-transparent"
         >
-          Mission Statement
+          {/* Mission Statement */}
+          {mission?.title}
         </motion.h2>
 
-        <motion.p 
+        <motion.p
           variants={fadeInUp}
           className="mt-6 text-lg leading-8 text-gray-600"
         >
-          Our mission is to provide accessible, high-quality music education
+          {/* Our mission is to provide accessible, high-quality music education
           that empowers students to discover their artistic voice, develop
           lifelong confidence, and contribute positively to their communities
-          through the power of music.
+          through the power of music. */}
+          {mission?.description}
         </motion.p>
       </AnimatedSection>
 
       {/* Program Overview */}
       <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <motion.div 
+          <motion.div
             className="mb-14 text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -344,13 +396,13 @@ export default function MusicProgramPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                whileHover={{ 
+                whileHover={{
                   y: -12,
                   transition: { duration: 0.2 }
                 }}
                 className="rounded-3xl border border-gray-100 bg-[#FFFDF8] p-8 shadow-sm hover:shadow-xl cursor-pointer group"
               >
-                <motion.div 
+                <motion.div
                   className="text-5xl mb-4 inline-block"
                   whileHover={{ scale: 1.2, rotate: 10 }}
                   transition={{ type: "spring", stiffness: 400 }}
@@ -369,7 +421,7 @@ export default function MusicProgramPage() {
 
       {/* Student Images */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <motion.div 
+        <motion.div
           className="mb-12 text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -398,7 +450,7 @@ export default function MusicProgramPage() {
                 fill
                 className="object-cover transition-all duration-700 hover:scale-110"
               />
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"
               />
             </motion.div>
@@ -411,7 +463,7 @@ export default function MusicProgramPage() {
         <TestimonialBackground />
 
         <div className="mx-auto max-w-7xl px-6 relative z-10">
-          <motion.div 
+          <motion.div
             className="mb-14 text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -431,7 +483,7 @@ export default function MusicProgramPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
-                whileHover={{ 
+                whileHover={{
                   y: -8,
                   boxShadow: "0 20px 25px -12px rgba(192, 57, 43, 0.2)"
                 }}
@@ -463,12 +515,12 @@ export default function MusicProgramPage() {
 
       {/* Federal Tax ID */}
       <AnimatedSection className="mx-auto max-w-4xl px-6 py-20">
-        <motion.div 
+        <motion.div
           variants={fadeInUp}
           whileHover={{ scale: 1.02 }}
           className="rounded-3xl border border-[#F5CBA7] bg-[#FEF5E7] p-10 text-center shadow-sm"
         >
-          <motion.h2 
+          <motion.h2
             className="text-3xl font-bold"
             whileHover={{ letterSpacing: "0.05em" }}
             transition={{ duration: 0.3 }}
@@ -480,7 +532,7 @@ export default function MusicProgramPage() {
             Registered Nonprofit Organization
           </p>
 
-          <motion.div 
+          <motion.div
             className="mt-6 inline-flex rounded-2xl bg-white px-6 py-4 text-2xl font-bold tracking-widest text-[#C0392B] shadow"
             whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(192, 57, 43, 0.3)" }}
           >
@@ -492,7 +544,7 @@ export default function MusicProgramPage() {
       {/* Syllabus CTA */}
       <section className="pb-24">
         <div className="mx-auto max-w-5xl px-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -505,8 +557,8 @@ export default function MusicProgramPage() {
               whileHover={{ x: "100%" }}
               transition={{ duration: 0.8 }}
             />
-            
-            <motion.h2 
+
+            <motion.h2
               className="text-4xl font-bold"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
