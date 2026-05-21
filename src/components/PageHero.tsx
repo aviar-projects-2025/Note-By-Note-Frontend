@@ -14,13 +14,13 @@ export default function PageHero({ title, breadcrumb, variant = 'who' }) {
     <div
       className="relative py-20 text-center text-white"
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.65)), url(${bgImages[variant]})`,
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.65),rgba(27, 26, 26, 0.65)), url(${bgImages[variant]})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold font-poppins mb-4">{title}</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold font-poppins mb-4"> <p style={{color:"white"}}>{title}</p></h1>
         {/* <nav className="flex justify-center items-center gap-2 text-sm text-white/70">
           <Link href="/" className="text-white/70 hover:text-white no-underline transition-colors">Home</Link>
           <span>/</span>

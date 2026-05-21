@@ -277,7 +277,7 @@ export default function MusicProgramPage() {
                   href="/contact"
                   className="rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-800 transition hover:border-[#C0392B] hover:text-[#C0392B] inline-block"
                 >
-                  Schedule a Visit
+                 Support Our Vission
                 </Link>
               </motion.div>
             </motion.div>
