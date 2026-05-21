@@ -191,6 +191,8 @@ export default function MusicProgramPage() {
 
   const [hero, setHero] = useState(null);
   const [mission, setMission] = useState(null);
+  const [program, setProgram] = useState(null);
+
 
 
   useEffect(() => {
@@ -215,6 +217,11 @@ export default function MusicProgramPage() {
 
           if (section._type === "missionSection") {
             setMission(section)
+          }
+
+          if(section._type === "programSection") {
+            console.log(section)
+            setProgram(section)
           }
         }
       )
@@ -366,30 +373,36 @@ export default function MusicProgramPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl font-bold">Program Overview</h2>
+            <h2 className="text-4xl font-bold">
+              {/* Program Overview */}
+              {program?.title}
+            </h2>
             <p className="mt-4 text-gray-600">
-              Comprehensive music education designed for all skill levels.
+              {/* Comprehensive music education designed for all skill levels. */}
+              {program?.sub}
             </p>
           </motion.div>
 
           <div className="grid gap-8 md:grid-cols-3">
-            {[
-              {
-                title: 'Private Lessons',
-                desc: 'One-on-one instruction tailored to each student’s goals and experience.',
-                icon: '🎵',
-              },
-              {
-                title: 'Performance Training',
-                desc: 'Students gain stage confidence through recitals and live performances.',
-                icon: '🎶',
-              },
-              {
-                title: 'Music Theory',
-                desc: 'Strong theoretical foundations to support musicianship and creativity.',
-                icon: '🎼',
-              },
-            ].map((item, idx) => (
+            {
+            // [
+            //   {
+            //     title: 'Private Lessons',
+            //     desc: 'One-on-one instruction tailored to each student’s goals and experience.',
+            //     icon: '🎵',
+            //   },
+            //   {
+            //     title: 'Performance Training',
+            //     desc: 'Students gain stage confidence through recitals and live performances.',
+            //     icon: '🎶',
+            //   },
+            //   {
+            //     title: 'Music Theory',
+            //     desc: 'Strong theoretical foundations to support musicianship and creativity.',
+            //     icon: '🎼',
+            //   },
+            // ]
+            program?.cards.map((item, idx) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 40 }}
@@ -407,12 +420,12 @@ export default function MusicProgramPage() {
                   whileHover={{ scale: 1.2, rotate: 10 }}
                   transition={{ type: "spring", stiffness: 400 }}
                 >
-                  {item.icon}
+                  {item?.icon}
                 </motion.div>
                 <h3 className="text-2xl font-semibold group-hover:text-[#C0392B] transition-colors duration-300">
-                  {item.title}
+                  {item?.title}
                 </h3>
-                <p className="mt-4 leading-7 text-gray-600">{item.desc}</p>
+                <p className="mt-4 leading-7 text-gray-600">{item?.description}</p>
               </motion.div>
             ))}
           </div>
