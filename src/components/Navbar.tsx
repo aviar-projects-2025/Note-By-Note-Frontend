@@ -68,7 +68,7 @@ export default function Navbar() {
 
   {/* DONATE BUTTON */}
   <Link
-    href="/donate"
+    href="/donation"
     className="ml-3 rounded-xl bg-[#C0392B] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#C0392B]/30 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#a93226] hover:shadow-[#C0392B]/40"
   >
    <p style={{color:"white"}}>Donate</p> 
