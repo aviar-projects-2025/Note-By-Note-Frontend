@@ -100,7 +100,7 @@ export default function SignUpPage() {
             className="w-full h-full object-cover object-center"
             loading="eager"
             // @ts-ignore
-            fetchpriority="high"
+            fetchPriority="high"
             decoding="sync"
             width={1400}
             height={320}

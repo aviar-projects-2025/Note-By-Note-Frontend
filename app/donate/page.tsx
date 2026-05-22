@@ -16,6 +16,12 @@ interface TrustItem {
   desc: React.ReactNode
 }
 
+interface QuoteItem {
+  text: string
+  author: string
+  role: string
+}
+
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const trustItems: TrustItem[] = [
   {
@@ -43,6 +49,24 @@ const miniStats: [string, string][] = [
   ['250+', 'Students Served'],
   ['40+', 'Volunteer Tutors'],
   ['100%', 'Free to Students'],
+]
+
+const quotes: QuoteItem[] = [
+  {
+    text: "Music education changed my life. Note By Note AZ is making sure every child gets that same opportunity regardless of their background.",
+    author: "Sarah M.",
+    role: "Parent Volunteer"
+  },
+  {
+    text: "Seeing our students discover their passion for music is the most rewarding experience. This program is truly transformative.",
+    author: "David R.",
+    role: "Music Teacher"
+  },
+  {
+    text: "The impact of free music education goes beyond notes and rhythms. It builds confidence, discipline, and community.",
+    author: "Maria G.",
+    role: "Board Member"
+  }
 ]
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
@@ -198,9 +222,9 @@ export default function DonatePage() {
                   our sponsor board as well.
                 </motion.p>
 
-                {/* GoFundMe image */}
+                {/* GoFundMe image - REDUCED SIZE */}
                 <motion.div
-                  className="mb-8 overflow-hidden rounded-2xl shadow-md"
+                  className="mb-8 overflow-hidden rounded-2xl shadow-md max-w-md mx-auto lg:mx-0"
                   variants={fadeInUp}
                   custom={0.15}
                   whileHover={{ scale: 1.02, transition: { duration: 0.25 } }}
@@ -209,12 +233,127 @@ export default function DonatePage() {
                     src={foundme}
                     alt="GoFundMe campaign"
                     className="w-full h-auto object-cover"
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    priority
                   />
                 </motion.div>
 
-                {/* Tab bar */}
+                {/* Quote Cards Section */}
+           
+
+              </InView>
+
+              {/* ── Right — Trust & Stats ── */}
+              <InView variants={fadeInRight} className="lg:col-span-3">
+                <motion.div className="space-y-4" variants={stagger}>
+
+                  {/* Trust cards */}
+                  {trustItems.map((t, i) => (
+                    <motion.div
+                      key={i}
+                      variants={fadeInUp}
+                      custom={i * 0.08}
+                      whileHover={{
+                        y: -4,
+                        boxShadow: '0 12px 28px -8px rgba(192,57,43,0.15)',
+                        transition: { duration: 0.2 },
+                      }}
+                      className="flex gap-4 bg-gray-50 rounded-xl p-4 sm:p-5 cursor-default"
+                    >
+                      <motion.i
+                        className={`bi ${t.icon} text-[#C0392B] text-2xl sm:text-3xl flex-shrink-0 mt-0.5`}
+                        whileHover={{ scale: 1.15, rotate: 5 }}
+                        transition={{ type: 'spring', stiffness: 400 }}
+                      />
+                      <div>
+                        <h6 className="font-bold mb-1 text-xs sm:text-sm">{t.title}</h6>
+                        <p className="text-xs sm:text-sm text-gray-600 m-0">{t.desc}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+<br/>
+                  {/* Stats card */}
+                  <motion.div
+                    variants={fadeInUp}
+                    custom={0.3}
+                    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                    className="bg-[#2B2B2B] rounded-xl p-5 sm:p-6"
+                  >
+                    <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
+                      {miniStats.map(([n, l], i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.3 + i * 0.1, type: 'spring', stiffness: 200 }}
+                        >
+                          <div className="text-xl sm:text-2xl font-extrabold text-[#C0392B]">
+                            {n}
+                          </div>
+                          <div className="text-[10px] sm:text-xs text-white/50 mt-0.5 leading-tight">
+                            {l}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+<br/>
+                  {/* Decorative CTA card */}
+                  <motion.div
+                    variants={fadeInUp}
+                    custom={0.4}
+                    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                    className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#C0392B] to-[#E67E22] p-5 sm:p-6 text-white"
+                  >
+                    {/* shimmer */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/15 to-white/0"
+                      initial={{ x: '-100%' }}
+                      whileHover={{ x: '100%' }}
+                      transition={{ duration: 0.75 }}
+                    />
+                    <p className="text-xs sm:text-sm font-medium text-white/80 mb-1 relative z-10">
+                      Every dollar counts
+                    </p>
+                    <p className="text-base sm:text-lg font-bold relative z-10">
+                      Help us keep music free for every student in Arizona. 🎵
+                    </p>
+                    {/* Decorative CTA card */}
+
+  {/* shimmer */}
+  <motion.div
+    className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/15 to-white/0"
+    initial={{ x: '-100%' }}
+    whileHover={{ x: '100%' }}
+    transition={{ duration: 0.75 }}
+  />
+  <p className="text-xs sm:text-sm font-medium text-white/80 mb-1 relative z-10">
+    Every dollar counts
+  </p>
+
+      <i className="bi bi-music-note text-sm text-white/80"></i>
+      <span className="text-xs text-white/80">100% of proceeds go to students</span>
+
+    <div className="flex items-center gap-2 mb-2">
+      <i className="bi bi-graph-up text-sm text-white/80"></i>
+      <span className="text-xs text-white/80">Your donation = instruments & materials</span>
+    </div>
+    <div className="flex items-center gap-2">
+      <i className="bi bi-star-fill text-sm text-yellow-300"></i>
+      <span className="text-xs text-white/80">Join our sponsor board today</span>
+    </div>
+  
+  {/* Additional content */}
+
+</motion.div>
+                 
+
+                </motion.div>
+                    {/* Tab bar */}
+                    <br/>
                 <motion.div
-                  className="flex border-b border-gray-200 mb-0"
+                  className="flex border-b t-3 border-gray-200 mb-0"
                   variants={fadeInUp}
                   custom={0.2}
                 >
@@ -239,7 +378,7 @@ export default function DonatePage() {
                     </motion.button>
                   ))}
                 </motion.div>
-
+<br/>
                 {/* Tab panel */}
                 <motion.div
                   className="border border-t-0 border-gray-200 rounded-b-xl p-5 sm:p-8"
@@ -357,87 +496,6 @@ export default function DonatePage() {
                       </ul>
                     </motion.div>
                   )}
-                </motion.div>
-              </InView>
-
-              {/* ── Right — Trust & Stats ── */}
-              <InView variants={fadeInRight} className="lg:col-span-3">
-                <motion.div className="space-y-4" variants={stagger}>
-
-                  {/* Trust cards */}
-                  {trustItems.map((t, i) => (
-                    <motion.div
-                      key={i}
-                      variants={fadeInUp}
-                      custom={i * 0.08}
-                      whileHover={{
-                        y: -4,
-                        boxShadow: '0 12px 28px -8px rgba(192,57,43,0.15)',
-                        transition: { duration: 0.2 },
-                      }}
-                      className="flex gap-4 bg-gray-50 rounded-xl p-4 sm:p-5 cursor-default"
-                    >
-                      <motion.i
-                        className={`bi ${t.icon} text-[#C0392B] text-2xl sm:text-3xl flex-shrink-0 mt-0.5`}
-                        whileHover={{ scale: 1.15, rotate: 5 }}
-                        transition={{ type: 'spring', stiffness: 400 }}
-                      />
-                      <div>
-                        <h6 className="font-bold mb-1 text-xs sm:text-sm">{t.title}</h6>
-                        <p className="text-xs sm:text-sm text-gray-600 m-0">{t.desc}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-
-                  {/* Stats card */}
-                  <motion.div
-                    variants={fadeInUp}
-                    custom={0.3}
-                    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-                    className="bg-[#2B2B2B] rounded-xl p-5 sm:p-6"
-                  >
-                    <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
-                      {miniStats.map(([n, l], i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.3 + i * 0.1, type: 'spring', stiffness: 200 }}
-                        >
-                          <div className="text-xl sm:text-2xl font-extrabold text-[#C0392B]">
-                            {n}
-                          </div>
-                          <div className="text-[10px] sm:text-xs text-white/50 mt-0.5 leading-tight">
-                            {l}
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-
-                  {/* Decorative CTA card */}
-                  <motion.div
-                    variants={fadeInUp}
-                    custom={0.4}
-                    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-                    className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#C0392B] to-[#E67E22] p-5 sm:p-6 text-white"
-                  >
-                    {/* shimmer */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/15 to-white/0"
-                      initial={{ x: '-100%' }}
-                      whileHover={{ x: '100%' }}
-                      transition={{ duration: 0.75 }}
-                    />
-                    <p className="text-xs sm:text-sm font-medium text-white/80 mb-1 relative z-10">
-                      Every dollar counts
-                    </p>
-                    <p className="text-base sm:text-lg font-bold relative z-10">
-                      Help us keep music free for every student in Arizona. 🎵
-                    </p>
-                  </motion.div>
-
                 </motion.div>
               </InView>
 

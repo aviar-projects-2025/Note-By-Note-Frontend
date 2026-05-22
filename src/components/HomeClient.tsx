@@ -592,13 +592,13 @@ export default function MusicProgramPage() {
           whileHover={{ scale: 1.02 }}
           className="rounded-3xl border border-[#F5CBA7] bg-[#FEF5E7] p-10 text-center shadow-sm"
         >
-          <motion.h2
+          <h2
             className="text-3xl font-bold"
-            whileHover={{ letterSpacing: '0.05em' }}
-            transition={{ duration: 0.3 }}
+            
+         
           >
             Federal Tax ID Information
-          </motion.h2>
+          </h2>
 
           <p className="mt-4 text-lg text-gray-700">Registered Nonprofit Organization</p>
 
@@ -636,7 +636,7 @@ export default function MusicProgramPage() {
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
-              Download Program Syllabus
+              <p style={{color:"white"}}>Download Program Syllabus</p>
             </motion.h2>
 
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">

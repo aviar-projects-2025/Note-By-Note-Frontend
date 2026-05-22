@@ -76,7 +76,7 @@ export default function OnlineLessonsPage() {
             className="w-full h-full object-cover object-top"
             loading="eager"
             // @ts-ignore
-            fetchpriority="high"
+           fetchPriority="high"
             decoding="sync"
             width={1400}
             height={320}
@@ -158,7 +158,7 @@ export default function OnlineLessonsPage() {
         <section className="py-4 bg-[#2B2B2B]">
           <div className="max-w-7xl mx-auto px-4 text-center">
             <p className="text-white text-sm m-0">
-              <ClockIcon />
+           
               The full online portal is coming soon.{' '}
               <strong className="text-white">Stay tuned for updates!</strong>
             </p>
