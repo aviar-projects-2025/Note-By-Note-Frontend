@@ -1,14 +1,8 @@
 /** @type {import('next').NextConfig} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Tree-shake framer-motion and lucide — removes unused exports at build time
-  experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react'],
-  },
-
-  // Serve images as WebP/AVIF automatically, no code changes needed
   images: {
-    formats: ['image/avif', 'image/webp'],
-    // Allow Unsplash remote images with Next.js <Image> optimisation
+    formats: ['image/avif', 'image/webp'], // Modern formats
     remotePatterns: [
       {
         protocol: 'https',
@@ -16,14 +10,12 @@ const nextConfig = {
       },
     ],
   },
-
-  // Compress all responses
-  compress: true,
-
-  // Strip console.log in production
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === 'production', // Remove console logs in prod
   },
+  swcMinify: true, // Faster minification
+  compress: true, // Enable gzip compression
 }
 
 module.exports = nextConfig
+
