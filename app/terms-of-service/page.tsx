@@ -11,7 +11,7 @@ export default function TermsOfServicePage() {
     <>
       <Navbar />
       <main className="bg-[#FFFDF8] overflow-x-hidden">
-   <PageHero title="Privacy Policy" breadcrumb="Terms Of Services" variant="who" />
+   <PageHero title="Terms Of Services" breadcrumb="Terms Of Services" variant="who" />
 
         <section className="py-12 sm:py-16 lg:py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
