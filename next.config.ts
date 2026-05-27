@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    formats: ['image/avif', 'image/webp'], // Modern formats
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -10,12 +9,12 @@ const nextConfig = {
       },
     ],
   },
+  devIndicators: false,  // ← change this
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production', // Remove console logs in prod
+    removeConsole: process.env.NODE_ENV === 'production',
   },
-  swcMinify: true, // Faster minification
-  compress: true, // Enable gzip compression
+  swcMinify: true,
+  compress: true,
 }
 
 module.exports = nextConfig
-
