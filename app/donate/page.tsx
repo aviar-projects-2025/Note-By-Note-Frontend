@@ -140,7 +140,30 @@ export default function DonatePage() {
     <>
       <Navbar />
       <main className="bg-[#FFFDF8] overflow-x-hidden">
-        <PageHero title="Support Our Mission" breadcrumb="Donate" variant="donate" />
+
+   <div className="relative w-full h-64 sm:h-80 overflow-hidden">
+  <motion.img
+    src='https://images.unsplash.com/photo-1593113598332-cd288d649433?w=1400&q=80'
+    alt="Student with headphones learning online"
+    className="w-full h-full object-cover object-top"
+    initial={{ scale: 1.15 }}
+    animate={{ scale: 1 }}
+    transition={{ duration: 1.2, ease: 'easeOut' }}
+  />
+
+  <div className="absolute inset-0 bg-black/55" />
+
+  <motion.div
+    className="absolute inset-0 flex items-center justify-center text-center px-6"
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+  >
+    <h1 className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg" >
+     <p style={{color:"white"}}> Support Our Mission</p> 
+    </h1>
+  </motion.div>
+</div>
 
         <section className="py-12 sm:py-16 lg:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -213,10 +236,10 @@ export default function DonatePage() {
   custom={0.1}
 >
   <span className="block font-semibold text-gray-800 mb-3 text-2xl">
-    <h3>Donate To Us</h3>
+    Donate To Us
   </span>
 
-  <p className="text-base sm:text-lg leading-8">
+ 
     Are you unable to volunteer? No worries at all. If you would still like to
     support us, we would much appreciate monetary donations!
     
@@ -226,7 +249,7 @@ export default function DonatePage() {
     unable to practice their newly loved craft at home, so 100% of these proceeds
     will go into purchasing materials for them! We will happily add your name to
     our sponsor board as well.
-  </p>
+
 </motion.p>
 
                 {/* GoFundMe image - REDUCED SIZE */}
