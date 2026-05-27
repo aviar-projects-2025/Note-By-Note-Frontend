@@ -207,20 +207,27 @@ export default function DonatePage() {
                   </motion.a>
                 </motion.div>
 
-                <motion.p
-                  className="text-gray-500 mb-6 text-sm sm:text-base leading-relaxed"
-                  variants={fadeInUp}
-                  custom={0.1}
-                >
-                  <span className="block font-semibold text-gray-700 mb-1">Donate To Us</span>
-                  Are you unable to volunteer? No worries at all. If you would still like to
-                  support us, we would much appreciate monetary donations!
-                  <br /><br />
-                  With increasing costs of instruments and guide books, many of our pupils are
-                  unable to practice their newly loved craft at home, so 100% of these proceeds
-                  will go into purchasing materials for them! We will happily add your name to
-                  our sponsor board as well.
-                </motion.p>
+          <motion.p
+  className="text-gray-500 mb-6 text-base sm:text-lg leading-relaxed"
+  variants={fadeInUp}
+  custom={0.1}
+>
+  <span className="block font-semibold text-gray-800 mb-3 text-2xl">
+    <h3>Donate To Us</h3>
+  </span>
+
+  <p className="text-base sm:text-lg leading-8">
+    Are you unable to volunteer? No worries at all. If you would still like to
+    support us, we would much appreciate monetary donations!
+    
+    <br /><br />
+
+    With increasing costs of instruments and guide books, many of our pupils are
+    unable to practice their newly loved craft at home, so 100% of these proceeds
+    will go into purchasing materials for them! We will happily add your name to
+    our sponsor board as well.
+  </p>
+</motion.p>
 
                 {/* GoFundMe image - REDUCED SIZE */}
                 <motion.div
@@ -258,7 +265,7 @@ export default function DonatePage() {
                         boxShadow: '0 12px 28px -8px rgba(192,57,43,0.15)',
                         transition: { duration: 0.2 },
                       }}
-                      className="flex gap-4 bg-gray-50 rounded-xl p-4 sm:p-5 cursor-default"
+                      className="flex gap-4 bg-[#fef2f2]  rounded-xl p-4 sm:p-5 cursor-default"
                     >
                       <motion.i
                         className={`bi ${t.icon} text-[#C0392B] text-2xl sm:text-3xl flex-shrink-0 mt-0.5`}
@@ -404,32 +411,33 @@ export default function DonatePage() {
                           Make a secure donation through PayPal. All donations are tax-deductible.
                         </p>
                       </div>
+<motion.a
+  href="https://paypal.com"
+  target="_blank"
+  rel="noreferrer"
+  className="w-full block text-center bg-[#0070ba] text-white font-bold py-3.5 rounded-lg text-sm no-underline transition-colors mb-4"
+  whileHover={{ backgroundColor: '#005ea6', scale: 1.02 }}
+  whileTap={{ scale: 0.97 }}
+    style={{ color: "#fff" }}
+>
+  <i className="bi bi-paypal mr-2" />
+  DONATE WITH PAYPAL
+</motion.a>
 
-                      <motion.a
-                        href="https://paypal.com"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-full block text-center bg-[#0070ba] text-white font-bold py-3.5 rounded-lg text-sm no-underline transition-colors mb-4"
-                        whileHover={{ backgroundColor: '#005ea6', scale: 1.02 }}
-                        whileTap={{ scale: 0.97 }}
-                      >
-                        <i className="bi bi-paypal mr-2" />
-                        DONATE WITH PAYPAL
-                      </motion.a>
+<hr className="my-5 border-gray-100" />
 
-                      <hr className="my-5 border-gray-100" />
-
-                      <motion.a
-                        href="https://gofundme.com"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-full block text-center bg-[#00b964] text-white font-bold py-3.5 rounded-lg text-sm no-underline transition-colors"
-                        whileHover={{ backgroundColor: '#009e54', scale: 1.02 }}
-                        whileTap={{ scale: 0.97 }}
-                      >
-                        <i className="bi bi-heart-fill mr-2" />
-                        VIEW GOFUNDME
-                      </motion.a>
+<motion.a
+  href="https://gofundme.com"
+  target="_blank"
+  rel="noreferrer"
+  className="w-full block text-center bg-[#00b964] text-white font-bold py-3.5 rounded-lg text-sm no-underline transition-colors"
+  whileHover={{ backgroundColor: '#009e54', scale: 1.02, color: "#fff" }}
+  whileTap={{ scale: 0.97 }}
+  style={{ color: "#fff" }}
+>
+  <i className="bi bi-heart-fill mr-2" />
+  VIEW GOFUNDME
+</motion.a>
                     </motion.div>
                   ) : (
                     <motion.div

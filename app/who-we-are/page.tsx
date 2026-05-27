@@ -476,10 +476,10 @@ export default function WhoWeArePage() {
       {/* ── STATS ── */}
       <section className="bg-[#2B2B2B] text-white py-14 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center mb-10">
+          {/* <Reveal className="text-center mb-1">
             <h2 className="text-2xl sm:text-3xl font-bold text-white">Our Impact by the Numbers</h2>
             <p className="text-gray-400 mt-2 text-sm">Growing every semester.</p>
-          </Reveal>
+          </Reveal> */}
           <motion.div
             className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center"
             variants={stagger}

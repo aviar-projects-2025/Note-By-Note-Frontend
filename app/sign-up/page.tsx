@@ -105,18 +105,19 @@ export default function SignUpPage() {
             width={1400}
             height={320}
           />
-          <div className="absolute inset-0 bg-black/50" />
-          <div className="absolute inset-0 flex flex-col justify-end px-6 pb-8 sm:px-12">
-            <h1 className="text-white text-3xl sm:text-4xl font-bold drop-shadow">
-              <p style={{color:"white"}}>Sign Up</p>
-            </h1>
-          </div>
-        </div>
+  <div className="absolute inset-0 bg-black/50">
+  <div className="absolute inset-0 flex items-center justify-center text-center px-6">
+      <h1 className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg" >
+      <p style={{color:"white"}}>Sign Up</p>
+    </h1>
+  </div>
+</div>
+</div>
 
         <section className="py-16">
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
             <FadeUp>
-              <p className="text-center text-gray-600 mb-8">Choose an option below to get started.</p>
+              <h1  className="text-center text-gray-800 mb-8">Choose an option below to get started.</h1>
             </FadeUp>
             <div className="space-y-4">
               {options.map((opt, i) => (
