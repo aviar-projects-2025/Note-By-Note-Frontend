@@ -2,8 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { color, motion, useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
+import { Variants } from 'framer-motion'
 import students from './assets/students.png'
 import banner from './assets/banner.png'
 import studentimg from './assets/studentimg.png'
@@ -89,16 +90,18 @@ const musicSymbolPositions: NotePosition[] = [
 ]
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
-const fadeInUp = {
+const EASE: [number, number, number, number] = [0.21, 0.47, 0.32, 0.98]
+
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 60 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] as number[] },
+    transition: { duration: 0.6, ease: EASE },
   },
 }
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -218,7 +221,7 @@ export default function MusicProgramPage() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+            transition={{ duration: 0.8, ease: EASE }}
             className="flex-1"
           >
             <motion.span
@@ -278,7 +281,7 @@ export default function MusicProgramPage() {
                   href="/donate"
                   className="rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-800 transition hover:border-[#C0392B] hover:text-[#C0392B] inline-block"
                 >
-                 Support Our Vission
+                  Support Our Vision
                 </Link>
               </motion.div>
             </motion.div>
@@ -288,7 +291,7 @@ export default function MusicProgramPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.34, 1.2, 0.64, 1] }}
+            transition={{ duration: 0.8, ease: [0.34, 1.2, 0.64, 1] as [number, number, number, number] }}
             className="relative mt-16 flex-1 lg:mt-0"
           >
             <motion.div
@@ -398,7 +401,6 @@ export default function MusicProgramPage() {
             Moments from classes, rehearsals, and performances.
           </p>
 
-          {/* About blurb */}
           <motion.p
             className="mt-6 mx-auto max-w-2xl text-base leading-7 text-gray-500"
             initial={{ opacity: 0 }}
@@ -414,12 +416,11 @@ export default function MusicProgramPage() {
         {/* ── Local student images ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-16 w-full">
 
-          {/* students.png */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.65, ease: [0.21, 0.47, 0.32, 0.98] }}
+            transition={{ duration: 0.65, ease: EASE }}
             whileHover={{ scale: 1.03, transition: { duration: 0.25 } }}
             className="relative overflow-hidden rounded-3xl shadow-xl cursor-pointer group"
           >
@@ -434,19 +435,13 @@ export default function MusicProgramPage() {
               whileHover={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
             />
-            {/* <motion.p
-              className="absolute bottom-4 left-6 text-white font-semibold text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              Our Community
-            </motion.p> */}
           </motion.div>
 
-          {/* studentimg.png */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.65, delay: 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
+            transition={{ duration: 0.65, delay: 0.15, ease: EASE }}
             whileHover={{ scale: 1.03, transition: { duration: 0.25 } }}
             className="relative overflow-hidden rounded-3xl shadow-xl cursor-pointer group"
           >
@@ -461,11 +456,6 @@ export default function MusicProgramPage() {
               whileHover={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
             />
-            {/* <motion.p
-              className="absolute bottom-4 left-6 text-white font-semibold text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              One-on-One Learning
-            </motion.p> */}
           </motion.div>
         </div>
 
@@ -477,11 +467,7 @@ export default function MusicProgramPage() {
               initial={{ opacity: 0, y: 50, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{
-                duration: 0.55,
-                delay: idx * 0.12,
-                ease: [0.21, 0.47, 0.32, 0.98],
-              }}
+              transition={{ duration: 0.55, delay: idx * 0.12, ease: EASE }}
               whileHover={{
                 y: -8,
                 boxShadow: '0 20px 40px -12px rgba(192,57,43,0.18)',
@@ -489,7 +475,6 @@ export default function MusicProgramPage() {
               }}
               className="relative rounded-2xl bg-gradient-to-br from-[#FEF5E7] to-white border border-[#F5CBA7] p-6 shadow-sm cursor-pointer overflow-hidden"
             >
-              {/* decorative note */}
               <motion.span
                 className="absolute -top-2 -right-2 text-5xl text-[#C0392B] opacity-10 select-none"
                 animate={{ rotate: [0, 8, -8, 0] }}
@@ -498,7 +483,6 @@ export default function MusicProgramPage() {
                 ♪
               </motion.span>
 
-              {/* index badge */}
               <motion.div
                 className="w-8 h-8 rounded-full bg-[#C0392B] text-white text-sm font-bold flex items-center justify-center mb-4"
                 whileHover={{ scale: 1.15, rotate: 5 }}
@@ -593,11 +577,7 @@ export default function MusicProgramPage() {
           whileHover={{ scale: 1.02 }}
           className="rounded-3xl border border-[#F5CBA7] bg-[#FEF5E7] p-10 text-center shadow-sm"
         >
-          <h2
-            className="text-3xl font-bold"
-            
-         
-          >
+          <h2 className="text-3xl font-bold">
             Federal Tax ID Information
           </h2>
 
@@ -650,7 +630,7 @@ export default function MusicProgramPage() {
                 href="/syllabus.pdf"
                 className="mt-8 inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-[#C0392B] transition hover:bg-[#FDEBD0]"
               >
-               <p style={{color:"black"}}> View Syllabus</p>
+                <p style={{color:"black"}}>View Syllabus</p>
               </Link>
             </motion.div>
           </motion.div>

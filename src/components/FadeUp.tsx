@@ -1,8 +1,14 @@
 'use client'
 import { useEffect, useRef } from 'react'
 
-export default function FadeUp({ children, className = '', delay = 0 }) {
-  const ref = useRef(null)
+interface FadeUpProps {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+}
+
+export default function FadeUp({ children, className = '', delay = 0 }: FadeUpProps) {
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const el = ref.current
