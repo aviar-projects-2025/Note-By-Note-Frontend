@@ -2,12 +2,15 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { color, motion, useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
+import banner from "./assets/banner.png"
 import students from './assets/students.png'
 import studentimg from './assets/studentimg.png'
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// Types
+// ─────────────────────────────────────────────────────────────
 interface Testimonial {
   name: string
   role: string
@@ -26,7 +29,9 @@ interface NotePosition {
   delay: number
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// Data
+// ─────────────────────────────────────────────────────────────
 const testimonials: Testimonial[] = [
   {
     name: 'Peter S.',
@@ -68,12 +73,6 @@ const musicalNotePositions: NotePosition[] = [
   { left: '85%', top: '10%', delay: 0.5 },
   { left: '45%', top: '50%', delay: 1.5 },
   { left: '65%', top: '85%', delay: 2.5 },
-  { left: '10%', top: '90%', delay: 0.8 },
-  { left: '55%', top: '15%', delay: 1.8 },
-  { left: '35%', top: '60%', delay: 0.3 },
-  { left: '95%', top: '75%', delay: 2.2 },
-  { left: '5%',  top: '45%', delay: 1.2 },
-  { left: '50%', top: '95%', delay: 0.6 },
 ]
 
 const musicSymbolPositions: NotePosition[] = [
@@ -81,19 +80,20 @@ const musicSymbolPositions: NotePosition[] = [
   { left: '60%', top: '80%', delay: 1.5 },
   { left: '80%', top: '20%', delay: 0.8 },
   { left: '40%', top: '65%', delay: 2 },
-  { left: '70%', top: '50%', delay: 1.2 },
-  { left: '30%', top: '15%', delay: 0.5 },
-  { left: '90%', top: '70%', delay: 1.8 },
-  { left: '10%', top: '55%', delay: 2.5 },
 ]
 
-// ─── Animation Variants ───────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// Animations
+// ─────────────────────────────────────────────────────────────
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] as number[] },
+    transition: {
+      duration: 0.6,
+      ease: [0.21, 0.47, 0.32, 0.98] as number[],
+    },
   },
 }
 
@@ -101,19 +101,29 @@ const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
   },
 }
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
-interface AnimatedSectionProps {
+// ─────────────────────────────────────────────────────────────
+// Animated Section
+// ─────────────────────────────────────────────────────────────
+function AnimatedSection({
+  children,
+  className = '',
+}: {
   children: React.ReactNode
   className?: string
-}
-
-function AnimatedSection({ children, className = '' }: AnimatedSectionProps) {
+}) {
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+
+  const isInView = useInView(ref, {
+    once: true,
+    margin: '-100px',
+  })
 
   return (
     <motion.div
@@ -128,8 +138,11 @@ function AnimatedSection({ children, className = '' }: AnimatedSectionProps) {
   )
 }
 
+// ─────────────────────────────────────────────────────────────
+// Animated Hero Background
+// ─────────────────────────────────────────────────────────────
 function AnimatedBackground() {
-  const [mounted, setMounted] = useState<boolean>(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -147,15 +160,18 @@ function AnimatedBackground() {
       {musicalNotePositions.map((pos, i) => (
         <motion.div
           key={i}
-          className="absolute text-[#C0392B] text-4xl"
-          style={{ left: pos.left, top: pos.top, opacity: 0.3 }}
+          className="absolute text-[#C0392B] text-2xl sm:text-4xl"
+          style={{
+            left: pos.left,
+            top: pos.top,
+            opacity: 0.3,
+          }}
           animate={{
-            y: [0, -30, 0],
-            x: [0, i % 2 === 0 ? 15 : -15, 0],
+            y: [0, -25, 0],
             rotate: [0, 10, -10, 0],
           }}
           transition={{
-            duration: 8 + (i % 5),
+            duration: 8 + i,
             repeat: Infinity,
             ease: 'easeInOut',
             delay: pos.delay,
@@ -168,8 +184,11 @@ function AnimatedBackground() {
   )
 }
 
+// ─────────────────────────────────────────────────────────────
+// Testimonial Background
+// ─────────────────────────────────────────────────────────────
 function TestimonialBackground() {
-  const [mounted, setMounted] = useState<boolean>(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -181,17 +200,23 @@ function TestimonialBackground() {
     <motion.div
       className="absolute inset-0 pointer-events-none"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 0.1 }}
+      animate={{ opacity: 0.08 }}
       transition={{ duration: 1 }}
     >
       {musicSymbolPositions.map((pos, i) => (
         <motion.div
           key={i}
-          className="absolute text-[#C0392B] text-3xl"
-          style={{ left: pos.left, top: pos.top }}
-          animate={{ y: [0, -20, 0], rotate: [0, 15, -15, 0] }}
+          className="absolute text-[#C0392B] text-2xl sm:text-3xl"
+          style={{
+            left: pos.left,
+            top: pos.top,
+          }}
+          animate={{
+            y: [0, -18, 0],
+            rotate: [0, 12, -12, 0],
+          }}
           transition={{
-            duration: 6 + (i % 4),
+            duration: 6 + i,
             repeat: Infinity,
             delay: pos.delay,
           }}
@@ -203,142 +228,143 @@ function TestimonialBackground() {
   )
 }
 
-// ─── Page Component ───────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// Main Component
+// ─────────────────────────────────────────────────────────────
 export default function MusicProgramPage() {
   return (
-    <main className="bg-[#FFFDF8] text-gray-900 overflow-x-hidden">
+    <main className="overflow-x-hidden bg-[#FFFDF8] text-gray-900">
 
-      {/* ── Hero ── */}
+      {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#FDEBD0] via-white to-[#F9E79F]" />
+
         <AnimatedBackground />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-24 lg:flex lg:items-center lg:gap-16">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20 lg:py-24 lg:flex lg:items-center lg:gap-16">
+
+          {/* LEFT */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
             className="flex-1"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
             <motion.span
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+              transition={{ delay: 0.2 }}
               className="mb-4 inline-flex rounded-full bg-[#C0392B]/10 px-4 py-1 text-sm font-medium text-[#C0392B]"
             >
               Inspiring Young Musicians
             </motion.span>
 
             <motion.h1
-              className="text-5xl font-bold leading-tight tracking-tight lg:text-6xl"
-              initial={{ opacity: 0, y: 20 }}
+              className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight"
+              initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
+              transition={{ delay: 0.3 }}
             >
               Building Creativity Through
-              <motion.span
-                className="block text-[#C0392B]"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-              >
+              <span className="block text-[#C0392B]">
                 Music Education
-              </motion.span>
+              </span>
             </motion.h1>
 
             <motion.p
-              className="mt-6 max-w-2xl text-lg leading-8 text-gray-600"
+              className="mt-6 max-w-2xl text-base sm:text-lg leading-7 sm:leading-8 text-gray-600"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.5 }}
+              transition={{ delay: 0.5 }}
             >
-              Our music program nurtures confidence, discipline, creativity, and
-              performance skills through expert-led lessons and engaging student
-              experiences.
+              Our music program nurtures confidence, discipline,
+              creativity, and performance skills through expert-led
+              lessons and engaging student experiences.
             </motion.p>
 
             <motion.div
-              className="mt-10 flex flex-wrap gap-4"
+              className="mt-10 flex flex-col sm:flex-row gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.5 }}
+              transition={{ delay: 0.7 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.05 }}>
                 <Link
                   href="/apply"
-                  className="rounded-full bg-[#C0392B] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#A93226] inline-block"
+                  className="inline-block rounded-full bg-[#C0392B] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#A93226]"
                 >
-                  <p style={{color:"white"}}>Apply Now</p>
+                  <p style={{ color: 'white' }}>Apply Now</p>
                 </Link>
               </motion.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.05 }}>
                 <Link
-                  href="/donate"
-                  className="rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-800 transition hover:border-[#C0392B] hover:text-[#C0392B] inline-block"
+                  href="/contact"
+                  className="inline-block rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-800 transition hover:border-[#C0392B] hover:text-[#C0392B]"
                 >
-                 Support Our Vission
+                  Support Our Vision
                 </Link>
               </motion.div>
             </motion.div>
           </motion.div>
 
-          {/* Hero image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.34, 1.2, 0.64, 1] }}
-            className="relative mt-16 flex-1 lg:mt-0"
-          >
-            <motion.div
-              className="relative h-[500px] overflow-hidden rounded-3xl shadow-2xl"
-              whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1619983081563-430f63602796?q=80&w=1200"
-                alt="Student practicing violin"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-          </motion.div>
+<motion.div
+  className="relative mt-12 lg:mt-0 flex-1"
+  initial={{ opacity: 0, scale: 0.92 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.8 }}
+>
+  <div className="relative w-full h-[260px] sm:h-[420px] md:h-[520px] lg:h-[620px]">
+    <Image
+                   src={banner}
+      alt="Musical instruments"
+      fill
+      className="object-cover rounded-2xl"
+      priority
+    />
+  </div>
+</motion.div>
         </div>
       </section>
 
-      {/* ── Mission Statement ── */}
-      <AnimatedSection className="mx-auto max-w-5xl px-6 py-20 text-center">
+      {/* MISSION */}
+      <AnimatedSection className="mx-auto max-w-5xl px-4 sm:px-6 py-16 sm:py-20 text-center">
         <motion.h2
           variants={fadeInUp}
-          className="text-4xl font-bold bg-gradient-to-r from-[#C0392B] to-[#E67E22] bg-clip-text text-transparent"
+          className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[#C0392B] to-[#E67E22] bg-clip-text text-transparent"
         >
           Mission Statement
         </motion.h2>
 
-        <motion.p variants={fadeInUp} className="mt-6 text-lg leading-8 text-gray-600">
-          Our mission is to provide accessible, high-quality music education that
-          empowers students to discover their artistic voice, develop lifelong
-          confidence, and contribute positively to their communities through the
-          power of music.
+        <motion.p
+          variants={fadeInUp}
+          className="mt-6 text-base sm:text-lg leading-7 sm:leading-8 text-gray-600"
+        >
+          Our mission is to provide accessible, high-quality music education that empowers students to discover their artistic voice and develop lifelong confidence.
         </motion.p>
       </AnimatedSection>
 
-      {/* ── Program Overview ── */}
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-7xl px-6">
+      {/* PROGRAM OVERVIEW */}
+      <section className="bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+
           <motion.div
             className="mb-14 text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl font-bold">Program Overview</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold">
+              Program Overview
+            </h2>
+
             <p className="mt-4 text-gray-600">
               Comprehensive music education designed for all skill levels.
             </p>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
             {(
               [
                 {
@@ -363,221 +389,210 @@ export default function MusicProgramPage() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                whileHover={{ y: -12, transition: { duration: 0.2 } }}
-                className="rounded-3xl border border-gray-100 bg-[#FFFDF8] p-8 shadow-sm hover:shadow-xl cursor-pointer group"
+                transition={{ delay: idx * 0.1 }}
+                whileHover={{ y: -10 }}
+                className="
+                  rounded-3xl border border-gray-100
+                  bg-[#FFFDF8]
+                  p-5 sm:p-8
+                  shadow-sm hover:shadow-xl
+                  transition-all duration-300
+                "
               >
                 <motion.div
-                  className="text-5xl mb-4 inline-block"
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  transition={{ type: 'spring', stiffness: 400 }}
+                  className="mb-4 inline-block text-5xl"
+                  whileHover={{ scale: 1.2, rotate: 8 }}
                 >
                   {item.icon}
                 </motion.div>
-                <h3 className="text-2xl font-semibold group-hover:text-[#C0392B] transition-colors duration-300">
+
+                <h3 className="text-xl sm:text-2xl font-semibold">
                   {item.title}
                 </h3>
-                <p className="mt-4 leading-7 text-gray-600">{item.desc}</p>
+
+                <p className="mt-4 leading-7 text-gray-600">
+                  {item.desc}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Our Students ── */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
+      {/* STUDENTS */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20">
+
         <motion.div
           className="mb-12 text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold">Our Students</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold">
+            Our Students
+          </h2>
+
           <p className="mt-4 text-gray-600">
             Moments from classes, rehearsals, and performances.
           </p>
-
-          {/* About blurb */}
-          <motion.p
-            className="mt-6 mx-auto max-w-2xl text-base leading-7 text-gray-500"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            Note By Note is a student-run nonprofit in Arizona creating music
-            education through free, one-on-one instruction.
-          </motion.p>
         </motion.div>
 
-        {/* ── Local student images ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-16 w-full">
+        {/* RESPONSIVE IMAGES */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-16">
 
-          {/* students.png */}
+          {/* IMAGE 1 */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.65, ease: [0.21, 0.47, 0.32, 0.98] }}
-            whileHover={{ scale: 1.03, transition: { duration: 0.25 } }}
-            className="relative overflow-hidden rounded-3xl shadow-xl cursor-pointer group"
+            whileHover={{ scale: 1.02 }}
+            // className="relative overflow-hidden rounded-3xl shadow-xl bg-white"
           >
-            <Image
-              src={students}
-              alt="Group of students"
-              className="w-full h-[300px] sm:h-[420px] md:h-[500px] lg:h-[600px] object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            <motion.p
-              className="absolute bottom-4 left-6 text-white font-semibold text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              Our Community
-            </motion.p>
+            {/* object-contain prevents crop */}
+            <div className="relative w-full h-[260px] sm:h-[380px] md:h-[500px] lg:h-[620px]">
+              <Image
+                src={students}
+                alt="Students"
+                fill
+                className="object-contain transition-transform duration-700 hover:scale-105"
+              />
+            </div>
           </motion.div>
 
-          {/* studentimg.png */}
+          {/* IMAGE 2 */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.65, delay: 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
-            whileHover={{ scale: 1.03, transition: { duration: 0.25 } }}
-            className="relative overflow-hidden rounded-3xl shadow-xl cursor-pointer group"
+            whileHover={{ scale: 1.02 }}
+            // className="relative overflow-hidden rounded-3xl shadow-xl bg-white"
           >
-            <Image
-              src={studentimg}
-              alt="Student in session"
-              className="w-full h-[300px] sm:h-[420px] md:h-[500px] lg:h-[600px] object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            <motion.p
-              className="absolute bottom-4 left-6 text-white font-semibold text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
-              One-on-One Learning
-            </motion.p>
+            <div className="relative w-full h-[260px] sm:h-[380px] md:h-[500px] lg:h-[620px]">
+              <Image
+                src={studentimg}
+                alt="Student"
+                fill
+                className="object-contain transition-transform duration-700 hover:scale-105"
+              />
+            </div>
           </motion.div>
         </div>
 
-        {/* Student highlight cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-16">
+        {/* HIGHLIGHT CARDS */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+
           {studentHighlights.map((text, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{
-                duration: 0.55,
-                delay: idx * 0.12,
-                ease: [0.21, 0.47, 0.32, 0.98],
-              }}
+              transition={{ delay: idx * 0.1 }}
               whileHover={{
                 y: -8,
                 boxShadow: '0 20px 40px -12px rgba(192,57,43,0.18)',
-                transition: { duration: 0.22 },
               }}
-              className="relative rounded-2xl bg-gradient-to-br from-[#FEF5E7] to-white border border-[#F5CBA7] p-6 shadow-sm cursor-pointer overflow-hidden"
+              className="
+                rounded-2xl border border-[#F5CBA7]
+                bg-gradient-to-br from-[#FEF5E7] to-white
+                p-5 sm:p-6 shadow-sm
+              "
             >
-              {/* decorative note */}
-              <motion.span
-                className="absolute -top-2 -right-2 text-5xl text-[#C0392B] opacity-10 select-none"
-                animate={{ rotate: [0, 8, -8, 0] }}
-                transition={{ duration: 6, repeat: Infinity, delay: idx * 0.5 }}
-              >
-                ♪
-              </motion.span>
-
-              {/* index badge */}
-              <motion.div
-                className="w-8 h-8 rounded-full bg-[#C0392B] text-white text-sm font-bold flex items-center justify-center mb-4"
-                whileHover={{ scale: 1.15, rotate: 5 }}
-              >
+              <div className="mb-4 flex h-8 w-8 items-center justify-center rounded-full bg-[#C0392B] text-sm font-bold text-white">
                 {idx + 1}
-              </motion.div>
+              </div>
 
-              <p className="text-sm leading-6 text-gray-700 font-medium">{text}</p>
+              <p className="text-sm leading-6 text-gray-700 font-medium">
+                {text}
+              </p>
             </motion.div>
           ))}
         </div>
 
-        {/* Photo grid */}
-        <div className="grid gap-6 md:grid-cols-3">
+        {/* PHOTO GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
           {studentImages.map((src, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.92 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.03 }}
-              className="relative h-[380px] overflow-hidden rounded-3xl shadow-lg cursor-pointer"
+              className="overflow-hidden rounded-3xl shadow-lg bg-white"
             >
-              <Image
-                src={src}
-                alt={`Student ${index + 1}`}
-                fill
-                className="object-cover transition-all duration-700 hover:scale-110"
-              />
-              <motion.div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
+              {/* object-contain to avoid crop */}
+              <div className="relative w-full h-[240px] sm:h-[320px] md:h-[380px]">
+                <Image
+                  src={src}
+                  alt={`Student ${index + 1}`}
+                  fill
+                  className="object-contain transition-transform duration-700 hover:scale-105"
+                />
+              </div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ── Testimonials ── */}
-      <section className="bg-[#FDF2E9] py-20 relative overflow-hidden">
+      {/* TESTIMONIALS */}
+      <section className="relative overflow-hidden bg-[#FDF2E9] py-16 sm:py-20">
+
         <TestimonialBackground />
 
-        <div className="mx-auto max-w-7xl px-6 relative z-10">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
+
           <motion.div
             className="mb-14 text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold">Testimonials</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold">
+              Testimonials
+            </h2>
+
             <p className="mt-4 text-gray-600">
               What families and students say about our program.
             </p>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
             {testimonials.map((testimonial, idx) => (
               <motion.div
                 key={testimonial.name}
                 initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                transition={{ delay: idx * 0.1 }}
                 whileHover={{
                   y: -8,
-                  boxShadow: '0 20px 25px -12px rgba(192, 57, 43, 0.2)',
+                  boxShadow: '0 20px 25px -12px rgba(192,57,43,0.2)',
                 }}
-                className="rounded-3xl bg-white p-8 shadow-md cursor-pointer"
+                className="
+                  rounded-3xl bg-white
+                  p-5 sm:p-8
+                  shadow-md
+                "
               >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{ delay: idx * 0.1 + 0.3, type: 'spring' }}
-                  className="text-6xl mb-4 text-[#C0392B]"
-                >
+                <div className="mb-4 text-5xl sm:text-6xl text-[#C0392B]">
                   &ldquo;
-                </motion.div>
-                <p className="text-lg leading-8 text-gray-700">{testimonial.quote}</p>
+                </div>
+
+                <p className="text-base sm:text-lg leading-7 sm:leading-8 text-gray-700">
+                  {testimonial.quote}
+                </p>
 
                 <div className="mt-6">
-                  <h4 className="font-semibold text-[#C0392B]">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-500">{testimonial.role}</p>
+                  <h4 className="font-semibold text-[#C0392B]">
+                    {testimonial.name}
+                  </h4>
+
+                  <p className="text-sm text-gray-500">
+                    {testimonial.role}
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -585,44 +600,64 @@ export default function MusicProgramPage() {
         </div>
       </section>
 
-      {/* ── Federal Tax ID ── */}
-      <AnimatedSection className="mx-auto max-w-4xl px-6 py-20">
+      {/* TAX ID */}
+      <AnimatedSection className="mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-20">
+
         <motion.div
           variants={fadeInUp}
           whileHover={{ scale: 1.02 }}
-          className="rounded-3xl border border-[#F5CBA7] bg-[#FEF5E7] p-10 text-center shadow-sm"
+          className="
+            rounded-3xl border border-[#F5CBA7]
+            bg-[#FEF5E7]
+            p-6 sm:p-10
+            text-center shadow-sm
+          "
         >
-          <h2
-            className="text-3xl font-bold"
-            
-         
-          >
+          <h2 className="text-2xl sm:text-3xl font-bold">
             Federal Tax ID Information
           </h2>
 
-          <p className="mt-4 text-lg text-gray-700">Registered Nonprofit Organization</p>
+          <p className="mt-4 text-base sm:text-lg text-gray-700">
+            Registered Nonprofit Organization
+          </p>
 
           <motion.div
-            className="mt-6 inline-flex rounded-2xl bg-white px-6 py-4 text-2xl font-bold tracking-widest text-[#C0392B] shadow"
             whileHover={{
               scale: 1.05,
-              boxShadow: '0 10px 25px -5px rgba(192, 57, 43, 0.3)',
+              boxShadow: '0 10px 25px -5px rgba(192,57,43,0.3)',
             }}
+            className="
+              mt-6 inline-flex
+              rounded-2xl bg-white
+              px-5 sm:px-6 py-4
+              text-xl sm:text-2xl
+              font-bold tracking-widest
+              text-[#C0392B] shadow
+            "
           >
             12-3456789
           </motion.div>
         </motion.div>
       </AnimatedSection>
 
-      {/* ── Syllabus CTA ── */}
-      <section className="pb-24">
-        <div className="mx-auto max-w-5xl px-6">
+      {/* CTA */}
+      <section className="pb-20 sm:pb-24">
+
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             whileHover={{ scale: 1.02 }}
-            className="rounded-3xl bg-[#C0392B] px-10 py-16 text-center text-white shadow-2xl cursor-pointer relative overflow-hidden group"
+            className="
+              relative overflow-hidden
+              rounded-3xl bg-[#C0392B]
+              px-5 sm:px-10
+              py-10 sm:py-16
+              text-center text-white
+              shadow-2xl
+            "
           >
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0"
@@ -631,25 +666,31 @@ export default function MusicProgramPage() {
               transition={{ duration: 0.8 }}
             />
 
-            <motion.h2
-              className="text-4xl font-bold"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-            >
-              <p style={{color:"white"}}>Download Program Syllabus</p>
-            </motion.h2>
+            <h2 className="text-2xl sm:text-4xl font-bold">
+              Download Program Syllabus
+            </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
-              Explore course structure, lesson plans, performance expectations, and
-              curriculum details.
+            <p className="mx-auto mt-4 max-w-2xl text-sm sm:text-lg text-white/80 leading-7">
+              Explore course structure, lesson plans, performance expectations, and curriculum details.
             </p>
 
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+            <motion.div
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.96 }}
+            >
               <Link
                 href="/syllabus.pdf"
-                className="mt-8 inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-[#C0392B] transition hover:bg-[#FDEBD0]"
+                className="
+                  mt-8 inline-flex rounded-full
+                  bg-white px-6 sm:px-8
+                  py-3 sm:py-4
+                  text-sm font-semibold text-[#C0392B]
+                  transition hover:bg-[#FDEBD0]
+                "
               >
-               <p style={{color:"black"}}> View Syllabus</p>
+                <p style={{ color: 'black' }}>
+                  View Syllabus
+                </p>
               </Link>
             </motion.div>
           </motion.div>
