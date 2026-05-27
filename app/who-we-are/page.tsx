@@ -226,7 +226,7 @@ function HeroSection() {
 
       <div className="relative z-10 flex items-center justify-center h-full text-center px-4 sm:px-6">
         <div className="max-w-3xl mx-auto">
-          <motion.span
+          {/* <motion.span
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
@@ -234,7 +234,7 @@ function HeroSection() {
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#C0392B] animate-pulse" />
             About Us
-          </motion.span>
+          </motion.span> */}
 
           <motion.h1
             className="text-white text-4xl sm:text-5xl md:text-7xl font-bold mt-2 leading-tight"
@@ -242,7 +242,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.7, ease }}
           >
-            Who We Are
+            <p style={{color:"white"}}>Who We Are</p>
           </motion.h1>
 
           <motion.p
@@ -302,8 +302,10 @@ export default function WhoWeArePage() {
   }
 
   return (
+  <>
+    <Navbar />
     <main className="bg-white text-[#2B2B2B] overflow-x-hidden">
-      <Navbar />
+    
 
       {/* ── HERO ── */}
       <HeroSection />
@@ -352,11 +354,14 @@ export default function WhoWeArePage() {
                   <p style={{ color: 'white' }}>Support Our Work</p>
                 </Link>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
-                <Link href="/volunteer" className="inline-flex items-center gap-2 border border-[#C0392B] text-[#C0392B] px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#C0392B] hover:text-white transition">
-                  Volunteer With Us
-                </Link>
-              </motion.div>
+           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
+  <Link 
+    href="/volunteer" 
+    className="inline-flex items-center gap-2 border border-[#C0392B] text-[#C0392B] px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#C0392B] hover:text-white transition-colors duration-300"
+  >
+    Volunteer With Us
+  </Link>
+</motion.div>
             </div>
           </Reveal>
         </div>
@@ -372,30 +377,32 @@ export default function WhoWeArePage() {
           <div className="relative">
             <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 -translate-x-1/2" />
             <div className="space-y-8 lg:space-y-0">
-              {milestones.map((m, idx) => (
-                <Reveal key={idx} delay={idx * 0.1}>
-                  <div className={`lg:grid lg:grid-cols-2 lg:gap-12 items-center ${idx % 2 === 0 ? '' : 'lg:dir-rtl'}`}>
-                    <motion.div
-                      className={`${idx % 2 === 0 ? 'lg:text-right lg:pr-12' : 'lg:col-start-2 lg:pl-12'} mb-4 lg:mb-0`}
-                      whileHover={{ x: idx % 2 === 0 ? -4 : 4 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <span className="inline-block text-xs font-bold text-[#C0392B] bg-[#C0392B]/10 px-3 py-1 rounded-full mb-2">{m.year}</span>
-                      <h3 className="text-lg sm:text-xl font-bold mb-1">{m.title}</h3>
-                      <p className="text-gray-500 text-sm sm:text-base leading-relaxed">{m.desc}</p>
-                    </motion.div>
-                    <div className={`hidden lg:flex absolute left-1/2 -translate-x-1/2 ${idx === 0 ? 'top-0' : ''}`}>
-                      <motion.div
-                        className="w-4 h-4 rounded-full bg-[#C0392B] border-4 border-white shadow"
-                        whileInView={{ scale: [0, 1.3, 1] }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: idx * 0.1 }}
-                        style={{ marginTop: `${idx * 140 + 8}px` }}
-                      />
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
+{milestones.map((m, idx) => (
+  <Reveal key={idx} delay={idx * 0.1}>
+    <div className={`lg:grid lg:grid-cols-2 lg:gap-12 items-center ${idx % 2 === 0 ? '' : 'lg:dir-rtl'}`}>
+      <motion.div
+        className={`${idx % 2 === 0 ? 'lg:text-right lg:pr-12' : 'lg:col-start-2 lg:pl-12'} mb-4 lg:mb-0`}
+        whileHover={{ x: idx % 2 === 0 ? -4 : 4 }}
+        transition={{ duration: 0.2 }}
+      >
+        <span className="inline-block text-xs font-bold text-[#C0392B] bg-[#C0392B]/10 px-3 py-1 rounded-full mb-2">{m.year}</span>
+        <h3 className="text-lg sm:text-xl font-bold mb-1">{m.title}</h3>
+        <p className="text-gray-500 text-sm sm:text-base leading-relaxed">{m.desc}</p>
+      </motion.div>
+      {idx !== milestones.length - 1 && (
+        <div className={`hidden lg:flex absolute left-1/2 -translate-x-1/2 ${idx === 0 ? 'top-0' : ''}`}>
+          <motion.div
+            className="w-4 h-4 rounded-full bg-[#C0392B] border-4 border-white shadow"
+            whileInView={{ scale: [0, 1.3, 1] }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: idx * 0.1 }}
+            style={{ marginTop: `${idx * 140 + 8}px` }}
+          />
+        </div>
+      )}
+    </div>
+  </Reveal>
+))}
             </div>
           </div>
         </div>
@@ -469,10 +476,10 @@ export default function WhoWeArePage() {
       {/* ── STATS ── */}
       <section className="bg-[#2B2B2B] text-white py-14 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center mb-10">
+          {/* <Reveal className="text-center mb-1">
             <h2 className="text-2xl sm:text-3xl font-bold text-white">Our Impact by the Numbers</h2>
             <p className="text-gray-400 mt-2 text-sm">Growing every semester.</p>
-          </Reveal>
+          </Reveal> */}
           <motion.div
             className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center"
             variants={stagger}
@@ -545,5 +552,6 @@ export default function WhoWeArePage() {
 
       <Footer />
     </main>
+    </>
   )
 }

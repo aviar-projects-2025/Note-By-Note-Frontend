@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { color, motion, useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import students from './assets/students.png'
+import banner from './assets/banner.png'
 import studentimg from './assets/studentimg.png'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -274,7 +275,7 @@ export default function MusicProgramPage() {
 
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
-                  href="/contact"
+                  href="/donate"
                   className="rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-800 transition hover:border-[#C0392B] hover:text-[#C0392B] inline-block"
                 >
                  Support Our Vission
@@ -295,7 +296,7 @@ export default function MusicProgramPage() {
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
               <Image
-                src="https://images.unsplash.com/photo-1619983081563-430f63602796?q=80&w=1200"
+                src={banner}
                 alt="Student practicing violin"
                 fill
                 className="object-cover"
@@ -433,11 +434,11 @@ export default function MusicProgramPage() {
               whileHover={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
             />
-            <motion.p
+            {/* <motion.p
               className="absolute bottom-4 left-6 text-white font-semibold text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             >
               Our Community
-            </motion.p>
+            </motion.p> */}
           </motion.div>
 
           {/* studentimg.png */}
@@ -460,11 +461,11 @@ export default function MusicProgramPage() {
               whileHover={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
             />
-            <motion.p
+            {/* <motion.p
               className="absolute bottom-4 left-6 text-white font-semibold text-base sm:text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             >
               One-on-One Learning
-            </motion.p>
+            </motion.p> */}
           </motion.div>
         </div>
 
@@ -592,13 +593,13 @@ export default function MusicProgramPage() {
           whileHover={{ scale: 1.02 }}
           className="rounded-3xl border border-[#F5CBA7] bg-[#FEF5E7] p-10 text-center shadow-sm"
         >
-          <motion.h2
+          <h2
             className="text-3xl font-bold"
-            whileHover={{ letterSpacing: '0.05em' }}
-            transition={{ duration: 0.3 }}
+            
+         
           >
             Federal Tax ID Information
-          </motion.h2>
+          </h2>
 
           <p className="mt-4 text-lg text-gray-700">Registered Nonprofit Organization</p>
 
@@ -636,7 +637,7 @@ export default function MusicProgramPage() {
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
-              Download Program Syllabus
+              <p style={{color:"white"}}>Download Program Syllabus</p>
             </motion.h2>
 
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
