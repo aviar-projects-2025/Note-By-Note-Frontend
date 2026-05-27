@@ -146,8 +146,8 @@ export default function MediaPage() {
                 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <i className="bi bi-google text-xl"></i>
-                VIEW MORE IN GOOGLE DRIVE
+                {/* <i className="bi bi-google text-xl"></i> */}
+                <p style={{color:"white"}}>VIEW MORE IN GOOGLE DRIVE</p>
               </motion.a>
             </motion.div>
           </div>
