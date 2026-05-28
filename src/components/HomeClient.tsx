@@ -272,7 +272,8 @@ export default function MusicProgramPage() {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   href="/apply"
-                  className="rounded-full bg-[#C0392B] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#A93226] inline-block"
+                  className="rounded-full bg-[#C0392B] px-6 py-3 text-sm font-semibold shadow-lg transition hover:bg-[#A93226] inline-block"
+                  style={{ color: "#ffff" }}
                 >
                   Apply Now
                 </Link>
@@ -575,20 +576,22 @@ export default function MusicProgramPage() {
       </section>
 
       {/* ── Federal Tax ID ── */}
-      <AnimatedSection className="mx-auto max-w-4xl px-6 py-20">
+      <AnimatedSection className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-20">
         <motion.div
           variants={fadeInUp}
           whileHover={{ scale: 1.02 }}
-          className="rounded-3xl border border-[#F5CBA7] bg-[#FEF5E7] p-10 text-center shadow-sm"
+          className="rounded-3xl border border-[#F5CBA7] bg-[#FEF5E7] p-5 sm:p-10 text-center shadow-sm"
         >
-          <h2 className="text-3xl font-bold">
+          <h2 className="text-xl sm:text-3xl font-bold">
             Federal Tax ID Information
           </h2>
 
-          <p className="mt-4 text-lg text-gray-700">Registered Nonprofit Organization</p>
+          <p className="mt-3 text-sm sm:text-lg text-gray-700">
+            Registered Nonprofit Organization
+          </p>
 
           <motion.div
-            className="mt-6 inline-flex rounded-2xl bg-white px-6 py-4 text-2xl font-bold tracking-widest text-[#C0392B] shadow"
+            className="mt-4 inline-flex rounded-2xl bg-white px-4 py-3 sm:px-6 sm:py-4 text-lg sm:text-2xl font-bold tracking-widest text-[#C0392B] shadow"
             whileHover={{
               scale: 1.05,
               boxShadow: '0 10px 25px -5px rgba(192, 57, 43, 0.3)',
@@ -600,14 +603,14 @@ export default function MusicProgramPage() {
       </AnimatedSection>
 
       {/* ── Syllabus CTA ── */}
-      <section className="pb-24">
-        <div className="mx-auto max-w-5xl px-6">
+      <section className="pb-12 sm:pb-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             whileHover={{ scale: 1.02 }}
-            className="rounded-3xl bg-[#C0392B] px-10 py-16 text-center text-white shadow-2xl cursor-pointer relative overflow-hidden group"
+            className="rounded-3xl bg-[#C0392B] px-5 py-10 sm:px-10 sm:py-16 text-center text-white shadow-2xl cursor-pointer relative overflow-hidden group"
           >
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0"
@@ -617,14 +620,15 @@ export default function MusicProgramPage() {
             />
 
             <motion.h2
-              className="text-4xl font-bold"
+              className="text-2xl sm:text-4xl font-bold text-white"
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300 }}
+               style={{ color: "white" }}
             >
-              <p style={{ color: "white" }}>Download Program Syllabus</p>
+              Download Program Syllabus
             </motion.h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
+            <p className="mx-auto mt-3 max-w-2xl text-sm sm:text-lg text-white/80">
               Explore course structure, lesson plans, performance expectations, and
               curriculum details.
             </p>
@@ -632,9 +636,10 @@ export default function MusicProgramPage() {
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <Link
                 href="/syllabus.pdf"
-                className="mt-8 inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-[#C0392B] transition hover:bg-[#FDEBD0]"
+                className="mt-6 sm:mt-8 inline-flex rounded-full bg-white px-6 py-3 sm:px-8 sm:py-4 text-sm font-semibold text-[#C0392B] transition hover:bg-[#FDEBD0]"
+                style={{ color: "black" }}
               >
-                <p style={{ color: "black" }}>View Syllabus</p>
+                View Syllabus
               </Link>
             </motion.div>
           </motion.div>
