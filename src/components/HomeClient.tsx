@@ -74,7 +74,7 @@ const musicalNotePositions: NotePosition[] = [
   { left: '55%', top: '15%', delay: 1.8 },
   { left: '35%', top: '60%', delay: 0.3 },
   { left: '95%', top: '75%', delay: 2.2 },
-  { left: '5%',  top: '45%', delay: 1.2 },
+  { left: '5%', top: '45%', delay: 1.2 },
   { left: '50%', top: '95%', delay: 0.6 },
 ]
 
@@ -217,12 +217,14 @@ export default function MusicProgramPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#FDEBD0] via-white to-[#F9E79F]" />
         <AnimatedBackground />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-24 lg:flex lg:items-center lg:gap-16">
+        <div className="relative mx-auto max-w-7xl px-6 py-16 lg:py-24 lg:flex lg:items-center lg:gap-16">
+
+          {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE }}
-            className="flex-1"
+            className="flex-1 text-center lg:text-left"
           >
             <motion.span
               initial={{ opacity: 0, x: -20 }}
@@ -234,7 +236,7 @@ export default function MusicProgramPage() {
             </motion.span>
 
             <motion.h1
-              className="text-5xl font-bold leading-tight tracking-tight lg:text-6xl"
+              className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
@@ -251,7 +253,7 @@ export default function MusicProgramPage() {
             </motion.h1>
 
             <motion.p
-              className="mt-6 max-w-2xl text-lg leading-8 text-gray-600"
+              className="mt-6 mx-auto max-w-xl text-base leading-8 text-gray-600 lg:mx-0 lg:text-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.5 }}
@@ -262,7 +264,7 @@ export default function MusicProgramPage() {
             </motion.p>
 
             <motion.div
-              className="mt-10 flex flex-wrap gap-4"
+              className="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.5 }}
@@ -272,7 +274,7 @@ export default function MusicProgramPage() {
                   href="/apply"
                   className="rounded-full bg-[#C0392B] px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#A93226] inline-block"
                 >
-                  <p style={{color:"white"}}>Apply Now</p>
+                  Apply Now
                 </Link>
               </motion.div>
 
@@ -287,25 +289,27 @@ export default function MusicProgramPage() {
             </motion.div>
           </motion.div>
 
-          {/* Hero image */}
+          {/* Hero Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.34, 1.2, 0.64, 1] as [number, number, number, number] }}
-            className="relative mt-16 flex-1 lg:mt-0"
+            className="relative mt-12 flex-1 lg:mt-0"
           >
             <motion.div
-              className="relative h-[500px] overflow-hidden rounded-3xl shadow-2xl"
+              className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[500px] lg:aspect-auto overflow-hidden rounded-3xl shadow-2xl"
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
               <Image
                 src={banner}
                 alt="Student practicing violin"
                 fill
-                className="object-cover"
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </motion.div>
           </motion.div>
+
         </div>
       </section>
 
@@ -617,7 +621,7 @@ export default function MusicProgramPage() {
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
-              <p style={{color:"white"}}>Download Program Syllabus</p>
+              <p style={{ color: "white" }}>Download Program Syllabus</p>
             </motion.h2>
 
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
@@ -630,7 +634,7 @@ export default function MusicProgramPage() {
                 href="/syllabus.pdf"
                 className="mt-8 inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-[#C0392B] transition hover:bg-[#FDEBD0]"
               >
-                <p style={{color:"black"}}>View Syllabus</p>
+                <p style={{ color: "black" }}>View Syllabus</p>
               </Link>
             </motion.div>
           </motion.div>
