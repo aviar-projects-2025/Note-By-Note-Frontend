@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PageHero from '@/components/PageHero'
 import FadeUp from '@/components/FadeUp'
-
+import { motion } from 'framer-motion'
 const posts = [
   { id: 1, date: 'April 20, 2024', category: 'Events', title: 'Spring Recital Highlights', excerpt: 'Our amazing students performed beautifully at our spring recital. See photos and moments from the day!', img: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=80' },
   { id: 2, date: 'April 13, 2024', category: 'Student Stories', title: 'Tutor Spotlight: Meet Emma', excerpt: 'Emma shares her experience as a tutor and why music education matters to her.', img: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=600&q=80' },
@@ -24,7 +24,29 @@ export default function BlogPage() {
     <>
       <Navbar />
       <main>
-        <PageHero title="Progress Updates" breadcrumb="Blog" variant="blog" />
+           <div className="relative w-full h-64 sm:h-80 overflow-hidden">
+    <motion.img
+src='https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=1400&q=80'
+      alt="Student with headphones learning online"
+      className="w-full h-full object-cover object-top"
+      initial={{ scale: 1.15 }}
+      animate={{ scale: 1 }}
+      transition={{ duration: 1.2, ease: 'easeOut' }}
+    />
+  
+    <div className="absolute inset-0 bg-black/55" />
+  
+    <motion.div
+      className="absolute inset-0 flex items-center justify-center text-center px-6"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <h1 className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg" >
+       <p style={{color:"white"}}>Progress Updates</p> 
+      </h1>
+    </motion.div>
+  </div>
 
         <section className="py-14">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,7 +74,21 @@ export default function BlogPage() {
               {filtered.map((post, i) => (
                 <FadeUp key={post.id} delay={i * 60}>
                   <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-                    <img src={post.img} alt={post.title} className="w-full object-cover" style={{ height: 200 }} />
+                    {/*
+                      Performance: added loading="lazy", decoding="async", width/height
+                      to prevent layout shift (CLS) and defer off-screen images.
+                      First card uses loading="eager" since it's above the fold.
+                    */}
+                    <img
+                      src={post.img}
+                      alt={post.title}
+                      className="w-full object-cover"
+                      style={{ height: 200 }}
+                      loading={i === 0 ? 'eager' : 'lazy'}
+                      decoding="async"
+                      width={600}
+                      height={200}
+                    />
                     <div className="p-5 flex flex-col flex-1">
                       <span className="text-xs text-gray-400 mb-2">{post.date}</span>
                       <h5 className="font-bold text-base mb-2 flex-1">{post.title}</h5>

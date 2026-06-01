@@ -12,6 +12,7 @@ const navLinks = [
   { href: '/sign-up', label: 'Sign Up' },
   { href: '/media', label: 'Media' },
   { href: '/online-lessons', label: 'Online Lessons' },
+  {href:'/donate', label:'Donate'}
 ]
 
 export default function Navbar() {
@@ -36,8 +37,8 @@ export default function Navbar() {
               NOTE BY NOTE
             </p>
 
-            <p className="mt-0.5 text-[11px] font-bold tracking-[0.28em] text-[#C0392B]">
-              ARIZONA
+            <p className="mt-0.5 text-[18px] font-bold tracking-[0.28em] text-[#C0392B]">
+              AZ
             </p>
           </div>
         </Link>
@@ -66,12 +67,12 @@ export default function Navbar() {
   </div>
 
   {/* DONATE BUTTON */}
-  <Link
-    href="/donate"
+  {/* <Link
+    href="/donation"
     className="ml-3 rounded-xl bg-[#C0392B] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#C0392B]/30 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#a93226] hover:shadow-[#C0392B]/40"
   >
-    Donate
-  </Link>
+   <p style={{color:"white"}}>Donate</p> 
+  </Link> */}
 </div>
         {/* MOBILE BUTTON */}
         <button
@@ -108,21 +109,21 @@ export default function Navbar() {
                     : 'text-gray-400 hover:bg-white/5 hover:text-white'
                 }`}
               >
-                {label}
+               <p style={{color:"white"}}>{label}</p> 
               </Link>
             )
           })}
 
           {/* MOBILE DONATE */}
-          <div className="pt-3">
+          {/* <div className="pt-3">
             <Link
               href="/donate"
               onClick={() => setOpen(false)}
               className="block rounded-xl bg-[#C0392B] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#a93226]"
             >
-              Donate Now
+           Donate Now
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </header>
