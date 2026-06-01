@@ -10,26 +10,26 @@ import banner from './assets/banner.png'
 import studentimg from './assets/studentimg.png'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-interface Testimonial {
-  name: string
-  role: string
-  quote: string
-}
+// interface Testimonial {
+//   name: string
+//   role: string
+//   quote: string
+// }
 
-interface ProgramItem {
-  title: string
-  desc: string
-  icon: string
-}
+// interface ProgramItem {
+//   title: string
+//   desc: string
+//   icon: string
+// }
 
-interface NotePosition {
-  left: string
-  top: string
-  delay: number
-}
+// interface NotePosition {
+//   left: string
+//   top: string
+//   delay: number
+// }
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
-const testimonials: Testimonial[] = [
+const testimonials = [
   {
     name: 'Peter S.',
     role: 'Parent',
@@ -50,20 +50,20 @@ const testimonials: Testimonial[] = [
   },
 ]
 
-const studentImages: string[] = [
+const studentImages = [
   'https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1200',
   'https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=1200',
   'https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1200',
 ]
 
-const studentHighlights: string[] = [
+const studentHighlights = [
   'Over 200 students have completed our program since founding, spanning ages 6–18.',
   'Students perform at bi-annual recitals, community events, and regional competitions.',
   'Every learner receives a personalized curriculum crafted around their unique goals.',
   'Many graduates have gone on to pursue music at the collegiate level or as a career.',
 ]
 
-const musicalNotePositions: NotePosition[] = [
+const musicalNotePositions = [
   { left: '15%', top: '20%', delay: 0 },
   { left: '75%', top: '35%', delay: 1 },
   { left: '25%', top: '70%', delay: 2 },
@@ -78,7 +78,7 @@ const musicalNotePositions: NotePosition[] = [
   { left: '50%', top: '95%', delay: 0.6 },
 ]
 
-const musicSymbolPositions: NotePosition[] = [
+const musicSymbolPositions = [
   { left: '20%', top: '30%', delay: 0 },
   { left: '60%', top: '80%', delay: 1.5 },
   { left: '80%', top: '20%', delay: 0.8 },
@@ -90,9 +90,9 @@ const musicSymbolPositions: NotePosition[] = [
 ]
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
-const EASE: [number, number, number, number] = [0.21, 0.47, 0.32, 0.98]
+const EASE = [0.21, 0.47, 0.32, 0.98]
 
-const fadeInUp: Variants = {
+const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
   visible: {
     opacity: 1,
@@ -101,7 +101,7 @@ const fadeInUp: Variants = {
   },
 }
 
-const staggerContainer: Variants = {
+const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -110,13 +110,13 @@ const staggerContainer: Variants = {
 }
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
-interface AnimatedSectionProps {
-  children: React.ReactNode
-  className?: string
-}
+// interface AnimatedSectionProps {
+//   children: React.ReactNode
+//   className?: string
+// }
 
-function AnimatedSection({ children, className = '' }: AnimatedSectionProps) {
-  const ref = useRef<HTMLDivElement>(null)
+function AnimatedSection({ children, className = '' }) {
+  const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
@@ -133,7 +133,7 @@ function AnimatedSection({ children, className = '' }: AnimatedSectionProps) {
 }
 
 function AnimatedBackground() {
-  const [mounted, setMounted] = useState<boolean>(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -173,7 +173,7 @@ function AnimatedBackground() {
 }
 
 function TestimonialBackground() {
-  const [mounted, setMounted] = useState<boolean>(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -294,7 +294,7 @@ export default function MusicProgramPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.34, 1.2, 0.64, 1] as [number, number, number, number] }}
+            transition={{ duration: 0.8, ease: [0.34, 1.2, 0.64, 1] }}
             className="relative mt-12 flex-1 lg:mt-0"
           >
             <motion.div
@@ -365,7 +365,7 @@ export default function MusicProgramPage() {
                   desc: 'Strong theoretical foundations to support musicianship and creativity.',
                   icon: '🎼',
                 },
-              ] as ProgramItem[]
+              ]
             ).map((item, idx) => (
               <motion.div
                 key={item.title}

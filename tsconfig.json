@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "components/FadeUp.jsx", "app/page.tsx"  ],
+, "components/FadeUp.jsx", "app/page.tsx", "src/components/HomeClient.jsx"  ],
   "exclude": ["node_modules"]
 }
