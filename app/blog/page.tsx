@@ -24,29 +24,28 @@ export default function BlogPage() {
     <>
       <Navbar />
       <main>
-           <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-    <motion.img
-src='https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=1400&q=80'
-      alt="Student with headphones learning online"
-      className="w-full h-full object-cover object-top"
-      initial={{ scale: 1.15 }}
-      animate={{ scale: 1 }}
-      transition={{ duration: 1.2, ease: 'easeOut' }}
-    />
-  
-    <div className="absolute inset-0 bg-black/55" />
-  
-    <motion.div
-      className="absolute inset-0 flex items-center justify-center text-center px-6"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-    >
-      <h1 className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg" >
-       <p style={{color:"white"}}>Progress Updates</p> 
-      </h1>
-    </motion.div>
-  </div>
+        <div className="relative w-full h-64 sm:h-80 overflow-hidden">
+          <motion.img
+            src="https://images.unsplash.com/photo-1471478331149-c72f17e33c73?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG11c2ljfGVufDB8fDB8fHww"
+            alt="Student with headphones learning online"
+            className="w-full h-full object-cover object-center"
+            initial={{ scale: 1.15 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
+          />
+          <div className="absolute inset-0 bg-black/55" />
+
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center text-center px-6"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg" >
+              <p style={{ color: "white" }}>Progress Updates</p>
+            </h1>
+          </motion.div>
+        </div>
 
         <section className="py-14">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,11 +56,10 @@ src='https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=1400&q=80'
                   <button
                     key={cat}
                     onClick={() => setActive(cat)}
-                    className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors border ${
-                      active === cat
-                        ? 'bg-[#2B2B2B] text-white border-[#2B2B2B]'
-                        : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
-                    }`}
+                    className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors border ${active === cat
+                      ? 'bg-[#2B2B2B] text-white border-[#2B2B2B]'
+                      : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
+                      }`}
                   >
                     {cat}
                   </button>

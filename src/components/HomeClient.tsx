@@ -208,6 +208,9 @@ function TestimonialBackground() {
 }
 
 // ─── Page Component ───────────────────────────────────────────────────────────
+
+import mission from '../components/assets/mission.png'
+
 export default function MusicProgramPage() {
   return (
     <main className="bg-[#FFFDF8] text-gray-900 overflow-x-hidden">
@@ -315,22 +318,51 @@ export default function MusicProgramPage() {
       </section>
 
       {/* ── Mission Statement ── */}
-      <AnimatedSection className="mx-auto max-w-5xl px-6 py-20 text-center">
-        <motion.h2
-          variants={fadeInUp}
-          className="text-4xl font-bold bg-gradient-to-r from-[#C0392B] to-[#E67E22] bg-clip-text text-transparent"
-        >
-          Mission Statement
-        </motion.h2>
+      <div className="relative overflow-hidden"
+        style={{ marginTop: "3rem" }}>
+        {/* Background image with medium opacity */}
+        <motion.div
+          initial={{ scale: 1.2, opacity: 0.20 }}
+          animate={{ scale: 1, opacity: 0.80 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${mission.src})`,
+            // "url('https://images.unsplash.com/photo-1621784166258-c6fdfff31879?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG11c2ljaWFufGVufDB8fDB8fHww')",
+          }}
+        />
 
-        <motion.p variants={fadeInUp} className="mt-6 text-lg leading-8 text-gray-600">
-          Our mission is to provide accessible, high-quality music education that
-          empowers students to discover their artistic voice, develop lifelong
-          confidence, and contribute positively to their communities through the
-          power of music.
-        </motion.p>
-      </AnimatedSection>
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-white/60" />
 
+        {/* Content */}
+        <AnimatedSection className="relative z-10 mx-auto max-w-5xl px-6 py-20 text-center">
+          <motion.h2
+            variants={fadeInUp}
+            className="text-4xl font-bold"
+          >
+            Mission Statement
+          </motion.h2>
+
+          <motion.p variants={fadeInUp} className="mt-6 text-lg leading-8 text-gray-600 font-bold italic">
+            At the heart of everything we do lies a profound belief — that music is not
+            merely an art form, but a universal language that transcends boundaries,
+            bridges cultures, and speaks directly to the human soul. Our mission is to
+            provide accessible, high-quality music education that empowers every student,
+            regardless of age or background, to discover their unique artistic voice and
+            unlock the boundless creative potential within them. We believe that learning
+            music goes far beyond mastering scales and compositions; it is about building
+            discipline, nurturing emotional intelligence, and cultivating a deep sense of
+            self-expression that stays with a student for a lifetime. Through patient
+            guidance, inspired teaching, and a curriculum thoughtfully designed to meet
+            each learner where they are, we create an environment where curiosity is
+            celebrated, mistakes are embraced as stepping stones, and every breakthrough
+            — however small — is met with encouragement. Our students don't just learn to
+            play instruments; they learn to listen deeply, collaborate meaningfully, and
+            perform with confidence on any stage life places them on.
+          </motion.p>
+        </AnimatedSection>
+      </div>
       {/* ── Program Overview ── */}
       <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-6">
@@ -623,7 +655,7 @@ export default function MusicProgramPage() {
               className="text-2xl sm:text-4xl font-bold text-white"
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300 }}
-               style={{ color: "white" }}
+              style={{ color: "white" }}
             >
               Download Program Syllabus
             </motion.h2>
