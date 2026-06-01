@@ -9,26 +9,9 @@ import students from './assets/students.png'
 import banner from './assets/banner.png'
 import studentimg from './assets/studentimg.png'
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-// interface Testimonial {
-//   name: string
-//   role: string
-//   quote: string
-// }
+import { client } from '@/sanity/client'
+import { homePageQuery } from '@/lib/queries'
 
-// interface ProgramItem {
-//   title: string
-//   desc: string
-//   icon: string
-// }
-
-// interface NotePosition {
-//   left: string
-//   top: string
-//   delay: number
-// }
-
-// ─── Data ─────────────────────────────────────────────────────────────────────
 const testimonials = [
   {
     name: 'Peter S.',
@@ -49,6 +32,7 @@ const testimonials = [
       'An excellent music program with a warm and supportive learning environment.',
   },
 ]
+
 
 const studentImages = [
   'https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1200',
@@ -117,7 +101,7 @@ const staggerContainer = {
 
 function AnimatedSection({ children, className = '' }) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
     <motion.div
@@ -209,10 +193,55 @@ function TestimonialBackground() {
 
 // ─── Page Component ───────────────────────────────────────────────────────────
 export default function MusicProgramPage() {
+
+  const [hero, setHero] = useState(null);
+  const [mission, setMission] = useState(null);
+  const [program, setProgram] = useState(null);
+
+
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await client.fetch(homePageQuery)
+      setHero(data?.sections)
+      console.log(data)
+    }
+    getData()
+  }, [])
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await client.fetch(homePageQuery)
+
+      const heroSection = data?.sections?.find(
+        (section) => {
+          if (section._type === "heroSection") {
+            // return <Hero section={section} />
+            setHero(section)
+          }
+
+          if (section._type === "missionSection") {
+            setMission(section)
+          }
+
+          if (section._type === "programSection") {
+            console.log(section)
+            setProgram(section)
+          }
+        }
+      )
+    }
+
+    console.log(hero, 'hero')
+    console.log(mission, 'mission')
+    getData()
+  }, [])
+
   return (
     <main className="bg-[#FFFDF8] text-gray-900 overflow-x-hidden">
+      {/* Hero Section */}
 
-      {/* ── Hero ── */}
+
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#FDEBD0] via-white to-[#F9E79F]" />
         <AnimatedBackground />
@@ -232,7 +261,8 @@ export default function MusicProgramPage() {
               transition={{ delay: 0.2, duration: 0.5 }}
               className="mb-4 inline-flex rounded-full bg-[#C0392B]/10 px-4 py-1 text-sm font-medium text-[#C0392B]"
             >
-              Inspiring Young Musicians
+              {/* Inspiring Young Musicians */}
+              {hero?.badge}
             </motion.span>
 
             <motion.h1
@@ -241,14 +271,16 @@ export default function MusicProgramPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              Building Creativity Through
+              {/* Building Creativity Through */}
+              {hero?.title}
               <motion.span
                 className="block text-[#C0392B]"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
               >
-                Music Education
+                {/* Music Education */}
+                {hero?.highlight}
               </motion.span>
             </motion.h1>
 
@@ -258,13 +290,16 @@ export default function MusicProgramPage() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.5 }}
             >
-              Our music program nurtures confidence, discipline, creativity, and
-              performance skills through expert-led lessons and engaging student
-              experiences.
+              {/* Our music program nurtures confidence, discipline, creativity,
+              and performance skills through expert-led lessons and engaging
+              student experiences. */}
+              {hero?.description}
+
             </motion.p>
 
+            {/* CTA Buttons */}
             <motion.div
-              className="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start"
+              className="mt-10 flex flex-wrap gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.5 }}
@@ -301,13 +336,15 @@ export default function MusicProgramPage() {
               className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[500px] lg:aspect-auto overflow-hidden rounded-3xl shadow-2xl"
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
-              <Image
-                src={banner}
-                alt="Student practicing violin"
-                fill
-                className="object-cover object-center"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+              {hero?.image?.asset?.url && (
+                <Image
+                  src={hero.image.asset.url}
+                  alt="Student practicing violin"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              )}
             </motion.div>
           </motion.div>
 
@@ -320,14 +357,19 @@ export default function MusicProgramPage() {
           variants={fadeInUp}
           className="text-4xl font-bold bg-gradient-to-r from-[#C0392B] to-[#E67E22] bg-clip-text text-transparent"
         >
-          Mission Statement
+          {/* Mission Statement */}
+          {mission?.title}
         </motion.h2>
 
-        <motion.p variants={fadeInUp} className="mt-6 text-lg leading-8 text-gray-600">
-          Our mission is to provide accessible, high-quality music education that
-          empowers students to discover their artistic voice, develop lifelong
-          confidence, and contribute positively to their communities through the
-          power of music.
+        <motion.p
+          variants={fadeInUp}
+          className="mt-6 text-lg leading-8 text-gray-600"
+        >
+          {/* Our mission is to provide accessible, high-quality music education
+          that empowers students to discover their artistic voice, develop
+          lifelong confidence, and contribute positively to their communities
+          through the power of music. */}
+          {mission?.description}
         </motion.p>
       </AnimatedSection>
 
@@ -341,60 +383,68 @@ export default function MusicProgramPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl font-bold">Program Overview</h2>
+            <h2 className="text-4xl font-bold">
+              {/* Program Overview */}
+              {program?.title}
+            </h2>
             <p className="mt-4 text-gray-600">
-              Comprehensive music education designed for all skill levels.
+              {/* Comprehensive music education designed for all skill levels. */}
+              {program?.sub}
             </p>
           </motion.div>
 
           <div className="grid gap-8 md:grid-cols-3">
-            {(
-              [
-                {
-                  title: 'Private Lessons',
-                  desc: "One-on-one instruction tailored to each student's goals and experience.",
-                  icon: '🎵',
-                },
-                {
-                  title: 'Performance Training',
-                  desc: 'Students gain stage confidence through recitals and live performances.',
-                  icon: '🎶',
-                },
-                {
-                  title: 'Music Theory',
-                  desc: 'Strong theoretical foundations to support musicianship and creativity.',
-                  icon: '🎼',
-                },
-              ]
-            ).map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                whileHover={{ y: -12, transition: { duration: 0.2 } }}
-                className="rounded-3xl border border-gray-100 bg-[#FFFDF8] p-8 shadow-sm hover:shadow-xl cursor-pointer group"
-              >
+            {
+              // [
+              //   {
+              //     title: 'Private Lessons',
+              //     desc: 'One-on-one instruction tailored to each student’s goals and experience.',
+              //     icon: '🎵',
+              //   },
+              //   {
+              //     title: 'Performance Training',
+              //     desc: 'Students gain stage confidence through recitals and live performances.',
+              //     icon: '🎶',
+              //   },
+              //   {
+              //     title: 'Music Theory',
+              //     desc: 'Strong theoretical foundations to support musicianship and creativity.',
+              //     icon: '🎼',
+              //   },
+              // ]
+              program?.cards.map((item, idx) => (
                 <motion.div
-                  className="text-5xl mb-4 inline-block"
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  transition={{ type: 'spring', stiffness: 400 }}
+                  key={item.title}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  whileHover={{
+                    y: -12,
+                    transition: { duration: 0.2 }
+                  }}
+                  className="rounded-3xl border border-gray-100 bg-[#FFFDF8] p-8 shadow-sm hover:shadow-xl cursor-pointer group"
                 >
-                  {item.icon}
+                  <motion.div
+                    className="text-5xl mb-4 inline-block"
+                    whileHover={{ scale: 1.2, rotate: 10 }}
+                    transition={{ type: 'spring', stiffness: 400 }}
+                  >
+                    {item?.icon}
+                  </motion.div>
+                  <h3 className="text-2xl font-semibold group-hover:text-[#C0392B] transition-colors duration-300">
+                    {item?.title}
+                  </h3>
+                  <p className="mt-4 leading-7 text-gray-600">{item?.description}</p>
                 </motion.div>
-                <h3 className="text-2xl font-semibold group-hover:text-[#C0392B] transition-colors duration-300">
-                  {item.title}
-                </h3>
-                <p className="mt-4 leading-7 text-gray-600">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+              ))
+            }
+          </div >
+        </div >
+      </section >
 
       {/* ── Our Students ── */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
+      < section className="mx-auto max-w-7xl px-6 py-20" >
         <motion.div
           className="mb-12 text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -519,13 +569,14 @@ export default function MusicProgramPage() {
                 className="object-cover transition-all duration-700 hover:scale-110"
               />
               <motion.div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            </motion.div>
-          ))}
-        </div>
-      </section>
+            </motion.div >
+          ))
+          }
+        </div >
+      </section >
 
       {/* ── Testimonials ── */}
-      <section className="bg-[#FDF2E9] py-20 relative overflow-hidden">
+      < section className="bg-[#FDF2E9] py-20 relative overflow-hidden" >
         <TestimonialBackground />
 
         <div className="mx-auto max-w-7xl px-6 relative z-10">
@@ -573,7 +624,7 @@ export default function MusicProgramPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* ── Federal Tax ID ── */}
       <AnimatedSection className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-20">
@@ -600,7 +651,7 @@ export default function MusicProgramPage() {
             12-3456789
           </motion.div>
         </motion.div>
-      </AnimatedSection>
+      </AnimatedSection >
 
       {/* ── Syllabus CTA ── */}
       <section className="pb-12 sm:pb-24">
@@ -623,7 +674,7 @@ export default function MusicProgramPage() {
               className="text-2xl sm:text-4xl font-bold text-white"
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300 }}
-               style={{ color: "white" }}
+              style={{ color: "white" }}
             >
               Download Program Syllabus
             </motion.h2>

@@ -7,6 +7,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
     ],
   },
   devIndicators: false,  // ← change this
@@ -17,4 +21,6 @@ const nextConfig = {
   compress: true,
 }
 
-module.exports = nextConfig
+// module.exports = nextConfig
+
+export default nextConfig;
