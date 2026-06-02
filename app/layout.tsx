@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import BootstrapIcons from './BootstrapIcons'
 import './globals.css'
+import SocialSidebar from '../src/components/SocialSideBar'
 
 export const metadata: Metadata = {
   title: 'Note By Note AZ – Free Music Education for Middle Schoolers',
@@ -37,6 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LazyMotion features={domAnimation}>
           {children}
         </LazyMotion>
+
+        <SocialSidebar />
+
       </body>
     </html>
   )
