@@ -193,7 +193,7 @@ function TestimonialBackground() {
 
 // ─── Page Component ───────────────────────────────────────────────────────────
 
-import mission from '../components/assets/mission.png'
+import Photo from '../components/assets/mission.png'
 
 export default function MusicProgramPage() {
 
@@ -354,27 +354,7 @@ export default function MusicProgramPage() {
         </div>
       </section>
 
-      {/* ── Mission Statement ── */}
-      <AnimatedSection className="mx-auto max-w-5xl px-6 py-20 text-center">
-        <motion.h2
-          variants={fadeInUp}
-          className="text-4xl font-bold bg-gradient-to-r from-[#C0392B] to-[#E67E22] bg-clip-text text-transparent"
-        >
-          {/* Mission Statement */}
-          {mission?.title}
-        </motion.h2>
-
-        <motion.p
-          variants={fadeInUp}
-          className="mt-6 text-lg leading-8 text-gray-600"
-        >
-          {/* Our mission is to provide accessible, high-quality music education
-          that empowers students to discover their artistic voice, develop
-          lifelong confidence, and contribute positively to their communities
-          through the power of music. */}
-          {mission?.description}
-        </motion.p>
-      </AnimatedSection>
+    
       <div className="relative overflow-hidden"
         style={{ marginTop: "3rem" }}>
         {/* Background image with medium opacity */}
@@ -384,7 +364,7 @@ export default function MusicProgramPage() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url(${mission.src})`,
+            backgroundImage: `url(${Photo?.src || '/default-image.jpg'})`,
             // "url('https://images.unsplash.com/photo-1621784166258-c6fdfff31879?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG11c2ljaWFufGVufDB8fDB8fHww')",
           }}
         />
