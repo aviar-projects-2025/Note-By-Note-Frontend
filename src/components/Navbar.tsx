@@ -29,12 +29,12 @@ export default function Navbar() {
         {/* LOGO */}
         <Link
           href="/"
-          className="flex items-center gap-7 no-underline"
+          className="flex items-center gap-8 no-underline"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#C0392B]/10 text-[#C0392B] transition duration-300 hover:bg-[#C0392B]/20">
             {/* <Music2 className="h-5 w-5" /> */}
-            <Image src={logo1} alt="Logo" 
-            style={{minWidth:"5rem", height:"4rem"}} />
+            <Image src={logo1} alt="Logo"
+              style={{ minWidth: "6rem", height: "4rem" }} />
           </div>
 
           <div className="leading-tight">
@@ -42,7 +42,7 @@ export default function Navbar() {
               NOTE BY NOTE
             </p>
 
-            <p className="text-[18px] font-bold tracking-[0.20em] text-[#B10000]">
+            <p className="text-[20px] font-bold tracking-[0.20em] text-[#B10000]">
               AZ
             </p>
           </div>

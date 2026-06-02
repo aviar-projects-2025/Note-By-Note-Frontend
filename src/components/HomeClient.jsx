@@ -192,8 +192,41 @@ function TestimonialBackground() {
 }
 
 // ─── Page Component ───────────────────────────────────────────────────────────
-
+// import Image from 'next/image'
 import Photo from '../components/assets/mission.png'
+import S1 from '../components/assets/S1.png'
+import S2 from '../components/assets/S2.png'
+import S3 from '../components/assets/S3.png'
+import S4 from '../components/assets/S4.png'
+import S5 from '../components/assets/S5.png'
+import S6 from '../components/assets/S6.png'
+
+const student = [
+  {
+    id: 1,
+    image: S1,
+  },
+  {
+    id: 2,
+    image: S2,
+  },
+  {
+    id: 3,
+    image: S3,
+  },
+  {
+    id: 4,
+    image: S4,
+  },
+  {
+    id: 5,
+    image: S5,
+  },
+  {
+    id: 6,
+    image: S6,
+  },
+]
 
 export default function MusicProgramPage() {
 
@@ -245,7 +278,8 @@ export default function MusicProgramPage() {
       {/* Hero Section */}
 
 
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden"
+      style={{ minHeight: "60vh" }}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#FDEBD0] via-white to-[#F9E79F]" />
         <AnimatedBackground />
 
@@ -339,24 +373,33 @@ export default function MusicProgramPage() {
               className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[500px] lg:aspect-auto overflow-hidden rounded-3xl shadow-2xl"
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
-              {hero?.image?.asset?.url && (
+              {/* {hero?.image?.asset?.url && (
                 <Image
                   src={hero.image.asset.url}
                   alt="Student practicing violin"
                   fill
                   className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  style={{color:"#000000"}}
                 />
-              )}
+              )} */}
+              <Image
+                src={Photo}
+                alt="Student practicing violin"
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ color: "#d50404" }}
+              />
             </motion.div>
           </motion.div>
 
         </div>
       </section>
 
-    
-      <div className="relative overflow-hidden"
-        style={{ marginTop: "3rem" }}>
+
+      <div className="relative overflow-hidden d-flex items-center justify-center"
+        style={{ marginTop: "5rem",minHeight:"50vh"}}>
         {/* Background image with medium opacity */}
         <motion.div
           initial={{ scale: 1.2, opacity: 0.20 }}
@@ -373,7 +416,7 @@ export default function MusicProgramPage() {
         <div className="absolute inset-0 bg-white/60" />
 
         {/* Content */}
-        <AnimatedSection className="relative z-10 mx-auto max-w-5xl px-6 py-20 text-center">
+        <AnimatedSection className="relative z-10 mx-auto max-w-5xl px-5 py-25 text-center mt-5">
           <motion.h2
             variants={fadeInUp}
             className="text-4xl font-bold"
@@ -471,7 +514,7 @@ export default function MusicProgramPage() {
       </section >
 
       {/* ── Our Students ── */}
-      < section className="mx-auto max-w-7xl px-6 py-20" >
+      < section className="mx-auto max-w-7xl px-6 py-20 bg-[#FFFDF8]" >
         <motion.div
           className="mb-12 text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -496,50 +539,32 @@ export default function MusicProgramPage() {
         </motion.div>
 
         {/* ── Local student images ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-16 w-full">
-
-          <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.65, ease: EASE }}
-            whileHover={{ scale: 1.03, transition: { duration: 0.25 } }}
-            className="relative overflow-hidden rounded-3xl shadow-xl cursor-pointer group"
-          >
-            <Image
-              src={students}
-              alt="Group of students"
-              className="w-full h-[300px] sm:h-[420px] md:h-[500px] lg:h-[600px] object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.65, delay: 0.15, ease: EASE }}
-            whileHover={{ scale: 1.03, transition: { duration: 0.25 } }}
-            className="relative overflow-hidden rounded-3xl shadow-xl cursor-pointer group"
-          >
-            <Image
-              src={studentimg}
-              alt="Student in session"
-              className="w-full h-[300px] sm:h-[420px] md:h-[500px] lg:h-[600px] object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.div>
-        </div>
+        <section className="py-10 bg-[#FFFDF8]">
+          <div className="max-w-7xl mx-auto px-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {student.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 75 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.1,
+                  }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -10 }}
+                  className="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
+                >
+                  <Image
+                    src={item.image}
+                    alt="Student Image"
+                    className="w-full object-cover transition-transform duration-500 group-hover:scale-100"
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Student highlight cards */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-16">

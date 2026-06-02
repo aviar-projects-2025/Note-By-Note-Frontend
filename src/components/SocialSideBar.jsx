@@ -10,7 +10,7 @@ export default function SocialSidebar() {
           .social-sidebar {
             position: fixed;
             right: 10px;
-            top: 45%;
+            top: 50%;
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
@@ -21,9 +21,9 @@ export default function SocialSidebar() {
           .social-btn {
             width: 25px;
             height: 25px;
-            background: #B10000;
+            background: #ec4899;
             color: white;
-            border-radius: 50%;
+            border-radius: 75%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -32,8 +32,7 @@ export default function SocialSidebar() {
           }
 
           .social-btn:hover {
-            background: #D50000;
-            transform: scale(1.1);
+            transform: scale(1.15);
           }
 
           @media (max-width: 768px) {
@@ -42,8 +41,8 @@ export default function SocialSidebar() {
             }
 
             .social-btn {
-              width: 40px;
-              height: 40px;
+              width: 27px;
+              height: 27px;
             }
           }
         `}
