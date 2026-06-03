@@ -6,16 +6,23 @@ import PageHero from '@/components/PageHero'
 import FadeUp from '@/components/FadeUp'
 import { motion } from 'framer-motion'
 import { client } from '@/sanity/client'
+import Image from 'next/image'
+import blog1 from './assets/blog1.png'
+import blog2 from './assets/blog2.png'
+import blog3 from './assets/blog3.png'
+import blog4 from './assets/blog4.png'
+import blog5 from './assets/blog5.png'
+import blog6 from './assets/blog6.png'  
 import { blogPageQuery } from '@/lib/queries'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-
+import Blogbanner from "./assets/blogbanner.png"
 const posts = [
-  { id: 1, date: 'April 20, 2024', category: 'Events', title: 'Spring Recital Highlights', excerpt: 'Our amazing students performed beautifully at our spring recital. See photos and moments from the day!', img: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=80' },
-  { id: 2, date: 'April 13, 2024', category: 'Student Stories', title: 'Tutor Spotlight: Meet Emma', excerpt: 'Emma shares her experience as a tutor and why music education matters to her.', img: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=600&q=80' },
-  { id: 3, date: 'April 6, 2024', category: 'Instruments', title: 'New Instrument Highlight: Viola', excerpt: 'The viola might be similar to the violin, but it has its own unique voice. Learn more about this wonderful instrument.', img: 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&q=80' },
-  { id: 4, date: 'March 28, 2024', category: 'News', title: 'We Reached 250 Students!', excerpt: 'A huge milestone for Note By Note AZ. We are so proud of our students, tutors, and supporters.', img: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&q=80' },
-  { id: 5, date: 'March 15, 2024', category: 'Events', title: 'Workshop at Lincoln Middle School', excerpt: 'We hosted an exciting music workshop bringing students together to explore rhythm and harmony.', img: 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=600&q=80' },
-  { id: 6, date: 'March 5, 2024', category: 'Student Stories', title: 'Student Spotlight: Carlos Learns Guitar', excerpt: 'Carlos had never touched a guitar before joining our program. Now he\'s playing his favorite songs.', img: 'https://images.unsplash.com/photo-1619983081563-430f63602796?w=600&q=80' },
+  { id: 1, date: 'April 20, 2024', category: 'Events', title: 'Spring Recital Highlights', excerpt: 'Our amazing students performed beautifully at our spring recital. See photos and moments from the day!', img: blog1 },
+  { id: 2, date: 'April 13, 2024', category: 'Student Stories', title: 'Tutor Spotlight: Meet Emma', excerpt: 'Emma shares her experience as a tutor and why music education matters to her.', img: blog2 },
+  { id: 3, date: 'April 6, 2024', category: 'Instruments', title: 'New Instrument Highlight: Viola', excerpt: 'The viola might be similar to the violin, but it has its own unique voice. Learn more about this wonderful instrument.', img: blog3 },
+  { id: 4, date: 'March 28, 2024', category: 'News', title: 'We Reached 250 Students!', excerpt: 'A huge milestone for Note By Note AZ. We are so proud of our students, tutors, and supporters.', img: blog4 },
+  { id: 5, date: 'March 15, 2024', category: 'Events', title: 'Workshop at Lincoln Middle School', excerpt: 'We hosted an exciting music workshop bringing students together to explore rhythm and harmony.', img: blog5 },
+  { id: 6, date: 'March 5, 2024', category: 'Student Stories', title: 'Student Spotlight: Carlos Learns Guitar', excerpt: 'Carlos had never touched a guitar before joining our program. Now he\'s playing his favorite songs.', img: blog6 },
 ]
 
 const categories = ['All Posts', 'Events', 'Student Stories', 'Instruments', 'News']
@@ -34,14 +41,14 @@ export default function BlogPage() {
       }
       getData()
     }, [])
-
+const MotionImage = motion(Image)
   return (
     <>
       <Navbar />
       <main>
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-          <motion.img
-            src="https://images.unsplash.com/photo-1471478331149-c72f17e33c73?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG11c2ljfGVufDB8fDB8fHww"
+          <MotionImage
+            src={Blogbanner}
             alt="Student with headphones learning online"
             className="w-full h-full object-cover object-center"
             initial={{ scale: 1.15 }}
@@ -92,7 +99,7 @@ export default function BlogPage() {
                       to prevent layout shift (CLS) and defer off-screen images.
                       First card uses loading="eager" since it's above the fold.
                     */}
-                    <img
+                    <Image
                       src={post.img}
                       alt={post.title}
                       className="w-full object-cover"

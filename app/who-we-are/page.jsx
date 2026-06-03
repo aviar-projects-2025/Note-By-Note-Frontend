@@ -282,7 +282,9 @@ export default function WhoWeArePage() {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await client.fetch(whoWeArePageQuery)
+      const data = await client.fetch(whoWeArePageQuery);
+      console.log('Sanity data:', data);
+      console.log('Sanity data:', data?.sections[0]?.description);
       if (!data?.sections) return
 
       data.sections.forEach((section) => {
