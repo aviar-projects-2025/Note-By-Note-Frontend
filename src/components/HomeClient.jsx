@@ -373,7 +373,7 @@ export default function MusicProgramPage() {
               className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[500px] lg:aspect-auto overflow-hidden rounded-3xl shadow-2xl"
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
-              {/* {hero?.image?.asset?.url && (
+              {hero?.image?.asset?.url && (
                 <Image
                   src={hero.image.asset.url}
                   alt="Student practicing violin"
@@ -382,15 +382,15 @@ export default function MusicProgramPage() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   style={{color:"#000000"}}
                 />
-              )} */}
-              <Image
+              )}
+              {/* <Image
                 src={Photo}
                 alt="Student practicing violin"
                 fill
                 className="object-cover object-center"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ color: "#d50404" }}
-              />
+              /> */}
             </motion.div>
           </motion.div>
 

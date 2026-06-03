@@ -5,6 +5,7 @@ import Footer from '@/components/Footer'
 import PageHero from '@/components/PageHero'
 import { motion } from 'framer-motion'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import VideoSlider from '../media/VideoSlider'
 
 const photos = [
   'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=500&q=80',
@@ -57,33 +58,33 @@ export default function MediaPage() {
       <Navbar />
 
       <main>
-         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-  <motion.img
-    src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=1400&q=80"
-    alt="Student with headphones learning online"
-    className="w-full h-full object-cover object-top"
-    initial={{ scale: 1.15 }}
-    animate={{ scale: 1 }}
-    transition={{ duration: 1.2, ease: 'easeOut' }}
-  />
+        <div className="relative w-full h-64 sm:h-80 overflow-hidden">
+          <motion.img
+            src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=1400&q=80"
+            alt="Student with headphones learning online"
+            className="w-full h-full object-cover object-top"
+            initial={{ scale: 1.15 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
+          />
 
-  <div className="absolute inset-0 bg-black/55" />
+          <div className="absolute inset-0 bg-black/55" />
 
-  <motion.div
-    className="absolute inset-0 flex items-center justify-center text-center px-6"
-    initial={{ opacity: 0, y: 50 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8 }}
-  >
-    <h1 className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg" >
-     <p style={{color:"white"}}> Media</p> 
-    </h1>
-  </motion.div>
-</div>
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center text-center px-6"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg" >
+              <p style={{ color: "white" }}> Media</p>
+            </h1>
+          </motion.div>
+        </div>
 
         {/* Photos Section */}
         <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               className="text-center mb-10"
               initial={{ opacity: 0, y: 40 }}
@@ -102,7 +103,7 @@ export default function MediaPage() {
             </motion.div>
 
             {/* Photo Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
               {photos.map((src, i) => (
                 <motion.div
                   key={i}
@@ -120,7 +121,7 @@ export default function MediaPage() {
                     src={src}
                     alt={`Media ${i + 1}`}
                     className="w-full object-cover"
-                    style={{ height: 190 }}
+                    style={{ height: 275 }}
                     loading={i === 0 ? 'eager' : 'lazy'}
                     whileHover={{ scale: 1.08 }}
                     transition={{ duration: 0.5 }}
@@ -128,6 +129,8 @@ export default function MediaPage() {
                 </motion.div>
               ))}
             </div>
+
+            <VideoSlider />
 
             {/* Google Drive Button */}
             <motion.div
@@ -147,7 +150,7 @@ export default function MediaPage() {
                 whileTap={{ scale: 0.95 }}
               >
                 {/* <i className="bi bi-google text-xl"></i> */}
-                <p style={{color:"white"}}>VIEW MORE IN GOOGLE DRIVE</p>
+                <p style={{ color: "white" }}>VIEW MORE IN GOOGLE DRIVE</p>
               </motion.a>
             </motion.div>
           </div>
@@ -254,7 +257,7 @@ export default function MediaPage() {
                       scale: 0.95,
                     }}
                   >
-                    <p style={{color:"white"}}>{c.btnLabel}</p>
+                    <p style={{ color: "white" }}>{c.btnLabel}</p>
                   </motion.a>
                 </motion.div>
               ))}

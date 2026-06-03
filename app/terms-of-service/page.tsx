@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PageHero from '@/components/PageHero'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 export default function TermsOfServicePage() {
   return (

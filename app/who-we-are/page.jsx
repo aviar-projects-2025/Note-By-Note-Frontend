@@ -6,7 +6,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
-import { Heart, Users, Award, ArrowRight, Music, Star, BookOpen } from 'lucide-react'
+import { Heart, Users, Award, ArrowRight, Music, Star, BookOpen, Quote } from 'lucide-react'
 
 import founder1 from './assets/founder1.png'
 import founder2 from './assets/founder2.png'
@@ -15,6 +15,7 @@ import team from './assets/team.png'
 import banner from './assets/banner.png'
 import { client } from '@/sanity/client'
 import { whoWeArePageQuery } from '@/lib/queries'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -60,12 +61,12 @@ function Reveal({ children, variants = fadeUp, className = '', delay = 0 }) {
 
 /* ─── Floating notes — client-only to avoid hydration mismatch ── */
 const notePositions = [
-  { left: '8%',  top: '18%', delay: 0,   symbol: '♪' },
+  { left: '8%', top: '18%', delay: 0, symbol: '♪' },
   { left: '88%', top: '12%', delay: 1.2, symbol: '♫' },
   { left: '22%', top: '72%', delay: 0.6, symbol: '♩' },
-  { left: '78%', top: '65%', delay: 2,   symbol: '♪' },
+  { left: '78%', top: '65%', delay: 2, symbol: '♪' },
   { left: '50%', top: '30%', delay: 1.5, symbol: '♫' },
-  { left: '5%',  top: '50%', delay: 0.3, symbol: '♩' },
+  { left: '5%', top: '50%', delay: 0.3, symbol: '♩' },
   { left: '92%', top: '45%', delay: 1.8, symbol: '♪' },
 ]
 
@@ -121,32 +122,32 @@ function Counter({ target }) {
 
 /* ─── Data ───────────────────────────────────────────────────── */
 const teamMembers = [
-  { name: 'Dione Pahilan',   role: 'Co-Founder', img: founder1, fallbackBg: 'bg-[#b8c9c6]', bio: 'Passionate about bridging the gap in music access across Phoenix schools.' },
-  { name: 'Santiago Paul',   role: 'Co-Founder', img: founder2, fallbackBg: 'bg-[#4a7fa8]', bio: 'Believes every child deserves the joy and discipline that music brings.' },
-  { name: 'Mahima Sanghera', role: 'Co-Founder', img: founder3, fallbackBg: 'bg-[#c8b8a2]', bio: 'Dedicated to creating equitable, community-driven music education.' },
+  { name: 'Dione Pahilan', role: 'Co-Founder', img: founder1, fallbackBg: 'bg-[#b8c9c6]', bio: 'Passionate about bridging the gap in music access across Phoenix schools.', quote: "Music education opens minds, inspires creativity, and builds confidence." },
+  { name: 'Santiago Paul', role: 'Co-Founder', img: founder2, fallbackBg: 'bg-[#4a7fa8]', bio: 'Believes every child deserves the joy and discipline that music brings.', quote: "Music is the language of the soul, and education teaches us how to speak it." },
+  { name: 'Mahima Sanghera', role: 'Co-Founder', img: founder3, fallbackBg: 'bg-[#c8b8a2]', bio: 'Dedicated to creating equitable, community-driven music education.', quote: "Every child deserves the opportunity to learn, create, and grow through music." },
 ]
 
 const stats = [
   { number: '250+', label: 'Students Served' },
-  { number: '40+',  label: 'Volunteer Tutors' },
-  { number: '10+',  label: 'Instruments' },
-  { number: '20+',  label: 'Schools Reached' },
+  { number: '40+', label: 'Volunteer Tutors' },
+  { number: '10+', label: 'Instruments' },
+  { number: '20+', label: 'Schools Reached' },
 ]
 
 const values = [
-  { icon: Heart,    title: 'Compassion', desc: "We serve with empathy and genuine care for every student's journey, meeting them where they are." },
-  { icon: Users,    title: 'Community',  desc: 'We build lasting relationships between tutors, students, families, and schools across Arizona.' },
-  { icon: Award,    title: 'Excellence', desc: 'We hold ourselves to the highest standard so every lesson is meaningful and impactful.' },
-  { icon: Music,    title: 'Creativity', desc: 'We encourage students to find their own musical voice, beyond notes on a page.' },
-  { icon: BookOpen, title: 'Education',  desc: 'We believe learning an instrument builds confidence, focus, and discipline for life.' },
-  { icon: Star,     title: 'Equity',     desc: 'Financial barriers should never stand between a child and their love of music.' },
+  { icon: Heart, title: 'Compassion', desc: "We serve with empathy and genuine care for every student's journey, meeting them where they are." },
+  { icon: Users, title: 'Community', desc: 'We build lasting relationships between tutors, students, families, and schools across Arizona.' },
+  { icon: Award, title: 'Excellence', desc: 'We hold ourselves to the highest standard so every lesson is meaningful and impactful.' },
+  { icon: Music, title: 'Creativity', desc: 'We encourage students to find their own musical voice, beyond notes on a page.' },
+  { icon: BookOpen, title: 'Education', desc: 'We believe learning an instrument builds confidence, focus, and discipline for life.' },
+  { icon: Star, title: 'Equity', desc: 'Financial barriers should never stand between a child and their love of music.' },
 ]
 
 const milestones = [
-  { year: '2023', title: 'Founded',          desc: 'Note By Note launched in mid-2023 by three Brophy/Xavier juniors with a simple idea: free one-on-one music lessons.' },
+  { year: '2023', title: 'Founded', desc: 'Note By Note launched in mid-2023 by three Brophy/Xavier juniors with a simple idea: free one-on-one music lessons.' },
   { year: '2023', title: '501(c)(3) Status', desc: 'Officially registered as a nonprofit, making all donations fully tax-deductible.' },
-  { year: '2024', title: '250+ Students',    desc: 'Expanded to serve over 250 students across 20+ schools in the Phoenix metro area.' },
-  { year: '2025', title: 'Growing Strong',   desc: 'Recruiting our next cohort of volunteer tutors and expanding instrument access programs.' },
+  { year: '2024', title: '250+ Students', desc: 'Expanded to serve over 250 students across 20+ schools in the Phoenix metro area.' },
+  { year: '2025', title: 'Growing Strong', desc: 'Recruiting our next cohort of volunteer tutors and expanding instrument access programs.' },
 ]
 
 /* ─── Team Card ──────────────────────────────────────────────── */
@@ -162,7 +163,12 @@ function TeamCard({ member }) {
       onHoverEnd={() => setHovered(false)}
       className="flex flex-col items-center group"
     >
+      <div className="mb-7 px-4 border-l-4 border-pink-500 text-gray-700 italic text-lg leading-relaxed">
+        “{member.quote}”
+      </div>
+
       <div className="relative w-full overflow-hidden rounded-2xl shadow-lg bg-gray-100 aspect-[3/4]">
+
         {!imgError ? (
           <Image
             src={member.img}

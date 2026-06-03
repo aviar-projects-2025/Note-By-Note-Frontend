@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 // ── Donation page campaigns ────────────────────────────────────
 const campaigns = [
   {
