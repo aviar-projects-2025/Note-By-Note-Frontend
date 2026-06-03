@@ -1,10 +1,12 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PageHero from '@/components/PageHero'
 import FadeUp from '@/components/FadeUp'
 import { motion } from 'framer-motion'
+import { client } from '@/sanity/client'
+import { blogPageQuery } from '@/lib/queries'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 const posts = [
@@ -21,6 +23,17 @@ const categories = ['All Posts', 'Events', 'Student Stories', 'Instruments', 'Ne
 export default function BlogPage() {
   const [active, setActive] = useState('All Posts')
   const filtered = active === 'All Posts' ? posts : posts.filter(p => p.category === active)
+
+  useEffect(() => {
+      const getData = async () => {
+        const data = await client.fetch(blogPageQuery)
+        if (!data?.sections) return
+
+        console.log(data,'data')
+  
+      }
+      getData()
+    }, [])
 
   return (
     <>

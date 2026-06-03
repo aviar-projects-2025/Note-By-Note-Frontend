@@ -233,45 +233,29 @@ export default function MusicProgramPage() {
   const [hero, setHero] = useState(null);
   const [mission, setMission] = useState(null);
   const [program, setProgram] = useState(null);
-
-
-
-  useEffect(() => {
-    const getData = async () => {
-      const data = await client.fetch(homePageQuery)
-      setHero(data?.sections)
-      console.log(data)
-    }
-    getData()
-  }, [])
+  const [student, setStudent] = useState(null);
+  const [testimony, setTestimony] = useState(null);
+  const [tax, setTax] = useState(null);
+  const [syllabus, setSyllabus] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
-      const data = await client.fetch(homePageQuery)
+      const data = await client.fetch(homePageQuery);
+      const sections = data?.sections || [];
 
-      const heroSection = data?.sections?.find(
-        (section) => {
-          if (section._type === "heroSection") {
-            // return <Hero section={section} />
-            setHero(section)
-          }
+      setHero(sections.find((section) => section._type === "heroSection"));
+      setMission(sections.find((section) => section._type === "missionSection"));
+      setProgram(sections.find((section) => section._type === "programSection"));
+      setStudent(sections.find((section) => section._type === "ourStudentSection"));
+      setTestimony(sections.find((section) => section._type === "testimonialSection"));
+      setTax(sections.find((section) => section._type === "taxInfoSection"));
+      setSyllabus(sections.find((section) => section._type === "syllabusCtaSection"));
 
-          if (section._type === "missionSection") {
-            setMission(section)
-          }
+      console.log(data);
+    };
 
-          if (section._type === "programSection") {
-            console.log(section)
-            setProgram(section)
-          }
-        }
-      )
-    }
-
-    console.log(hero, 'hero')
-    console.log(mission, 'mission')
-    getData()
-  }, [])
+    getData();
+  }, []);
 
   return (
     <main className="bg-[#FFFDF8] text-gray-900 overflow-x-hidden">
@@ -521,9 +505,14 @@ export default function MusicProgramPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold">Our Students</h2>
+          <h2 className="text-4xl font-bold">
+            {/* Our Students */}
+            {student?.title}
+          </h2>
           <p className="mt-4 text-gray-600">
-            Moments from classes, rehearsals, and performances.
+            {/* Moments from classes, rehearsals, and performances. */}
+            {student?.subTitle1}
+
           </p>
 
           <motion.p
@@ -533,51 +522,67 @@ export default function MusicProgramPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            Note By Note is a student-run nonprofit in Arizona creating music
-            education through free, one-on-one instruction.
+            {/* Note By Note is a student-run nonprofit in Arizona creating music
+            education through free, one-on-one instruction. */}
+            {student?.subTitle2}
           </motion.p>
         </motion.div>
 
         {/* ── Local student images ── */}
-        <section className="py-10 bg-[#FFFDF8]">
-          <div className="max-w-7xl mx-auto px-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {student.map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 75 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: index * 0.1,
-                  }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -10 }}
-                  className="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                >
-                  <Image
-                    src={item.image}
-                    alt="Student Image"
-                    className="w-full object-cover transition-transform duration-500 group-hover:scale-100"
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-16 w-full">
+          {student?.cards?.map((card, index) => (
+            <motion.div
+              key={card._key}
+              initial={{
+                opacity: 0,
+                x: index % 2 === 0 ? -60 : 60,
+              }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.65,
+                delay: index * 0.15,
+                ease: EASE,
+              }}
+              className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[500px] lg:aspect-auto overflow-hidden rounded-3xl shadow-2xl group"
+              whileHover={{
+                scale: 1.02,
+                transition: { duration: 0.3 },
+              }}
+            >
+              {card?.image?.asset?.url && (
+                <Image
+                  src={card.image.asset.url}
+                  alt={card.title || "Student Image"}
+                  fill
+                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              )}
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-lg sm:text-xl font-semibold">
+                  {card.title}
+                </h3>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
         {/* Student highlight cards */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-16">
-          {studentHighlights.map((text, idx) => (
+          {student?.descCards?.map((item, idx) => (
             <motion.div
-              key={idx}
+              key={item._key || idx}
               initial={{ opacity: 0, y: 50, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: idx * 0.12, ease: EASE }}
               whileHover={{
                 y: -8,
-                boxShadow: '0 20px 40px -12px rgba(192,57,43,0.18)',
+                boxShadow: "0 20px 40px -12px rgba(192,57,43,0.18)",
                 transition: { duration: 0.22 },
               }}
               className="relative rounded-2xl bg-gradient-to-br from-[#FEF5E7] to-white border border-[#F5CBA7] p-6 shadow-sm cursor-pointer overflow-hidden"
@@ -597,7 +602,9 @@ export default function MusicProgramPage() {
                 {idx + 1}
               </motion.div>
 
-              <p className="text-sm leading-6 text-gray-700 font-medium">{text}</p>
+              <p className="text-sm leading-6 text-gray-700 font-medium">
+                {item.details}
+              </p>
             </motion.div>
           ))}
         </div>
