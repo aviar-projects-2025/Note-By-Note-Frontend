@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import foundme from './assets/foundme.png'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface TrustItem {
