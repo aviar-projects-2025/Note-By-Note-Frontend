@@ -1,8 +1,9 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import FadeUp from '@/components/FadeUp'
+import banner from "./assets/banner.png"
 import 'bootstrap-icons/font/bootstrap-icons.css'
-
+import Image from 'next/image'
 const StudentIcon = () => (
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
     <circle cx="24" cy="16" r="9" fill="#C0392B" />
@@ -91,8 +92,8 @@ export default function SignUpPage() {
       <main>
         {/* ── Banner ── */}
     <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-  <img
-    src="https://images.unsplash.com/photo-1514119412350-e174d90d280e?w=1400&q=80&auto=format&fit=crop"
+  <Image
+    src={banner}
     alt="Student playing a musical instrument"
     className="w-full h-full object-cover object-center"
     loading="eager"
