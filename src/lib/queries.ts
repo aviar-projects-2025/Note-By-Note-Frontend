@@ -11,6 +11,14 @@ export const homePageQuery = `*[_type == "homePage"][0]{
       asset->{
         url
       }
+    },
+    cards[]{
+      ...,
+      image{
+        asset->{
+          url
+        }
+      }
     }
   }
 }`
