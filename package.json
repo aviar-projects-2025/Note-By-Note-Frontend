@@ -9,10 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@sanity/client": "^7.22.0",
+    "@fortawesome/free-brands-svg-icons": "^7.2.0",
+    "@fortawesome/react-fontawesome": "^3.3.1",
+    "@sanity/client": "^7.22.1",
     "@sanity/image-url": "^2.1.1",
     "bootstrap-icons": "^1.13.1",
-    "framer-motion": "^12.39.0",
+    "framer-motion": "^12.40.0",
     "lucide-react": "^1.16.0",
     "next": "16.2.6",
     "react": "19.2.4",

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import React, { useRef, useState, useEffect } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { motion, useInView, useScroll, useTransform, Variants } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { Heart, Users, Award, ArrowRight, Music, Star, BookOpen } from 'lucide-react'
 
 import founder1 from './assets/founder1.png'
@@ -13,42 +13,34 @@ import founder2 from './assets/founder2.png'
 import founder3 from './assets/founder3.png'
 import team from './assets/team.png'
 import banner from './assets/banner.png'
+import { client } from '@/sanity/client'
+import { whoWeArePageQuery } from '@/lib/queries'
 
-const ease: [number, number, number, number] = [0.22, 1, 0.36, 1]
+const ease = [0.22, 1, 0.36, 1]
 
-const fadeUp: Variants = {
+const fadeUp = {
   hidden: { opacity: 0, y: 44 },
   show: { opacity: 1, y: 0, transition: { duration: 0.65, ease } },
 }
-const fadeLeft: Variants = {
+const fadeLeft = {
   hidden: { opacity: 0, x: -44 },
   show: { opacity: 1, x: 0, transition: { duration: 0.65, ease } },
 }
-const fadeRight: Variants = {
+const fadeRight = {
   hidden: { opacity: 0, x: 44 },
   show: { opacity: 1, x: 0, transition: { duration: 0.65, ease } },
 }
-const stagger: Variants = {
+const stagger = {
   hidden: {},
   show: { transition: { staggerChildren: 0.13, delayChildren: 0.05 } },
 }
-const scaleIn: Variants = {
+const scaleIn = {
   hidden: { opacity: 0, scale: 0.85 },
   show: { opacity: 1, scale: 1, transition: { duration: 0.55, ease } },
 }
 
 /* ─── Reveal wrapper ─────────────────────────────────────────── */
-function Reveal({
-  children,
-  variants = fadeUp,
-  className = '',
-  delay = 0,
-}: {
-  children: React.ReactNode
-  variants?: Variants
-  className?: string
-  delay?: number
-}) {
+function Reveal({ children, variants = fadeUp, className = '', delay = 0 }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -100,7 +92,7 @@ function FloatingNotes() {
 }
 
 /* ─── Animated counter ───────────────────────────────────────── */
-function Counter({ target }: { target: string }) {
+function Counter({ target }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
   const num = parseInt(target.replace(/\D/g, ''))
@@ -151,14 +143,14 @@ const values = [
 ]
 
 const milestones = [
-  { year: '2023', title: 'Founded',        desc: 'Note By Note launched in mid-2023 by three Brophy/Xavier juniors with a simple idea: free one-on-one music lessons.' },
+  { year: '2023', title: 'Founded',          desc: 'Note By Note launched in mid-2023 by three Brophy/Xavier juniors with a simple idea: free one-on-one music lessons.' },
   { year: '2023', title: '501(c)(3) Status', desc: 'Officially registered as a nonprofit, making all donations fully tax-deductible.' },
-  { year: '2024', title: '250+ Students',  desc: 'Expanded to serve over 250 students across 20+ schools in the Phoenix metro area.' },
-  { year: '2025', title: 'Growing Strong', desc: 'Recruiting our next cohort of volunteer tutors and expanding instrument access programs.' },
+  { year: '2024', title: '250+ Students',    desc: 'Expanded to serve over 250 students across 20+ schools in the Phoenix metro area.' },
+  { year: '2025', title: 'Growing Strong',   desc: 'Recruiting our next cohort of volunteer tutors and expanding instrument access programs.' },
 ]
 
 /* ─── Team Card ──────────────────────────────────────────────── */
-function TeamCard({ member }: { member: typeof teamMembers[0] }) {
+function TeamCard({ member }) {
   const [imgError, setImgError] = useState(false)
   const [hovered, setHovered] = useState(false)
 
@@ -231,7 +223,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.7, ease }}
           >
-            <p style={{color:"white"}}>Who We Are</p>
+            <p style={{ color: 'white' }}>Who We Are</p>
           </motion.h1>
 
           <motion.p
@@ -276,7 +268,29 @@ function HeroSection() {
 /* ─── MAIN PAGE ──────────────────────────────────────────────── */
 export default function WhoWeArePage() {
   const [mounted, setMounted] = useState(false)
+  const [hero, setHero] = useState(null)
+  const [mission, setMission] = useState(null)
+  const [program, setProgram] = useState(null)
+
   useEffect(() => { setMounted(true) }, [])
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await client.fetch(whoWeArePageQuery)
+      if (!data?.sections) return
+
+      data.sections.forEach((section) => {
+        if (section._type === 'heroSection') {
+          setHero(section)
+        } else if (section._type === 'missionSection') {
+          setMission(section)
+        } else if (section._type === 'programSection') {
+          setProgram(section)
+        }
+      })
+    }
+    getData()
+  }, [])
 
   if (!mounted) {
     return (

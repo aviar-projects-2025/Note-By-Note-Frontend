@@ -192,6 +192,42 @@ function TestimonialBackground() {
 }
 
 // ─── Page Component ───────────────────────────────────────────────────────────
+// import Image from 'next/image'
+import Photo from '../components/assets/mission.png'
+import S1 from '../components/assets/S1.png'
+import S2 from '../components/assets/S2.png'
+import S3 from '../components/assets/S3.png'
+import S4 from '../components/assets/S4.png'
+import S5 from '../components/assets/S5.png'
+import S6 from '../components/assets/S6.png'
+
+const student = [
+  {
+    id: 1,
+    image: S1,
+  },
+  {
+    id: 2,
+    image: S2,
+  },
+  {
+    id: 3,
+    image: S3,
+  },
+  {
+    id: 4,
+    image: S4,
+  },
+  {
+    id: 5,
+    image: S5,
+  },
+  {
+    id: 6,
+    image: S6,
+  },
+]
+
 export default function MusicProgramPage() {
 
   const [hero, setHero] = useState(null);
@@ -226,7 +262,8 @@ export default function MusicProgramPage() {
       {/* Hero Section */}
 
 
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden"
+      style={{ minHeight: "60vh" }}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#FDEBD0] via-white to-[#F9E79F]" />
         <AnimatedBackground />
 
@@ -320,43 +357,76 @@ export default function MusicProgramPage() {
               className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[500px] lg:aspect-auto overflow-hidden rounded-3xl shadow-2xl"
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
             >
-              {hero?.image?.asset?.url && (
+              {/* {hero?.image?.asset?.url && (
                 <Image
                   src={hero.image.asset.url}
                   alt="Student practicing violin"
                   fill
                   className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  style={{color:"#000000"}}
                 />
-              )}
+              )} */}
+              <Image
+                src={Photo}
+                alt="Student practicing violin"
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ color: "#d50404" }}
+              />
             </motion.div>
           </motion.div>
 
         </div>
       </section>
 
-      {/* ── Mission Statement ── */}
-      <AnimatedSection className="mx-auto max-w-5xl px-6 py-20 text-center">
-        <motion.h2
-          variants={fadeInUp}
-          className="text-4xl font-bold bg-gradient-to-r from-[#C0392B] to-[#E67E22] bg-clip-text text-transparent"
-        >
-          {/* Mission Statement */}
-          {mission?.title}
-        </motion.h2>
 
-        <motion.p
-          variants={fadeInUp}
-          className="mt-6 text-lg leading-8 text-gray-600"
-        >
-          {/* Our mission is to provide accessible, high-quality music education
-          that empowers students to discover their artistic voice, develop
-          lifelong confidence, and contribute positively to their communities
-          through the power of music. */}
-          {mission?.description}
-        </motion.p>
-      </AnimatedSection>
+      <div className="relative overflow-hidden d-flex items-center justify-center"
+        style={{ marginTop: "5rem",minHeight:"50vh"}}>
+        {/* Background image with medium opacity */}
+        <motion.div
+          initial={{ scale: 1.2, opacity: 0.20 }}
+          animate={{ scale: 1, opacity: 0.80 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${Photo?.src || '/default-image.jpg'})`,
+            // "url('https://images.unsplash.com/photo-1621784166258-c6fdfff31879?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG11c2ljaWFufGVufDB8fDB8fHww')",
+          }}
+        />
 
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-white/60" />
+
+        {/* Content */}
+        <AnimatedSection className="relative z-10 mx-auto max-w-5xl px-5 py-25 text-center mt-5">
+          <motion.h2
+            variants={fadeInUp}
+            className="text-4xl font-bold"
+          >
+            Mission Statement
+          </motion.h2>
+
+          <motion.p variants={fadeInUp} className="mt-6 text-lg leading-8 text-gray-600 font-bold italic">
+            At the heart of everything we do lies a profound belief — that music is not
+            merely an art form, but a universal language that transcends boundaries,
+            bridges cultures, and speaks directly to the human soul. Our mission is to
+            provide accessible, high-quality music education that empowers every student,
+            regardless of age or background, to discover their unique artistic voice and
+            unlock the boundless creative potential within them. We believe that learning
+            music goes far beyond mastering scales and compositions; it is about building
+            discipline, nurturing emotional intelligence, and cultivating a deep sense of
+            self-expression that stays with a student for a lifetime. Through patient
+            guidance, inspired teaching, and a curriculum thoughtfully designed to meet
+            each learner where they are, we create an environment where curiosity is
+            celebrated, mistakes are embraced as stepping stones, and every breakthrough
+            — however small — is met with encouragement. Our students don't just learn to
+            play instruments; they learn to listen deeply, collaborate meaningfully, and
+            perform with confidence on any stage life places them on.
+          </motion.p>
+        </AnimatedSection>
+      </div>
       {/* ── Program Overview ── */}
       <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-6">
@@ -428,7 +498,7 @@ export default function MusicProgramPage() {
       </section >
 
       {/* ── Our Students ── */}
-      < section className="mx-auto max-w-7xl px-6 py-20" >
+      < section className="mx-auto max-w-7xl px-6 py-20 bg-[#FFFDF8]" >
         <motion.div
           className="mb-12 text-center"
           initial={{ opacity: 0, y: 30 }}

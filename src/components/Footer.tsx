@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import logo1 from '../components/assets/logo.jpg'
 
 const quickLinks = [
   { href: '/', label: 'Home' },
@@ -12,19 +14,24 @@ const quickLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#2B2B2B] text-white/80 pt-10 pb-6 md:pt-14 md:pb-8">
+    <footer className="bg-[#171717] text-white/80 pt-10 pb-6 md:pt-14 md:pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 xl:gap-8">
           {/* Brand */}
           <div className="text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-2 mb-3">
+            <div className="flex items-center justify-center sm:justify-start gap-10 mb-3">
               {/* <i className="bi bi-music-note-beamed text-[#C0392B] text-3xl sm:text-2xl"></i> */}
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#C0392B]/10 text-[#C0392B] transition duration-300 hover:bg-[#C0392B]/20">
+                {/* <Music2 className="h-5 w-5" /> */}
+                <Image src={logo1} alt="Logo"
+                  style={{ minWidth: "6rem", height: "4rem" }} />
+              </div>
               <div className="font-poppins font-extrabold text-white text-2xl sm:text-lg leading-tight">
                 NOTE BY NOTE
-                <span className="block text-[#C0392B]">AZ</span>
+                <span className="block text-[#B10000]">AZ</span>
               </div>
             </div>
-            <p className="text-base sm:text-sm text-white/60 leading-relaxed mb-4 max-w-xs mx-auto sm:mx-0">
+            <p className="text-base sm:text-sm text-white/60 leading-relaxed mb-4 mt-5 max-w-xs mx-auto sm:mx-0">
               Building brighter futures through music education for middle school students across Arizona.
             </p>
             <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
@@ -53,7 +60,8 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="text-center sm:text-left">
-            <h6 className="text-white font-bold text-base sm:text-sm mb-4 tracking-wide uppercase">Quick Links</h6>
+            <h6 className="text-white font-bold text-base sm:text-sm mb-4 tracking-wide uppercase"
+            style={{ color: 'white' }}>Quick Links</h6>
             <div className="flex flex-col items-center sm:items-start sm:pl-4 md:pl-6">
               {quickLinks.map(({ href, label }) => (
                 <Link
@@ -69,7 +77,8 @@ export default function Footer() {
 
           {/* Connect */}
           <div className="text-center sm:text-left">
-            <h6 className="text-white font-bold text-base sm:text-sm mb-4 tracking-wide uppercase">Connect With Us</h6>
+            <h6 className="text-white font-bold text-base sm:text-sm mb-4 tracking-wide uppercase"
+            style={{ color: 'white' }}>Connect With Us</h6>
             <div className="flex flex-col items-center sm:items-start">
               <a
                 href="mailto:notebynoteaz@gmail.com"
@@ -119,7 +128,8 @@ export default function Footer() {
 
           {/* Org Info */}
           <div className="text-center sm:text-left">
-            <h6 className="text-white font-bold text-base sm:text-sm mb-4 tracking-wide uppercase">Organization</h6>
+            <h6 className="text-white font-bold text-base sm:text-sm mb-4 tracking-wide uppercase"
+            style={{ color: 'white' }}>Organization</h6>
             <p className="text-base sm:text-sm text-white/60 leading-relaxed mb-3 max-w-xs mx-auto sm:mx-0">
               Note By Note AZ is a 501(c)(3) nonprofit organization. All donations are tax-deductible to the fullest extent allowed by law.
             </p>
