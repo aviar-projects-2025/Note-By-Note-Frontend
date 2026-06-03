@@ -1,10 +1,12 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PageHero from '@/components/PageHero'
 import FadeUp from '@/components/FadeUp'
 import { motion } from 'framer-motion'
+import { client } from '@/sanity/client'
+import { blogPageQuery } from '@/lib/queries'
 const posts = [
   { id: 1, date: 'April 20, 2024', category: 'Events', title: 'Spring Recital Highlights', excerpt: 'Our amazing students performed beautifully at our spring recital. See photos and moments from the day!', img: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=80' },
   { id: 2, date: 'April 13, 2024', category: 'Student Stories', title: 'Tutor Spotlight: Meet Emma', excerpt: 'Emma shares her experience as a tutor and why music education matters to her.', img: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=600&q=80' },
@@ -19,6 +21,17 @@ const categories = ['All Posts', 'Events', 'Student Stories', 'Instruments', 'Ne
 export default function BlogPage() {
   const [active, setActive] = useState('All Posts')
   const filtered = active === 'All Posts' ? posts : posts.filter(p => p.category === active)
+
+  useEffect(() => {
+      const getData = async () => {
+        const data = await client.fetch(blogPageQuery)
+        if (!data?.sections) return
+
+        console.log(data,'data')
+  
+      }
+      getData()
+    }, [])
 
   return (
     <>

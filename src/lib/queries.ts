@@ -39,3 +39,25 @@ export const whoWeArePageQuery = `*[_type == "whoWeArePage"][0]{
     }
   }
 }`
+
+
+
+export const blogPageQuery = `*[_type == "blogPage"][0]{
+  title,
+  sections[]{
+    ...,
+    image{
+      asset->{
+        url
+      }
+    },
+    posts[]{
+      ...,
+      image{
+        asset->{
+          url
+        }
+      }
+    }
+  }
+}`
