@@ -1,8 +1,9 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import FadeUp from '@/components/FadeUp'
+import banner from "./assets/banner.png"
 import 'bootstrap-icons/font/bootstrap-icons.css'
-
+import Image from 'next/image'
 const StudentIcon = () => (
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
     <circle cx="24" cy="16" r="9" fill="#C0392B" />
@@ -91,8 +92,8 @@ export default function SignUpPage() {
       <main>
         {/* ── Banner ── */}
     <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-  <img
-    src="https://images.unsplash.com/photo-1514119412350-e174d90d280e?w=1400&q=80&auto=format&fit=crop"
+  <Image
+    src={banner}
     alt="Student playing a musical instrument"
     className="w-full h-full object-cover object-center"
     loading="eager"
@@ -114,7 +115,7 @@ export default function SignUpPage() {
         <p style={{ color: "white" }}>Sign Up</p>
       </h1>
 
-      <style>{`
+              <style>{`
         @keyframes slideUp {
           from {
             opacity: 0;
@@ -126,9 +127,9 @@ export default function SignUpPage() {
           }
         }
       `}</style>
-    </div>
-  </div>
-</div>
+            </div>
+          </div>
+        </div>
         <section className="py-16">
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
             <FadeUp>
@@ -139,8 +140,8 @@ export default function SignUpPage() {
                 <FadeUp key={i} delay={i * 80}>
                   <div
                     className={`flex gap-5 items-start p-7 rounded-2xl border transition-all hover:shadow-lg ${opt.coming
-                        ? 'bg-yellow-50 border-yellow-200 hover:border-yellow-300'
-                        : 'bg-white border-gray-200 hover:border-[#C0392B]'
+                      ? 'bg-yellow-50 border-yellow-200 hover:border-yellow-300'
+                      : 'bg-white border-gray-200 hover:border-[#C0392B]'
                       }`}
                   >
                     <div className={`w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 ${opt.iconBg}`}>

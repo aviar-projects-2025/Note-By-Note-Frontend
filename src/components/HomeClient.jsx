@@ -251,11 +251,18 @@ export default function MusicProgramPage() {
       setTax(sections.find((section) => section._type === "taxInfoSection"));
       setSyllabus(sections.find((section) => section._type === "syllabusCtaSection"));
 
-      console.log(data);
     };
 
     getData();
   }, []);
+
+  console.log("hero", hero);
+  console.log("mission", mission);
+  console.log("program", program);
+  console.log("student", student);
+  console.log("testimony", testimony);
+  console.log("tax", tax);
+  console.log("syllabus", syllabus);
 
   return (
     <main className="bg-[#FFFDF8] text-gray-900 overflow-x-hidden">
@@ -263,7 +270,7 @@ export default function MusicProgramPage() {
 
 
       <section className="relative overflow-hidden"
-      style={{ minHeight: "60vh" }}>
+        style={{ minHeight: "60vh" }}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#FDEBD0] via-white to-[#F9E79F]" />
         <AnimatedBackground />
 
@@ -364,7 +371,7 @@ export default function MusicProgramPage() {
                   fill
                   className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  style={{color:"#000000"}}
+                  style={{ color: "#000000" }}
                 />
               )}
               {/* <Image
@@ -383,7 +390,7 @@ export default function MusicProgramPage() {
 
 
       <div className="relative overflow-hidden d-flex items-center justify-center"
-        style={{ marginTop: "5rem",minHeight:"50vh"}}>
+        style={{ marginTop: "5rem", minHeight: "50vh" }}>
         {/* Background image with medium opacity */}
         <motion.div
           initial={{ scale: 1.2, opacity: 0.20 }}
@@ -405,25 +412,11 @@ export default function MusicProgramPage() {
             variants={fadeInUp}
             className="text-4xl font-bold"
           >
-            Mission Statement
+            {mission?.title}
           </motion.h2>
 
           <motion.p variants={fadeInUp} className="mt-6 text-lg leading-8 text-gray-600 font-bold italic">
-            At the heart of everything we do lies a profound belief — that music is not
-            merely an art form, but a universal language that transcends boundaries,
-            bridges cultures, and speaks directly to the human soul. Our mission is to
-            provide accessible, high-quality music education that empowers every student,
-            regardless of age or background, to discover their unique artistic voice and
-            unlock the boundless creative potential within them. We believe that learning
-            music goes far beyond mastering scales and compositions; it is about building
-            discipline, nurturing emotional intelligence, and cultivating a deep sense of
-            self-expression that stays with a student for a lifetime. Through patient
-            guidance, inspired teaching, and a curriculum thoughtfully designed to meet
-            each learner where they are, we create an environment where curiosity is
-            celebrated, mistakes are embraced as stepping stones, and every breakthrough
-            — however small — is met with encouragement. Our students don't just learn to
-            play instruments; they learn to listen deeply, collaborate meaningfully, and
-            perform with confidence on any stage life places them on.
+            {mission?.description}
           </motion.p>
         </AnimatedSection>
       </div>
@@ -529,41 +522,46 @@ export default function MusicProgramPage() {
         </motion.div>
 
         {/* ── Local student images ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-16 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16 w-full">
           {student?.cards?.map((card, index) => (
             <motion.div
               key={card._key}
               initial={{
                 opacity: 0,
-                x: index % 2 === 0 ? -60 : 60,
+                y: 50,
               }}
-              whileInView={{ opacity: 1, x: 0 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
               viewport={{ once: true }}
               transition={{
                 duration: 0.65,
-                delay: index * 0.15,
+                delay: index * 0.1,
                 ease: EASE,
               }}
-              className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[500px] lg:aspect-auto overflow-hidden rounded-3xl shadow-2xl group"
               whileHover={{
-                scale: 1.02,
+                scale: 1.03,
                 transition: { duration: 0.3 },
               }}
+              className="relative h-[250px] md:h-[280px] lg:h-[360px] overflow-hidden rounded-3xl shadow-2xl group"
             >
               {card?.image?.asset?.url && (
                 <Image
                   src={card.image.asset.url}
                   alt={card.title || "Student Image"}
                   fill
-                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-fill object-center transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width:768px) 100vw, (max-width:1024px) 50vw, 33vw"
                 />
               )}
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-              <div className="absolute bottom-4 left-4 text-white">
-                <h3 className="text-lg sm:text-xl font-semibold">
+              {/* Content */}
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <h3 className="text-white text-lg md:text-xl font-semibold">
                   {card.title}
                 </h3>
               </div>
@@ -571,8 +569,9 @@ export default function MusicProgramPage() {
           ))}
         </div>
 
+
         {/* Student highlight cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-16">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-10 mt-20">
           {student?.descCards?.map((item, idx) => (
             <motion.div
               key={item._key || idx}
@@ -610,7 +609,7 @@ export default function MusicProgramPage() {
         </div>
 
         {/* Photo grid */}
-        <div className="grid gap-6 md:grid-cols-3">
+        {/* <div className="grid gap-6 md:grid-cols-3">
           {studentImages.map((src, index) => (
             <motion.div
               key={index}
@@ -631,7 +630,8 @@ export default function MusicProgramPage() {
             </motion.div >
           ))
           }
-        </div >
+        </div > */}
+
       </section >
 
       {/* ── Testimonials ── */}
@@ -645,14 +645,14 @@ export default function MusicProgramPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold">Testimonials</h2>
+            <h2 className="text-4xl font-bold">{testimony?.title}</h2>
             <p className="mt-4 text-gray-600">
-              What families and students say about our program.
+              {testimony?.sub}
             </p>
           </motion.div>
 
           <div className="grid gap-8 md:grid-cols-3">
-            {testimonials.map((testimonial, idx) => (
+            {testimony?.testimonials.map((testimonial, idx) => (
               <motion.div
                 key={testimonial.name}
                 initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
@@ -693,11 +693,11 @@ export default function MusicProgramPage() {
           className="rounded-3xl border border-[#F5CBA7] bg-[#FEF5E7] p-5 sm:p-10 text-center shadow-sm"
         >
           <h2 className="text-xl sm:text-3xl font-bold">
-            Federal Tax ID Information
+            {tax?.title}
           </h2>
 
           <p className="mt-3 text-sm sm:text-lg text-gray-700">
-            Registered Nonprofit Organization
+            {tax?.sub}
           </p>
 
           <motion.div
@@ -707,7 +707,7 @@ export default function MusicProgramPage() {
               boxShadow: '0 10px 25px -5px rgba(192, 57, 43, 0.3)',
             }}
           >
-            12-3456789
+            {tax?.taxId}
           </motion.div>
         </motion.div>
       </AnimatedSection >
@@ -735,12 +735,11 @@ export default function MusicProgramPage() {
               transition={{ type: 'spring', stiffness: 300 }}
               style={{ color: "white" }}
             >
-              Download Program Syllabus
+              {syllabus?.title}
             </motion.h2>
 
             <p className="mx-auto mt-3 max-w-2xl text-sm sm:text-lg text-white/80">
-              Explore course structure, lesson plans, performance expectations, and
-              curriculum details.
+              {syllabus?.description}
             </p>
 
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
@@ -749,7 +748,7 @@ export default function MusicProgramPage() {
                 className="mt-6 sm:mt-8 inline-flex rounded-full bg-white px-6 py-3 sm:px-8 sm:py-4 text-sm font-semibold text-[#C0392B] transition hover:bg-[#FDEBD0]"
                 style={{ color: "black" }}
               >
-                View Syllabus
+                {syllabus?.buttonText}
               </Link>
             </motion.div>
           </motion.div>
