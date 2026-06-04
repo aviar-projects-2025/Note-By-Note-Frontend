@@ -1,8 +1,9 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import FadeUp from '@/components/FadeUp'
+import banner from "./assets/banner.png"
 import 'bootstrap-icons/font/bootstrap-icons.css'
-
+import Image from 'next/image'
 const StudentIcon = () => (
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
     <circle cx="24" cy="16" r="9" fill="#C0392B" />
@@ -90,29 +91,29 @@ export default function SignUpPage() {
       <Navbar />
       <main>
         {/* ── Banner ── */}
-        <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1514119412350-e174d90d280e?w=1400&q=80&auto=format&fit=crop"
-            alt="Student playing a musical instrument"
-            className="w-full h-full object-cover object-center"
-            loading="eager"
-            // @ts-ignore
-            fetchPriority="high"
-            decoding="sync"
-            width={1400}
-            height={320}
-          />
-          <div className="absolute inset-0 bg-black/50">
-            <div className="absolute inset-0 flex items-center justify-center text-center px-6">
-              <h1
-                className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg"
-                style={{
-                  animation: "slideUp 0.8s ease-out forwards",
-                  opacity: 0,
-                }}
-              >
-                <p style={{ color: "white" }}>Sign Up</p>
-              </h1>
+    <div className="relative w-full h-64 sm:h-80 overflow-hidden">
+  <Image
+    src={banner}
+    alt="Student playing a musical instrument"
+    className="w-full h-full object-cover object-center"
+    loading="eager"
+    // @ts-ignore
+    fetchPriority="high"
+    decoding="sync"
+    width={1400}
+    height={320}
+  />
+  <div className="absolute inset-0 bg-black/50">
+    <div className="absolute inset-0 flex items-center justify-center text-center px-6">
+      <h1
+        className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg"
+        style={{
+          animation: "slideUp 0.8s ease-out forwards",
+          opacity: 0,
+        }}
+      >
+        <p style={{ color: "white" }}>Sign Up</p>
+      </h1>
 
               <style>{`
         @keyframes slideUp {
