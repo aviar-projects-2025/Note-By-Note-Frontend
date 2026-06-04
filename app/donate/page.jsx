@@ -8,21 +8,9 @@ import Footer from '@/components/Footer'
 import foundme from './assets/foundme.png'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-interface TrustItem {
-  icon: string
-  title: string
-  desc: React.ReactNode
-}
-
-interface QuoteItem {
-  text: string
-  author: string
-  role: string
-}
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
-const trustItems: TrustItem[] = [
+const trustItems = [
   {
     icon: 'bi-shield-check-fill',
     title: '100% Secure & Tax-Deductible',
@@ -44,13 +32,13 @@ const trustItems: TrustItem[] = [
   },
 ]
 
-const miniStats: [string, string][] = [
+const miniStats = [
   ['250+', 'Students Served'],
   ['40+', 'Volunteer Tutors'],
   ['100%', 'Free to Students'],
 ]
 
-const quotes: QuoteItem[] = [
+const quotes = [
   {
     text: "Music education changed my life. Note By Note AZ is making sure every child gets that same opportunity regardless of their background.",
     author: "Sarah M.",
@@ -69,18 +57,18 @@ const quotes: QuoteItem[] = [
 ]
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
-const EASE: [number, number, number, number] = [0.21, 0.47, 0.32, 0.98]
+const EASE = [0.21, 0.47, 0.32, 0.98]
 
-const fadeInUp: Variants = {
+const fadeInUp  = {
   hidden: { opacity: 0, y: 40 },
-  visible: (delay: number = 0) => ({
+  visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
     transition: { duration: 0.55, ease: EASE, delay },
   }),
 }
 
-const fadeInLeft: Variants = {
+const fadeInLeft = {
   hidden: { opacity: 0, x: -50 },
   visible: {
     opacity: 1,
@@ -89,7 +77,7 @@ const fadeInLeft: Variants = {
   },
 }
 
-const fadeInRight: Variants = {
+const fadeInRight = {
   hidden: { opacity: 0, x: 50 },
   visible: {
     opacity: 1,
@@ -98,7 +86,7 @@ const fadeInRight: Variants = {
   },
 }
 
-const stagger: Variants = {
+const stagger= {
   hidden: {},
   visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 }
@@ -109,13 +97,8 @@ function InView({
   variants = fadeInUp,
   custom,
   className = '',
-}: {
-  children: React.ReactNode
-  variants?: Variants
-  custom?: number
-  className?: string
 }) {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
@@ -134,7 +117,7 @@ function InView({
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function DonatePage() {
-  const [tab, setTab] = useState<'online' | 'other'>('online')
+  const [tab, setTab] = useState('online')
 
   return (
     <>
@@ -375,11 +358,11 @@ export default function DonatePage() {
                     [
                       ['online', 'Donate Online'],
                       ['other', 'Other Ways to Give'],
-                    ] as [string, string][]
+                    ] 
                   ).map(([key, label]) => (
                     <motion.button
                       key={key}
-                      onClick={() => setTab(key as 'online' | 'other')}
+                      onClick={() => setTab(key)}
                       className={`px-4 sm:px-6 py-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors ${
                         tab === key
                           ? 'border-[#C0392B] text-[#C0392B]'
