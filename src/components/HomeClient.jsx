@@ -522,41 +522,46 @@ export default function MusicProgramPage() {
         </motion.div>
 
         {/* ── Local student images ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-16 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16 w-full">
           {student?.cards?.map((card, index) => (
             <motion.div
               key={card._key}
               initial={{
                 opacity: 0,
-                x: index % 2 === 0 ? -60 : 60,
+                y: 50,
               }}
-              whileInView={{ opacity: 1, x: 0 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
               viewport={{ once: true }}
               transition={{
                 duration: 0.65,
-                delay: index * 0.15,
+                delay: index * 0.1,
                 ease: EASE,
               }}
-              className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[500px] lg:aspect-auto overflow-hidden rounded-3xl shadow-2xl group"
               whileHover={{
-                scale: 1.02,
+                scale: 1.03,
                 transition: { duration: 0.3 },
               }}
+              className="relative h-[250px] md:h-[280px] lg:h-[360px] overflow-hidden rounded-3xl shadow-2xl group"
             >
               {card?.image?.asset?.url && (
                 <Image
                   src={card.image.asset.url}
                   alt={card.title || "Student Image"}
                   fill
-                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-fill object-center transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width:768px) 100vw, (max-width:1024px) 50vw, 33vw"
                 />
               )}
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-              <div className="absolute bottom-4 left-4 text-white">
-                <h3 className="text-lg sm:text-xl font-semibold">
+              {/* Content */}
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <h3 className="text-white text-lg md:text-xl font-semibold">
                   {card.title}
                 </h3>
               </div>
@@ -564,8 +569,9 @@ export default function MusicProgramPage() {
           ))}
         </div>
 
+
         {/* Student highlight cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-16">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-10 mt-20">
           {student?.descCards?.map((item, idx) => (
             <motion.div
               key={item._key || idx}

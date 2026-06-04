@@ -90,31 +90,31 @@ export default function SignUpPage() {
       <Navbar />
       <main>
         {/* ── Banner ── */}
-    <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-  <img
-    src="https://images.unsplash.com/photo-1514119412350-e174d90d280e?w=1400&q=80&auto=format&fit=crop"
-    alt="Student playing a musical instrument"
-    className="w-full h-full object-cover object-center"
-    loading="eager"
-    // @ts-ignore
-    fetchPriority="high"
-    decoding="sync"
-    width={1400}
-    height={320}
-  />
-  <div className="absolute inset-0 bg-black/50">
-    <div className="absolute inset-0 flex items-center justify-center text-center px-6">
-      <h1
-        className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg"
-        style={{
-          animation: "slideUp 0.8s ease-out forwards",
-          opacity: 0,
-        }}
-      >
-        <p style={{ color: "white" }}>Sign Up</p>
-      </h1>
+        <div className="relative w-full h-64 sm:h-80 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1514119412350-e174d90d280e?w=1400&q=80&auto=format&fit=crop"
+            alt="Student playing a musical instrument"
+            className="w-full h-full object-cover object-center"
+            loading="eager"
+            // @ts-ignore
+            fetchPriority="high"
+            decoding="sync"
+            width={1400}
+            height={320}
+          />
+          <div className="absolute inset-0 bg-black/50">
+            <div className="absolute inset-0 flex items-center justify-center text-center px-6">
+              <h1
+                className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg"
+                style={{
+                  animation: "slideUp 0.8s ease-out forwards",
+                  opacity: 0,
+                }}
+              >
+                <p style={{ color: "white" }}>Sign Up</p>
+              </h1>
 
-      <style>{`
+              <style>{`
         @keyframes slideUp {
           from {
             opacity: 0;
@@ -126,9 +126,9 @@ export default function SignUpPage() {
           }
         }
       `}</style>
-    </div>
-  </div>
-</div>
+            </div>
+          </div>
+        </div>
         <section className="py-16">
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
             <FadeUp>
@@ -139,8 +139,8 @@ export default function SignUpPage() {
                 <FadeUp key={i} delay={i * 80}>
                   <div
                     className={`flex gap-5 items-start p-7 rounded-2xl border transition-all hover:shadow-lg ${opt.coming
-                        ? 'bg-yellow-50 border-yellow-200 hover:border-yellow-300'
-                        : 'bg-white border-gray-200 hover:border-[#C0392B]'
+                      ? 'bg-yellow-50 border-yellow-200 hover:border-yellow-300'
+                      : 'bg-white border-gray-200 hover:border-[#C0392B]'
                       }`}
                   >
                     <div className={`w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 ${opt.iconBg}`}>

@@ -33,10 +33,11 @@ export default function BlogPage() {
 
   useEffect(() => {
       const getData = async () => {
-        const data = await client.fetch(blogPageQuery)
-        if (!data?.sections) return
+        const data = await client.fetch(blogPageQuery);
 
-        console.log(data,'data')
+        console.log("BlogSection" , data);
+
+        if (!data?.sections) return
   
       }
       getData()
