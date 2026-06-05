@@ -5,6 +5,7 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import Image from 'next/image'
 
 const VideoIcon = () => (
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
@@ -72,13 +73,15 @@ export default function OnlineLessonsPage() {
       <main>
         {/* Banner */}
    <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-  <motion.img
+  <Image
     src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1400&q=80&auto=format&fit=crop&crop=top"
+    width={1400}
+    height={500}
     alt="Student with headphones learning online"
     className="w-full h-full object-cover object-top"
     initial={{ scale: 1.15 }}
     animate={{ scale: 1 }}
-    transition={{ duration: 1.2, ease: 'easeOut' }}
+    transition={{duration: 1.2, ease: 'easeOut'}}
   />
 
   <div className="absolute inset-0 bg-black/55" />

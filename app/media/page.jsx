@@ -4,6 +4,8 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PageHero from '@/components/PageHero'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
+import banner from "./assets/banner.png"
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import VideoSlider from '../media/VideoSlider'
 
@@ -59,8 +61,10 @@ export default function MediaPage() {
 
       <main>
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-          <motion.img
+          <Image
             src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=1400&q=80"
+            width={1400}
+            height={500}
             alt="Student with headphones learning online"
             className="w-full h-full object-cover object-top"
             initial={{ scale: 1.15 }}
