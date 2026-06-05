@@ -7,7 +7,9 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import foundme from './assets/foundme.png'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-
+import banner from "./assets/banner.png"
+import foundme from "./assets/foundme.png"
+import paypal from "./assets/paypal.png"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const trustItems = [
