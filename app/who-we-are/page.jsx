@@ -163,24 +163,27 @@ function TeamCard({ member }) {
       onHoverEnd={() => setHovered(false)}
       className="flex flex-col items-center group"
     >
-      <div className="mb-7 px-4 border-l-4 border-pink-500 text-gray-700 italic text-lg leading-relaxed">
-        “{member.quote}”
-      </div>
+      {/* <div className="mb-7 px-4 border-l-4 border-pink-500 text-gray-700 italic text-lg leading-relaxed">
+        “{member?.quote}”
+      </div> */}
 
       <div className="relative w-full overflow-hidden rounded-2xl shadow-lg bg-gray-100 aspect-[3/4]">
 
         {!imgError ? (
-          <Image
-            src={member.img}
-            alt={member.name}
-            fill
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-            onError={() => setImgError(true)}
-          />
+          // <Image
+          //   src={member?.image?.asset?._ref}
+          //   alt={member?.name}
+          //   fill
+          //   className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          //   onError={() => setImgError(true)}
+          // />
+
+          <></>
         ) : (
-          <div className={`w-full h-full ${member.fallbackBg} flex items-center justify-center`}>
+          // <div className={`w-full h-full ${member.fallbackBg} flex items-center justify-center`}>
+          <div className={`w-full h-full flex items-center justify-center`}>
             <span className="text-white font-bold text-5xl opacity-60">
-              {member.name.split(' ').map(w => w[0]).join('')}
+              {member?.name.split(' ').map(w => w[0]).join('')}
             </span>
           </div>
         )}
@@ -198,15 +201,15 @@ function TeamCard({ member }) {
         animate={{ color: hovered ? '#C0392B' : '#2B2B2B' }}
         transition={{ duration: 0.2 }}
       >
-        {member.name}
+        {member?.name}
       </motion.p>
-      <p className="text-gray-500 text-sm">{member.role}</p>
+      <p className="text-gray-500 text-sm">{member?.role}</p>
     </motion.div>
   )
 }
 
 /* ─── Hero ───────────────────────────────────────────────────── */
-function HeroSection() {
+function HeroSection({ who }) {
   const heroRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const bannerY = useTransform(scrollYProgress, [0, 1], ['0%', '25%'])
@@ -216,6 +219,7 @@ function HeroSection() {
     <section ref={heroRef} className="relative h-[85vh] sm:h-[90vh] w-full overflow-hidden">
       <motion.div className="absolute inset-0" style={{ y: bannerY, opacity: bannerOpacity }}>
         <Image src={banner} alt="banner" fill priority className="object-cover" />
+        {/* <Image src={who?.bannerImage?.asset?._ref} alt="banner" fill priority className="object-cover" /> */}
       </motion.div>
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
@@ -229,7 +233,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.7, ease }}
           >
-            <p style={{ color: 'white' }}>Who We Are</p>
+            <p style={{ color: 'white' }}>{who?.title}</p>
           </motion.h1>
 
           <motion.p
@@ -238,7 +242,7 @@ function HeroSection() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.55, duration: 0.6 }}
           >
-            Making music education free, accessible, and inspiring for every child in Arizona.
+            {who?.description}
           </motion.p>
 
           <motion.div
@@ -252,10 +256,10 @@ function HeroSection() {
                 href="/donate"
                 className="inline-flex items-center justify-center gap-2 bg-[#C0392B] px-6 sm:px-8 py-3 rounded-full text-white font-semibold text-sm sm:text-base shadow-lg"
               >
-                <p style={{ color: 'white' }}>Support Us</p>
+                <p style={{ color: 'white' }}>{who?.buttonText}</p>
               </Link>
             </motion.div>
-          </motion.div>
+          </motion.div>``
         </div>
       </div>
 
@@ -274,9 +278,14 @@ function HeroSection() {
 /* ─── MAIN PAGE ──────────────────────────────────────────────── */
 export default function WhoWeArePage() {
   const [mounted, setMounted] = useState(false)
-  const [hero, setHero] = useState(null)
-  const [mission, setMission] = useState(null)
-  const [program, setProgram] = useState(null)
+  const [who, setWho] = useState(null);
+  const [story, setStory] = useState(null);
+  const [journey, setJourney] = useState(null);
+  const [founders, setFounders] = useState(null);
+  const [val, setVal] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [cta, setCta] = useState(null);
+
 
   useEffect(() => { setMounted(true) }, [])
 
@@ -284,17 +293,38 @@ export default function WhoWeArePage() {
     const getData = async () => {
       const data = await client.fetch(whoWeArePageQuery);
       console.log('Sanity data:', data);
-      console.log('Sanity data:', data?.sections[0]?.description);
+
       if (!data?.sections) return
 
       data.sections.forEach((section) => {
-        if (section._type === 'heroSection') {
-          setHero(section)
-        } else if (section._type === 'missionSection') {
-          setMission(section)
-        } else if (section._type === 'programSection') {
-          setProgram(section)
+
+        if (section._type === "whoHeroSection") {
+          console.log("whoHeroSection", section);
+          setWho(section)
+        } else if (section._type === "ourStorySection") {
+          console.log("ourStorySection", section);
+          setStory(section)
         }
+        else if (section._type === "journeySection") {
+          console.log("journeySection", section);
+          setJourney(section)
+        }
+        else if (section._type === "foundersSection") {
+          console.log("foundersSection", section);
+          setFounders(section)
+        }
+        else if (section._type === "valuesSection") {
+          console.log("valuesSection", section);
+          setVal(section)
+        } else if (section._type === "statsSection") {
+          console.log("statsSection", section);
+          setStatus(section)
+        }
+        else if (section._type === "ctaSection") {
+          console.log("ctaSection", section);
+          setCta(section)
+        }
+
       })
     }
     getData()
@@ -316,7 +346,7 @@ export default function WhoWeArePage() {
       <main className="bg-white text-[#2B2B2B] overflow-x-hidden">
 
         {/* ── HERO ── */}
-        <HeroSection />
+        <HeroSection who={who} />
 
         {/* ── OUR STORY ── */}
         <section className="py-16 sm:py-20 lg:py-28">
@@ -327,7 +357,7 @@ export default function WhoWeArePage() {
                 transition={{ duration: 0.3 }}
                 className="relative overflow-hidden rounded-3xl shadow-2xl group w-full h-[280px] sm:h-[380px] md:h-[440px] lg:h-[480px]"
               >
-                <Image src={team} alt="Note By Note team" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                {/* <Image src={story?.image?.asset?.url} alt="Note By Note team" fill className="object-cover transition-transform duration-700 group-hover:scale-105" /> */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 <motion.div
                   className="absolute bottom-4 left-5 sm:bottom-6 sm:left-7"
@@ -337,7 +367,7 @@ export default function WhoWeArePage() {
                   transition={{ delay: 0.4 }}
                 >
                   <span className="text-white font-bold text-sm sm:text-base bg-[#C0392B]/80 px-3 py-1 rounded-full">
-                    The Note By Note Team 🎵
+                    {story?.imageLabel}
                   </span>
                 </motion.div>
               </motion.div>
@@ -345,21 +375,19 @@ export default function WhoWeArePage() {
 
             <Reveal variants={fadeRight}>
               <motion.span className="inline-block text-xs sm:text-sm text-[#C0392B] font-semibold tracking-widest uppercase mb-3" variants={fadeUp}>
-                Our Story
+                {story?.badge}
               </motion.span>
               <h2 className="text-3xl sm:text-4xl font-bold mb-5 leading-tight">
-                Born from a Belief That<br className="hidden sm:block" />
-                <span className="text-[#C0392B]">Music Is for Everyone</span>
+                {story?.title}<br className="hidden sm:block" />
+                <span className="text-[#C0392B]"> {story?.highlight}</span>
               </h2>
               <div className="space-y-4 text-gray-600 text-sm sm:text-base leading-relaxed">
-                <p>Dione Pahilan, Santiago Paul, and Mahima Sanghera — juniors at Brophy College Preparatory and Xavier College Preparatory — recognized the deep disparities in music education across Phoenix. Many kids aspire to play an instrument but cannot for financial reasons.</p>
-                <p>The Arts Education Data Project reports that over a third of Arizona K-8 students do not have access to music instruction, with funding being the primary barrier.</p>
-                <p>Starting in mid-2023, Note By Note was created to establish financially equitable conditions in music education — specifically in elementary and middle schools — through free one-on-one instruction.</p>
+                <p>{story?.paragraphs}</p>
               </div>
               <div className="mt-7 flex flex-col sm:flex-row gap-3">
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
                   <Link href="/donate" className="inline-flex items-center gap-2 bg-[#2B2B2B] text-white px-6 py-3 rounded-full text-sm font-semibold">
-                    <p style={{ color: 'white' }}>Support Our Work</p>
+                    <p style={{ color: 'white' }}>{story?.buttonOneText}</p>
                   </Link>
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
@@ -367,7 +395,7 @@ export default function WhoWeArePage() {
                     href="/volunteer"
                     className="inline-flex items-center gap-2 border border-[#C0392B] text-[#C0392B] px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#C0392B] hover:text-white transition-colors duration-300"
                   >
-                    Volunteer With Us
+                    {story?.buttonTwoText}
                   </Link>
                 </motion.div>
               </div>
@@ -379,13 +407,13 @@ export default function WhoWeArePage() {
         <section className="bg-[#FFFDF8] py-16 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Reveal className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold">Our Journey</h2>
-              <p className="text-gray-500 mt-3 text-sm sm:text-base max-w-xl mx-auto">From a small idea to a growing movement for music equity in Arizona.</p>
+              <h2 className="text-3xl sm:text-4xl font-bold">{journey?.title}</h2>
+              <p className="text-gray-500 mt-3 text-sm sm:text-base max-w-xl mx-auto">{journey?.sub}</p>
             </Reveal>
             <div className="relative">
               <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 -translate-x-1/2" />
               <div className="space-y-8 lg:space-y-0">
-                {milestones.map((m, idx) => (
+                {journey?.milestones.map((m, idx) => (
                   <Reveal key={idx} delay={idx * 0.1}>
                     <div className={`lg:grid lg:grid-cols-2 lg:gap-12 items-center ${idx % 2 === 0 ? '' : 'lg:dir-rtl'}`}>
                       <motion.div
@@ -395,9 +423,9 @@ export default function WhoWeArePage() {
                       >
                         <span className="inline-block text-xs font-bold text-[#C0392B] bg-[#C0392B]/10 px-3 py-1 rounded-full mb-2">{m.year}</span>
                         <h3 className="text-lg sm:text-xl font-bold mb-1">{m.title}</h3>
-                        <p className="text-gray-500 text-sm sm:text-base leading-relaxed">{m.desc}</p>
+                        <p className="text-gray-500 text-sm sm:text-base leading-relaxed">{m.description}</p>
                       </motion.div>
-                      {idx !== milestones.length - 1 && (
+                      {idx !== journey?.milestones.length - 1 && (
                         <div className={`hidden lg:flex absolute left-1/2 -translate-x-1/2 ${idx === 0 ? 'top-0' : ''}`}>
                           <motion.div
                             className="w-4 h-4 rounded-full bg-[#C0392B] border-4 border-white shadow"
@@ -420,9 +448,9 @@ export default function WhoWeArePage() {
         <section className="py-16 sm:py-20 lg:py-28">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Reveal className="text-center mb-10 sm:mb-14">
-              <span className="text-xs sm:text-sm text-[#C0392B] font-semibold tracking-widest uppercase">The People Behind the Mission</span>
-              <h2 className="text-3xl sm:text-4xl font-bold mt-2">Meet Our Founders</h2>
-              <p className="text-gray-500 mt-3 text-sm sm:text-base max-w-lg mx-auto">Three high-schoolers who turned a shared frustration into a statewide movement.</p>
+              <span className="text-xs sm:text-sm text-[#C0392B] font-semibold tracking-widest uppercase">{founders?.badge}</span>
+              <h2 className="text-3xl sm:text-4xl font-bold mt-2">{founders?.title}</h2>
+              <p className="text-gray-500 mt-3 text-sm sm:text-base max-w-lg mx-auto">{founders?.sub}</p>
             </Reveal>
             <motion.div
               className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8"
@@ -431,7 +459,7 @@ export default function WhoWeArePage() {
               whileInView="show"
               viewport={{ once: true }}
             >
-              {teamMembers.map(m => <TeamCard key={m.name} member={m} />)}
+              {founders?.founders.map(m => <TeamCard key={m.name} member={m} />)}
             </motion.div>
           </div>
         </section>
@@ -440,8 +468,8 @@ export default function WhoWeArePage() {
         <section className="bg-[#FFFDF8] py-16 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Reveal className="text-center mb-10 sm:mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold">What We Stand For</h2>
-              <p className="text-gray-500 mt-3 text-sm sm:text-base max-w-lg mx-auto">Six principles that guide every lesson, every decision, every interaction.</p>
+              <h2 className="text-3xl sm:text-4xl font-bold">{val?.title}</h2>
+              <p className="text-gray-500 mt-3 text-sm sm:text-base max-w-lg mx-auto">{val?.sub}</p>
             </Reveal>
             <motion.div
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
@@ -450,7 +478,7 @@ export default function WhoWeArePage() {
               whileInView="show"
               viewport={{ once: true }}
             >
-              {values.map(v => {
+              {val?.values.map(v => {
                 const Icon = v.icon
                 return (
                   <motion.div
@@ -470,10 +498,10 @@ export default function WhoWeArePage() {
                       whileHover={{ scale: 1.15, rotate: 6 }}
                       transition={{ type: 'spring', stiffness: 350 }}
                     >
-                      <Icon size={20} className="text-[#C0392B]" />
+                      {/* <Icon size={20} className="text-[#C0392B]" /> */}
                     </motion.div>
-                    <h3 className="text-base sm:text-lg font-bold mb-2 group-hover:text-[#C0392B] transition-colors duration-200">{v.title}</h3>
-                    <p className="text-gray-500 text-xs sm:text-sm leading-relaxed">{v.desc}</p>
+                    <h3 className="text-base sm:text-lg font-bold mb-2 group-hover:text-[#C0392B] transition-colors duration-200">{v?.title}</h3>
+                    <p className="text-gray-500 text-xs sm:text-sm leading-relaxed">{v?.description}</p>
                   </motion.div>
                 )
               })}
@@ -491,17 +519,18 @@ export default function WhoWeArePage() {
               whileInView="show"
               viewport={{ once: true }}
             >
-              {stats.map(s => (
+              {status?.stats.map(s => (
                 <motion.div
-                  key={s.label}
+                  key={s?._key}
                   variants={scaleIn}
                   whileHover={{ scale: 1.07 }}
                   className="bg-white/5 rounded-2xl py-6 px-3 sm:px-4 cursor-default"
                 >
                   <p className="text-3xl sm:text-4xl font-bold text-[#C0392B]">
-                    <Counter target={s.number} />
+                    {/* <Counter target={s?.number} /> */}
+                    {s?.number}
                   </p>
-                  <p className="text-xs sm:text-sm text-gray-300 mt-2 leading-tight">{s.label}</p>
+                  <p className="text-xs sm:text-sm text-gray-300 mt-2 leading-tight">{s?.label}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -533,19 +562,19 @@ export default function WhoWeArePage() {
                     {sym}
                   </motion.span>
                 ))}
-                <h2 className="text-3xl sm:text-4xl font-bold relative z-10">Ready to Make a Difference?</h2>
+                <h2 className="text-3xl sm:text-4xl font-bold relative z-10">{cta?.title}</h2>
                 <p className="mt-3 text-white/80 max-w-xl mx-auto text-sm sm:text-base relative z-10">
-                  Whether you donate, volunteer, or simply spread the word — every action helps us put an instrument in a child's hands.
+                  {cta?.description}
                 </p>
                 <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center relative z-10">
                   <motion.div whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.96 }}>
                     <Link href="/donate" className="inline-flex items-center gap-2 bg-white text-[#C0392B] font-bold px-7 py-3.5 rounded-full text-sm shadow-md hover:bg-[#FDEBD0] transition">
-                      <p style={{ color: 'black' }}>Donate Now</p>
+                      <p style={{ color: 'black' }}>{cta?.buttonOneText}</p>
                     </Link>
                   </motion.div>
                   <motion.div whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.96 }}>
                     <Link href="/volunteer" className="inline-flex items-center gap-2 border border-white/60 text-white font-semibold px-7 py-3.5 rounded-full text-sm hover:bg-white/10 transition">
-                      Volunteer
+                      {cta?.buttonTwoText}
                     </Link>
                   </motion.div>
                 </div>

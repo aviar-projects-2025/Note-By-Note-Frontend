@@ -115,7 +115,7 @@ export default function SignUpPage() {
         <p style={{ color: "white" }}>Sign Up</p>
       </h1>
 
-      <style>{`
+              <style>{`
         @keyframes slideUp {
           from {
             opacity: 0;
@@ -127,9 +127,9 @@ export default function SignUpPage() {
           }
         }
       `}</style>
-    </div>
-  </div>
-</div>
+            </div>
+          </div>
+        </div>
         <section className="py-16">
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
             <FadeUp>
@@ -140,8 +140,8 @@ export default function SignUpPage() {
                 <FadeUp key={i} delay={i * 80}>
                   <div
                     className={`flex gap-5 items-start p-7 rounded-2xl border transition-all hover:shadow-lg ${opt.coming
-                        ? 'bg-yellow-50 border-yellow-200 hover:border-yellow-300'
-                        : 'bg-white border-gray-200 hover:border-[#C0392B]'
+                      ? 'bg-yellow-50 border-yellow-200 hover:border-yellow-300'
+                      : 'bg-white border-gray-200 hover:border-[#C0392B]'
                       }`}
                   >
                     <div className={`w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 ${opt.iconBg}`}>
