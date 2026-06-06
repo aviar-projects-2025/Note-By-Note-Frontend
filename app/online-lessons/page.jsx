@@ -9,6 +9,7 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import Image from 'next/image'
 
 const VideoIcon = () => (
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
