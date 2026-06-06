@@ -1,5 +1,9 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+import { client } from '@/sanity/client'
+import Image from 'next/image'
+import { mediaPageQuery } from '@/lib/queries'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PageHero from '@/components/PageHero'
@@ -53,6 +57,56 @@ const connects = [
 ]
 
 export default function MediaPage() {
+
+
+  const [hero, setHero] = useState(null);
+  const [connect, setConnect] = useState([]);
+  const [photoVideo, setPhotoVideo] = useState(null);
+  // const [head, setHead] = useState(null);
+
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const data = await client.fetch(mediaPageQuery);
+
+        console.log('MediaPageSection ===>', data);
+
+
+        if (data?.hero?._type === "mediaHeroSection") {
+          setHero(data?.hero);
+
+        }
+        if (data?.connectSection?._type === "connectSection") {
+          setConnect(data?.connectSection);
+
+        }
+        if (data?.photosVideosSection?._type === "photosVideosSection") {
+          setPhotoVideo(data?.photosVideosSection);
+
+        }
+
+        // setHead(data?.title);
+
+        // if (Array.isArray(data?.options)) {
+        //   setOptions(data.options);
+        // }
+
+      } catch (error) {
+        console.error('Error fetching blog data:', error)
+      }
+    }
+
+    getData()
+  }, []);
+
+  console.log("HeroSection      ==> ", hero);
+  console.log("ConnectSection   ==> ", connect);
+  console.log("PhotoVideoSection==> ", photoVideo);
+  // console.log("Title ===> ", head);
+
+
+
   return (
     <>
       <Navbar />
@@ -60,7 +114,7 @@ export default function MediaPage() {
       <main>
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
           <motion.img
-            src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=1400&q=80"
+            src={hero?.image?.asset?.url}
             alt="Student with headphones learning online"
             className="w-full h-full object-cover object-top"
             initial={{ scale: 1.15 }}
@@ -77,7 +131,7 @@ export default function MediaPage() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg" >
-              <p style={{ color: "white" }}> Media</p>
+              <p style={{ color: "white" }}>{hero?.title}</p>
             </h1>
           </motion.div>
         </div>
@@ -93,20 +147,19 @@ export default function MediaPage() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl font-bold mb-2">
-                Photos & Videos
+                {photoVideo?.title}
               </h2>
 
               <p className="text-gray-500">
-                Check out photos and videos from our classes,
-                events, and recitals.
+                {photoVideo?.description}
               </p>
             </motion.div>
 
             {/* Photo Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
-              {photos.map((src, i) => (
+              {photoVideo?.photos.map((src , i) => (
                 <motion.div
-                  key={i}
+                  key={indexedDB}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
@@ -118,7 +171,7 @@ export default function MediaPage() {
                   className="overflow-hidden rounded-xl cursor-pointer shadow-sm hover:shadow-xl"
                 >
                   <motion.img
-                    src={src}
+                    src={src?.asset?._ref}
                     alt={`Media ${i + 1}`}
                     className="w-full object-cover"
                     style={{ height: 275 }}
@@ -130,7 +183,7 @@ export default function MediaPage() {
               ))}
             </div>
 
-            <VideoSlider />
+            <VideoSlider video={photoVideo} />
 
             {/* Google Drive Button */}
             <motion.div
@@ -150,7 +203,7 @@ export default function MediaPage() {
                 whileTap={{ scale: 0.95 }}
               >
                 {/* <i className="bi bi-google text-xl"></i> */}
-                <p style={{ color: "white" }}>VIEW MORE IN GOOGLE DRIVE</p>
+                <p style={{ color: "white" }}>{photoVideo?.googleDriveLabel}</p>
               </motion.a>
             </motion.div>
           </div>
@@ -170,18 +223,17 @@ export default function MediaPage() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl font-bold mb-2">
-                Connect With Us
+                {connect?.title}
               </h2>
 
               <p className="text-gray-500">
-                Stay connected with Note By Note AZ
-                across platforms.
+                {connect?.description}
               </p>
             </motion.div>
 
             {/* Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-              {connects.map((c, i) => (
+              {connect?.cards?.map((c, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 50 }}
@@ -204,7 +256,7 @@ export default function MediaPage() {
                 >
                   {/* Animated Icon */}
                   <motion.div
-                    className={`w-16 h-16 rounded-full ${c.bg} flex items-center justify-center mx-auto mb-4`}
+                    className={`w-16 h-16 rounded-full ${c?.bg} flex items-center justify-center mx-auto mb-4`}
                     whileHover={{
                       rotate: 10,
                       scale: 1.2,
@@ -215,8 +267,8 @@ export default function MediaPage() {
                     }}
                   >
                     <i
-                      className={`bi ${c.icon} text-3xl`}
-                      style={{ color: c.color }}
+                      className={`bi ${c?.icon} text-3xl`}
+                      style={{ color: c?.color }}
                     ></i>
                   </motion.div>
 
@@ -227,11 +279,11 @@ export default function MediaPage() {
                       scale: 1.05,
                     }}
                   >
-                    {c.title}
+                    {c?.title}
                   </motion.h5>
 
                   <p className="text-sm font-semibold text-gray-400 mb-2">
-                    {c.handle}
+                    {c?.handle}
                   </p>
 
                   <motion.p
@@ -241,15 +293,15 @@ export default function MediaPage() {
                       opacity: 1,
                     }}
                   >
-                    {c.desc}
+                    {c?.description}
                   </motion.p>
 
                   {/* Animated Button */}
                   <motion.a
-                    href={c.href}
+                    href={c?.href}
                     target="_blank"
                     rel="noreferrer"
-                    className={`inline-block ${c.btnColor} text-white font-bold text-xs px-5 py-2.5 rounded no-underline`}
+                    className={`inline-block ${c?.buttonColor} text-white font-bold text-xs px-5 py-2.5 rounded no-underline`}
                     whileHover={{
                       scale: 1.08,
                     }}
@@ -257,7 +309,7 @@ export default function MediaPage() {
                       scale: 0.95,
                     }}
                   >
-                    <p style={{ color: "white" }}>{c.btnLabel}</p>
+                    <p style={{ color: "white" }}>{c?.buttonLabel}</p>
                   </motion.a>
                 </motion.div>
               ))}

@@ -1,8 +1,10 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { motion, useInView, Variants } from 'framer-motion'
+import { useState, useRef, useEffect } from 'react'
+import { client } from '@/sanity/client'
 import Image from 'next/image'
+import { donatePageQuery } from '@/lib/queries'
+import { motion, useInView, Variants } from 'framer-motion'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import foundme from './assets/foundme.png'
@@ -10,27 +12,27 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
-const trustItems = [
-  {
-    icon: 'bi-shield-check-fill',
-    title: '100% Secure & Tax-Deductible',
-    desc: 'Note By Note AZ is a 501(c)(3) nonprofit. All donations are tax-deductible to the fullest extent allowed by law.',
-  },
-  {
-    icon: 'bi-receipt-cutoff',
-    title: 'Federal Tax ID',
-    desc: (
-      <span>
-        Tax ID: <strong className="text-[#C0392B]">93-4567891</strong>
-      </span>
-    ),
-  },
-  {
-    icon: 'bi-heart-fill',
-    title: 'Your Impact',
-    desc: 'Your donation directly funds free music lessons for underserved middle school students across Arizona.',
-  },
-]
+// const trustItems = [
+//   {
+//     icon: 'bi-shield-check-fill',
+//     title: '100% Secure & Tax-Deductible',
+//     desc: 'Note By Note AZ is a 501(c)(3) nonprofit. All donations are tax-deductible to the fullest extent allowed by law.',
+//   },
+//   {
+//     icon: 'bi-receipt-cutoff',
+//     title: 'Federal Tax ID',
+//     desc: (
+//       <span>
+//         Tax ID: <strong className="text-[#C0392B]">93-4567891</strong>
+//       </span>
+//     ),
+//   },
+//   {
+//     icon: 'bi-heart-fill',
+//     title: 'Your Impact',
+//     desc: 'Your donation directly funds free music lessons for underserved middle school students across Arizona.',
+//   },
+// ]
 
 const miniStats = [
   ['250+', 'Students Served'],
@@ -38,28 +40,28 @@ const miniStats = [
   ['100%', 'Free to Students'],
 ]
 
-const quotes = [
-  {
-    text: "Music education changed my life. Note By Note AZ is making sure every child gets that same opportunity regardless of their background.",
-    author: "Sarah M.",
-    role: "Parent Volunteer"
-  },
-  {
-    text: "Seeing our students discover their passion for music is the most rewarding experience. This program is truly transformative.",
-    author: "David R.",
-    role: "Music Teacher"
-  },
-  {
-    text: "The impact of free music education goes beyond notes and rhythms. It builds confidence, discipline, and community.",
-    author: "Maria G.",
-    role: "Board Member"
-  }
-]
+// const quotes = [
+//   {
+//     text: "Music education changed my life. Note By Note AZ is making sure every child gets that same opportunity regardless of their background.",
+//     author: "Sarah M.",
+//     role: "Parent Volunteer"
+//   },
+//   {
+//     text: "Seeing our students discover their passion for music is the most rewarding experience. This program is truly transformative.",
+//     author: "David R.",
+//     role: "Music Teacher"
+//   },
+//   {
+//     text: "The impact of free music education goes beyond notes and rhythms. It builds confidence, discipline, and community.",
+//     author: "Maria G.",
+//     role: "Board Member"
+//   }
+// ]
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 const EASE = [0.21, 0.47, 0.32, 0.98]
 
-const fadeInUp  = {
+const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (delay = 0) => ({
     opacity: 1,
@@ -86,7 +88,7 @@ const fadeInRight = {
   },
 }
 
-const stagger= {
+const stagger = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 }
@@ -117,7 +119,65 @@ function InView({
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function DonatePage() {
+
   const [tab, setTab] = useState('online')
+
+  const [hero, setHero] = useState(null);
+  const [donationSection, setDonationSection] = useState([]);
+  const [donationTab, setDonationTabs] = useState(null);
+  const [impactCard, setImpactCard] = useState(null);
+  const [volunteerSection, setVolunteerSection] = useState(null);
+  const [miniStat, setMiniStats] = useState([]);
+  const [trustItem, setTrustItems] = useState([]);
+
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+
+        const data = await client.fetch(donatePageQuery);
+
+        console.log('Donation Page ===>', data);
+
+        if (data?.hero?._type === "donateHeroSection") {
+          setHero(data?.hero);
+        }
+        if (data?.donationSection?._type === "donationSection") {
+          setDonationSection(data?.donationSection);
+        }
+        if (data?.donationTabs?._type === "donationTabs") {
+          setDonationTabs(data?.donationTabs);
+        }
+        if (data?.impactCard?._type === "impactCard") {
+          setImpactCard(data?.impactCard);
+        }
+        if (data?.volunteerSection?._type === "volunteerSection") {
+          setVolunteerSection(data?.volunteerSection);
+        }
+
+        if (Array.isArray(data?.miniStats)) {
+          setMiniStats(data?.miniStats);
+        }
+        if (Array.isArray(data?.trustItems)) {
+          setTrustItems(data?.trustItems);
+        }
+
+      } catch (error) {
+        console.error('Error fetching blog data:', error)
+      }
+    }
+
+    getData()
+  }, []);
+
+  // console.log('Hero:', hero);
+  // console.log('Donation Section:', donationSection);
+  console.log('Donation Tabs:', donationTab);
+  // console.log('Impact Card:', impactCard);
+  // console.log('Volunteer Section:', volunteerSection);
+  // console.log('Mini Stats:', miniStat);
+  // console.log('Trust Items:', trustItem);
+
 
   return (
     <>
@@ -127,7 +187,7 @@ export default function DonatePage() {
         {/* ── Hero Banner ── */}
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
           <motion.img
-            src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=1400&q=80"
+            src={hero?.imageUrl}
             alt="Student with headphones learning online"
             className="w-full h-full object-cover object-top"
             initial={{ scale: 1.15 }}
@@ -141,8 +201,8 @@ export default function DonatePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg" style={{color:"white"}}>
-              Support Our Mission
+            <h1 className="text-white text-3xl sm:text-5xl font-bold drop-shadow-lg" style={{ color: "white" }}>
+              {hero?.title}
             </h1>
           </motion.div>
         </div>
@@ -159,7 +219,7 @@ export default function DonatePage() {
                   variants={fadeInUp}
                   custom={0}
                 >
-                  Volunteer With Us
+                  {volunteerSection?.title}
                 </motion.h2>
 
                 <motion.p
@@ -167,8 +227,7 @@ export default function DonatePage() {
                   variants={fadeInUp}
                   custom={0.05}
                 >
-                  We are so grateful that you&apos;re here to help us on our journey. Please fill
-                  out this Google Form so we can learn more about you and get in contact!
+                  {volunteerSection?.description}
                 </motion.p>
 
                 {/* Thank you + Volunteer button */}
@@ -189,16 +248,15 @@ export default function DonatePage() {
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.1 }}
                     >
-                      Thank you for considering{' '}
-                      <span className="text-[#C0392B]">Note By Note!</span>
+                      <span className="text-[#C0392B]">{volunteerSection?.cardTitle}</span>
                     </motion.p>
                     <p className="text-xs sm:text-sm text-gray-500 m-0">
-                      Fill out our tutor interest form and we&apos;ll be in touch soon.
+                      {volunteerSection?.cardDescription}
                     </p>
                   </div>
 
                   <motion.a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSeJgSnWdU7GqQMPs69i4TRjlvuKgb2w4BBr2oCaxQPhlYHrEg/viewform"
+                    href={volunteerSection?.buttonLink}
                     target="_blank"
                     rel="noreferrer"
                     className="flex-shrink-0 inline-flex items-center gap-2 rounded-full bg-[#C0392B] px-5 py-2.5 text-xs sm:text-sm font-bold text-white no-underline shadow-md"
@@ -216,7 +274,7 @@ export default function DonatePage() {
                     >
                       🎵
                     </motion.span>
-                    <span style={{ color: 'white' }}>Volunteer Now</span>
+                    <span style={{ color: 'white' }}>{volunteerSection?.buttonLabel}</span>
                   </motion.a>
                 </motion.div>
 
@@ -226,15 +284,9 @@ export default function DonatePage() {
                   custom={0.1}
                 >
                   <span className="block font-semibold text-gray-800 mb-3 text-2xl">
-                    Donate To Us
+                    {donationSection?.title}
                   </span>
-                  Are you unable to volunteer? No worries at all. If you would still like to
-                  support us, we would much appreciate monetary donations!
-                  <br /><br />
-                  With increasing costs of instruments and guide books, many of our pupils are
-                  unable to practice their newly loved craft at home, so 100% of these proceeds
-                  will go into purchasing materials for them! We will happily add your name to
-                  our sponsor board as well.
+                  {donationSection?.description}
                 </motion.p>
 
                 {/* GoFundMe image */}
@@ -245,6 +297,7 @@ export default function DonatePage() {
                   whileHover={{ scale: 1.02, transition: { duration: 0.25 } }}
                 >
                   <Image
+                    // src={donationSection?.campaignImage?.asset?._ref || foundme}
                     src={foundme}
                     alt="GoFundMe campaign"
                     className="w-full h-auto object-cover"
@@ -260,7 +313,7 @@ export default function DonatePage() {
                 <motion.div className="space-y-4" variants={stagger}>
 
                   {/* Trust cards */}
-                  {trustItems.map((t, i) => (
+                  {trustItem.map((t, i) => (
                     <motion.div
                       key={i}
                       variants={fadeInUp}
@@ -273,13 +326,13 @@ export default function DonatePage() {
                       className="flex gap-4 bg-[#fef2f2] rounded-xl p-4 sm:p-5 cursor-default"
                     >
                       <motion.i
-                        className={`bi ${t.icon} text-[#C0392B] text-2xl sm:text-3xl flex-shrink-0 mt-0.5`}
+                        className={`bi ${t?.icon} text-[#C0392B] text-2xl sm:text-3xl flex-shrink-0 mt-0.5`}
                         whileHover={{ scale: 1.15, rotate: 5 }}
                         transition={{ type: 'spring', stiffness: 400 }}
                       />
                       <div>
-                        <h6 className="font-bold mb-1 text-xs sm:text-sm">{t.title}</h6>
-                        <p className="text-xs sm:text-sm text-gray-600 m-0">{t.desc}</p>
+                        <h6 className="font-bold mb-1 text-xs sm:text-sm">{t?.title}</h6>
+                        <p className="text-xs sm:text-sm text-gray-600 m-0">{t?.description}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -294,7 +347,7 @@ export default function DonatePage() {
                     className="bg-[#2B2B2B] rounded-xl p-5 sm:p-6"
                   >
                     <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
-                      {miniStats.map(([n, l], i) => (
+                      {miniStats.map(([num, lett] , i) => (
                         <motion.div
                           key={i}
                           initial={{ opacity: 0, scale: 0.8 }}
@@ -303,10 +356,10 @@ export default function DonatePage() {
                           transition={{ delay: 0.3 + i * 0.1, type: 'spring', stiffness: 200 }}
                         >
                           <div className="text-xl sm:text-2xl font-extrabold text-[#C0392B]">
-                            {n}
+                            {num}
                           </div>
                           <div className="text-[10px] sm:text-xs text-white/50 mt-0.5 leading-tight">
-                            {l}
+                            {lett}
                           </div>
                         </motion.div>
                       ))}
@@ -329,19 +382,19 @@ export default function DonatePage() {
                       transition={{ duration: 0.75 }}
                     />
                     <p className="text-base sm:text-lg font-bold relative z-10 mb-3">
-                      Help us keep music free for every student in Arizona. 🎵
+                      {impactCard?.title}
                     </p>
                     <div className="flex items-center gap-2 mb-2 relative z-10">
-                      <i className="bi bi-music-note text-sm text-white/80" />
-                      <span className="text-xs text-white/80">100% of proceeds go to students</span>
+                      <i className ={`${impactCard?.points[0]?.icon} text-sm text-white/80`}  />
+                      <span className="text-xs text-white/80">{impactCard?.points[0]?.text}</span>
                     </div>
                     <div className="flex items-center gap-2 mb-2 relative z-10">
-                      <i className="bi bi-graph-up text-sm text-white/80" />
-                      <span className="text-xs text-white/80">Your donation = instruments & materials</span>
+                      <i className={`${impactCard?.points[1]?.icon}text-sm text-white/80`} />
+                      <span className="text-xs text-white/80">{impactCard?.points[1]?.text}</span>
                     </div>
                     <div className="flex items-center gap-2 relative z-10">
-                      <i className="bi bi-star-fill text-sm text-yellow-300" />
-                      <span className="text-xs text-white/80">Join our sponsor board today</span>
+                      <i className ={`${impactCard?.points[2]?.icon} text-sm text-yellow-300`} />
+                      <span className="text-xs text-white/80">{impactCard?.points[2]?.text}</span>
                     </div>
                   </motion.div>
 
@@ -356,22 +409,21 @@ export default function DonatePage() {
                 >
                   {(
                     [
-                      ['online', 'Donate Online'],
-                      ['other', 'Other Ways to Give'],
-                    ] 
+                      ['online', `${donationTab?.onlineTabTitle}`],
+                      ['other', `${donationTab?.otherTabTitle}`],
+                    ]
                   ).map(([key, label]) => (
                     <motion.button
                       key={key}
                       onClick={() => setTab(key)}
-                      className={`px-4 sm:px-6 py-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors ${
-                        tab === key
-                          ? 'border-[#C0392B] text-[#C0392B]'
-                          : 'border-transparent text-gray-600 hover:text-gray-900'
-                      }`}
+                      className={`px-4 sm:px-6 py-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors ${tab === key
+                        ? 'border-[#C0392B] text-[#C0392B]'
+                        : 'border-transparent text-gray-600 hover:text-gray-900'
+                        }`}
                       whileHover={{ y: -1 }}
                       whileTap={{ scale: 0.97 }}
                     >
-                      {label}
+                      {donationTab?.label}
                     </motion.button>
                   ))}
                 </motion.div>
