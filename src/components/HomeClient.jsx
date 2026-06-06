@@ -366,7 +366,7 @@ export default function MusicProgramPage() {
             >
               {hero?.image?.asset?.url && (
                 <Image
-                  src={hero.image.asset.url}
+                  src={hero?.image?.asset?.url}
                   alt="Student practicing violin"
                   fill
                   className="object-cover object-center"
@@ -398,7 +398,7 @@ export default function MusicProgramPage() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url(${Photo?.src || '/default-image.jpg'})`,
+            backgroundImage: `url(${Photo?.src})`,
             // "url('https://images.unsplash.com/photo-1621784166258-c6fdfff31879?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG11c2ljaWFufGVufDB8fDB8fHww')",
           }}
         />
@@ -461,7 +461,7 @@ export default function MusicProgramPage() {
               // ]
               program?.cards.map((item, idx) => (
                 <motion.div
-                  key={item.title}
+                  key={idx}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}

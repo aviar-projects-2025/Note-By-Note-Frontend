@@ -5,7 +5,9 @@ import founder1 from '../../src/components/assets/S1.png'
 import founder2 from '../../src/components/assets/S2.png'
 import founder3 from '../../src/components/assets/S3.png'
 
-export default function VideoSlider() {
+export default function VideoSlider({ video }) {
+
+
     const videos = [
         {
             video: 'https://www.w3schools.com/html/mov_bbb.mp4',
@@ -21,6 +23,8 @@ export default function VideoSlider() {
         },
     ]
 
+
+    // const [videos, setVideos] = useState(video?.videoSlider?.videos);
     const [current, setCurrent] = useState(0)
     const [playing, setPlaying] = useState(false)
 
