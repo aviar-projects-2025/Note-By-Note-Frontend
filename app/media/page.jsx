@@ -8,7 +8,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PageHero from '@/components/PageHero'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+// import Image from 'next/image'
 import banner from "./assets/banner.png"
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import VideoSlider from '../media/VideoSlider'
@@ -115,7 +115,8 @@ export default function MediaPage() {
 
       <main>
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-          <Image
+
+          <motion.img
             src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=1400&q=80"
             width={1400}
             height={500}
@@ -125,6 +126,7 @@ export default function MediaPage() {
             animate={{ scale: 1 }}
             transition={{ duration: 1.2, ease: 'easeOut' }}
           />
+
 
           <div className="absolute inset-0 bg-black/55" />
 
@@ -159,9 +161,11 @@ export default function MediaPage() {
               </p>
             </motion.div>
 
+            {console.log(photoVideo,'photoVideo')}
+
             {/* Photo Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
-              {photoVideo?.photos.map((src , i) => (
+              {photoVideo?.photos.map((src, i) => (
                 <motion.div
                   key={indexedDB}
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -175,7 +179,7 @@ export default function MediaPage() {
                   className="overflow-hidden rounded-xl cursor-pointer shadow-sm hover:shadow-xl"
                 >
                   <motion.img
-                    src={src?.asset?._ref}
+                    src={src?.asset?.url}
                     alt={`Media ${i + 1}`}
                     className="w-full object-cover"
                     style={{ height: 275 }}

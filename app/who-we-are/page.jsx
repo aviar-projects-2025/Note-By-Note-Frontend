@@ -713,6 +713,7 @@ function Counter({ target }) {
 
 /* ─── Team Card ──────────────────────────────────────────────── */
 function TeamCard({ member }) {
+
   const [imgError, setImgError] = useState(false)
   const [hovered, setHovered] = useState(false)
 
@@ -726,9 +727,9 @@ function TeamCard({ member }) {
     >
       <div className="relative w-full overflow-hidden rounded-2xl shadow-lg bg-gray-100 aspect-[3/4]">
         {/* FIX: Render the image when available and not errored; fallback to initials */}
-        {member?.image?.asset?.ref && !imgError ? (
+        {member?.image?.asset?.url && !imgError ? (
           <Image
-            src={member?.image?.asset?.ref}
+            src={member?.image?.asset?.url}
             alt={member?.name}
             fill
             className="object-cover object-top transition-transform duration-500 group-hover:scale-105"

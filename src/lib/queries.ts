@@ -29,12 +29,23 @@ export const whoWeArePageQuery = `*[_type == "whoWeArePage"][0]{
     ...,
     image{
       asset->{
-        url
+        url,
+        _id
+      }
+    },
+    founders[]{
+      ...,
+      image{
+        asset->{
+          url
+        }
       }
     },
     images[]{
+      ...,
       asset->{
-        url
+        url,
+        _id
       }
     }
   }
@@ -118,20 +129,18 @@ export const mediaPageQuery = `
     ...,
     photos[]{
       ...,
-      image{
-        asset->{
-          _id,
-          url
-        }
+      asset->{
+        _id,
+        url
       }
-    }
+    },
+    videoSlider
   },
 
   connectSection{
     ...
   }
-}
-`
+}`
 
 export const onlineLessonsPageQuery = `
 *[_type == "onlineLessonsPage"][0]{
@@ -153,8 +162,13 @@ export const onlineLessonsPageQuery = `
 
   ctaSection{
     ...,
-    "imageUrl": image.asset->url
-  },
+    image{
+      asset->{
+        _id,
+        url
+      }
+    }
+  }
 
   comingSoonBar{
     ...
@@ -178,10 +192,9 @@ export const donatePageQuery = `
   },
 
   donationSection{
-    ...,
-    "imageUrl": image.asset->url
-  },
-
+  ...,
+  "imageUrl": campaignImage.asset->url
+},
   trustItems[]{
     ...,
     "imageUrl": image.asset->url

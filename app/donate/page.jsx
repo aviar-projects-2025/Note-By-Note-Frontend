@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { client } from '@/sanity/client'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { donatePageQuery } from '@/lib/queries'
 import { motion, useInView, Variants } from 'framer-motion'
 import Navbar from '@/components/Navbar'
@@ -291,6 +291,8 @@ export default function DonatePage() {
                   {donationSection?.description}
                 </motion.p>
 
+                {console.log(donationSection,'donationSection')}
+
                 {/* GoFundMe image */}
                 <motion.div
                   className="mb-8 overflow-hidden rounded-2xl shadow-md max-w-md mx-auto lg:mx-0"
@@ -298,9 +300,8 @@ export default function DonatePage() {
                   custom={0.15}
                   whileHover={{ scale: 1.02, transition: { duration: 0.25 } }}
                 >
-                  <Image
-                    // src={donationSection?.campaignImage?.asset?._ref || foundme}
-                    src={foundme}
+                  <motion.img
+                    src={donationSection?.imageUrl}
                     alt="GoFundMe campaign"
                     className="w-full h-auto object-cover"
                     sizes="(max-width: 768px) 100vw, 400px"

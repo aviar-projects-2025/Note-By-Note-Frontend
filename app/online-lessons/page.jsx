@@ -2,14 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { client } from '@/sanity/client'
-import Image from 'next/image'
 import { onlineLessonsPageQuery } from '@/lib/queries'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import Image from 'next/image'
 
 const VideoIcon = () => (
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
@@ -119,13 +117,6 @@ export default function OnlineLessonsPage() {
     getData()
   }, []);
 
-  console.log("Hero Section      ==> ", hero);
-  console.log("ComingSoon Section   ==> ", comingSoon);
-  console.log("CTA Section ==> ", cta);
-  console.log("Intro Section ==> ", intro);
-  // console.log("Title ===> ", head);
-
-
 
   return (
     <>
@@ -135,7 +126,7 @@ export default function OnlineLessonsPage() {
         {/* Banner */}
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
           <motion.img
-            src={hero?.imageURL || "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1400&q=80&auto=format&fit=crop&crop=top"}
+            src={hero?.imageURL}
             alt="Student with headphones learning online"
             className="w-full h-full object-cover object-top"
             initial={{ scale: 1.15 }}
@@ -173,6 +164,7 @@ export default function OnlineLessonsPage() {
               </p>
             </motion.div>
 
+            {console.log(intro,'intro')}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {intro?.features.map((feature, i) => (
                 <motion.div
@@ -220,11 +212,12 @@ export default function OnlineLessonsPage() {
         </section>
 
         {/* CTA section */}
+        {console.log(cta,'cta')}
         <section className="py-16 bg-[#FAFAF8]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.img
-                src={cta?.image?.asset?._ref || "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?w=700&q=80&auto=format&fit=crop"}
+                src={cta?.imageUrl }
                 alt="Student in online video lesson"
                 className="rounded-2xl shadow-xl w-full object-cover"
                 style={{ height: 340 }}

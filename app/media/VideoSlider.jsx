@@ -8,23 +8,23 @@ import founder3 from '../../src/components/assets/S3.png'
 export default function VideoSlider({ video }) {
 
 
-    // const videos = [
-    //     {
-    //         video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    //         poster: founder1.src,
-    //     },
-    //     {
-    //         video: 'https://www.w3schools.com/html/movie.mp4',
-    //         poster: founder2.src,
-    //     },
-    //     {
-    //         video: 'https://www.w3schools.com/html/movie.mp4',
-    //         poster: founder3.src,
-    //     },
-    // ]
+    const videos = [
+        {
+            video: 'https://www.w3schools.com/html/mov_bbb.mp4',
+            poster: founder1.src,
+        },
+        {
+            video: 'https://www.w3schools.com/html/movie.mp4',
+            poster: founder2.src,
+        },
+        {
+            video: 'https://www.w3schools.com/html/movie.mp4',
+            poster: founder3.src,
+        },
+    ]
 
 
-    const [videos, setVideos] = useState(video?.videoSlider?.videos);
+    // const [videos, setVideos] = useState(video?.videoSlider?.videos);
     const [current, setCurrent] = useState(0)
     const [playing, setPlaying] = useState(false)
 
