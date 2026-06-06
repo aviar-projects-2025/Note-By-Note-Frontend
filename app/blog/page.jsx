@@ -215,7 +215,7 @@ export default function BlogPage() {
       ? post
       : post.filter((item) => item.category === active)
 
-  const MotionImage = motion(Image)
+  // const MotionImage = motion(Image)
 
   return (
     <>
@@ -224,11 +224,10 @@ export default function BlogPage() {
       <main>
         {/* Hero Section */}
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-          <MotionImage
+          <motion.img
             src={hero?.image?.asset?.url}
             alt={hero?.title || 'Blog Banner'}
-            fill
-            className="object-cover"
+             className="w-full h-full object-cover object-top"
             initial={{ scale: 1.15 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.2, ease: 'easeOut' }}
@@ -243,7 +242,7 @@ export default function BlogPage() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-3xl sm:text-5xl font-bold drop-shadow-lg"
-            style={{color:"#ffff"}}>
+              style={{ color: "#ffff" }}>
               {hero?.title}
             </h1>
           </motion.div>
@@ -260,8 +259,8 @@ export default function BlogPage() {
                     key={cat}
                     onClick={() => setActive(cat)}
                     className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors border ${active === cat
-                        ? 'bg-[#2B2B2B] text-white border-[#2B2B2B]'
-                        : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
+                      ? 'bg-[#2B2B2B] text-white border-[#2B2B2B]'
+                      : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
                       }`}
                   >
                     {cat}
@@ -306,7 +305,7 @@ export default function BlogPage() {
                       </p>
 
                       <button className="text-[#C0392B] font-semibold text-sm text-left hover:text-[#a93226]"
-                      style={{cursor:"pointer"}}>
+                        style={{ cursor: "pointer" }}>
                         Read More →
                       </button>
                     </div>

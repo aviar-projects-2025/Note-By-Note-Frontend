@@ -877,6 +877,14 @@ export default function WhoWeArePage() {
     getData()
   }, [])
 
+  console.log('who:', who)
+  console.log('story:', story)
+  console.log('journey:', journey)
+  console.log('founders:', founders)
+  console.log('val:', val)
+  console.log('status:', status)
+  console.log('cta:', cta)
+
   if (!mounted) {
     return (
       <main className="bg-white text-[#2B2B2B] overflow-x-hidden">
@@ -946,7 +954,7 @@ export default function WhoWeArePage() {
               <div className="mt-7 flex flex-col sm:flex-row gap-3">
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
                   <Link href="/donate" className="inline-flex items-center gap-2 bg-[#C0392B] px-6 py-3 rounded-full text-sm font-semibold"
-                  style={{color:"#ffff"}}>
+                    style={{ color: "#ffff" }}>
                     {/* FIX: Removed inner <p style={{ color: 'white' }}> wrapper */}
                     {story?.buttonOneText}
                   </Link>
@@ -1010,7 +1018,6 @@ export default function WhoWeArePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Reveal className="text-center mb-10 sm:mb-14">
               <span className="text-xs sm:text-sm text-[#C0392B] font-semibold tracking-widest uppercase">{founders?.badge}</span>
-              {console.log("SSSSSSSSSS", founders?.founders)}
               <h2 className="text-3xl sm:text-4xl font-bold mt-2">{founders?.title}</h2>
               <p className="text-gray-500 mt-3 text-sm sm:text-base max-w-lg mx-auto">{founders?.sub}</p>
             </Reveal>

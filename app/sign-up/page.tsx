@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { client } from '@/sanity/client'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { signUpPageQuery } from '@/lib/queries'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -132,7 +133,7 @@ export default function SignUpPage() {
       <main>
         {/* ── Banner ── */}
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
-          <Image
+          <motion.img
             src={hero?.image?.asset?.url}
             alt="Student playing a musical instrument"
             className="w-full h-full object-cover object-center"
