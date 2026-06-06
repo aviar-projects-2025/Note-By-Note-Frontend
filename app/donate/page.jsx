@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { client } from '@/sanity/client'
+import imageUrlBuilder from '@sanity/image-url'
+import { client, urlFor } from '@/sanity/client'
 // import Image from 'next/image'
 import { donatePageQuery } from '@/lib/queries'
 import { motion, useInView, Variants } from 'framer-motion'
@@ -291,7 +292,6 @@ export default function DonatePage() {
                   {donationSection?.description}
                 </motion.p>
 
-                {console.log(donationSection,'donationSection')}
 
                 {/* GoFundMe image */}
                 <motion.div
@@ -301,11 +301,10 @@ export default function DonatePage() {
                   whileHover={{ scale: 1.02, transition: { duration: 0.25 } }}
                 >
                   <motion.img
-                    src={donationSection?.imageUrl}
+                    src={urlFor(donationSection?.campaignImage?.asset?._ref)}
                     alt="GoFundMe campaign"
                     className="w-full h-auto object-cover"
                     sizes="(max-width: 768px) 100vw, 400px"
-                    priority
                   />
                 </motion.div>
 
@@ -350,7 +349,7 @@ export default function DonatePage() {
                     className="bg-[#2B2B2B] rounded-xl p-5 sm:p-6"
                   >
                     <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
-                      {miniStats.map(([num, lett] , i) => (
+                      {miniStats.map(([num, lett], i) => (
                         <motion.div
                           key={i}
                           initial={{ opacity: 0, scale: 0.8 }}
@@ -388,7 +387,7 @@ export default function DonatePage() {
                       {impactCard?.title}
                     </p>
                     <div className="flex items-center gap-2 mb-2 relative z-10">
-                      <i className ={`${impactCard?.points[0]?.icon} text-sm text-white/80`}  />
+                      <i className={`${impactCard?.points[0]?.icon} text-sm text-white/80`} />
                       <span className="text-xs text-white/80">{impactCard?.points[0]?.text}</span>
                     </div>
                     <div className="flex items-center gap-2 mb-2 relative z-10">
@@ -396,7 +395,7 @@ export default function DonatePage() {
                       <span className="text-xs text-white/80">{impactCard?.points[1]?.text}</span>
                     </div>
                     <div className="flex items-center gap-2 relative z-10">
-                      <i className ={`${impactCard?.points[2]?.icon} text-sm text-yellow-300`} />
+                      <i className={`${impactCard?.points[2]?.icon} text-sm text-yellow-300`} />
                       <span className="text-xs text-white/80">{impactCard?.points[2]?.text}</span>
                     </div>
                   </motion.div>
@@ -426,7 +425,7 @@ export default function DonatePage() {
                       whileHover={{ y: -1 }}
                       whileTap={{ scale: 0.97 }}
                     >
-                      {donationTab?.label}
+                      {label}
                     </motion.button>
                   ))}
                 </motion.div>
@@ -447,20 +446,28 @@ export default function DonatePage() {
                       exit={{ opacity: 0, y: -12 }}
                       transition={{ duration: 0.35 }}
                     >
+                      {console.log(donationTab)}
                       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-5">
-                        <img
-                          src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
+                        <motion.img
+                          // src={donationTab?.paypalLogo?.asset?._ref}
+                          src={urlFor(donationTab?.paypalLogo?.asset?._ref)}
                           alt="PayPal"
                           style={{ height: 28 }}
                           className="flex-shrink-0"
                         />
                         <p className="text-gray-500 text-sm m-0">
-                          Make a secure donation through PayPal. All donations are tax-deductible.
+                        {donationTab?.onlineDescription}
                         </p>
                       </div>
 
+                      {/* <img
+                        src={urlFor(donationTab?.paypalLogo)}
+                        alt="PayPal"
+                        style={{ height: 28 }}
+                      /> */}
+
                       <motion.a
-                        href="https://paypal.com"
+                        href={donationTab?.paypalLink}
                         target="_blank"
                         rel="noreferrer"
                         className="w-full block text-center bg-[#0070ba] font-bold py-3.5 rounded-lg text-sm no-underline transition-colors mb-4"
@@ -469,13 +476,13 @@ export default function DonatePage() {
                         whileTap={{ scale: 0.97 }}
                       >
                         <i className="bi bi-paypal mr-2" />
-                        DONATE WITH PAYPAL
+                      {donationTab?.paypalButtonLabel}
                       </motion.a>
 
                       <hr className="my-5 border-gray-100" />
 
                       <motion.a
-                        href="https://gofundme.com"
+                        href={donationTab?.gofundmeLink}
                         target="_blank"
                         rel="noreferrer"
                         className="w-full block text-center bg-[#00b964] font-bold py-3.5 rounded-lg text-sm no-underline transition-colors"
@@ -484,7 +491,7 @@ export default function DonatePage() {
                         whileTap={{ scale: 0.97 }}
                       >
                         <i className="bi bi-heart-fill mr-2" />
-                        VIEW GOFUNDME
+                        {donationTab?.gofundmeButtonLabel}
                       </motion.a>
                     </motion.div>
                   ) : (
@@ -495,9 +502,9 @@ export default function DonatePage() {
                       exit={{ opacity: 0, y: -12 }}
                       transition={{ duration: 0.35 }}
                     >
-                      <h6 className="font-bold mb-3 text-sm sm:text-base">Other Options</h6>
+                      <h6 className="font-bold mb-3 text-sm sm:text-base">{donationTab?.otherOptions[0]?.label}</h6>
                       <p className="text-sm text-gray-500 mb-4">
-                        You can also support us through:
+                        {donationTab?.otherOptions[0]?.description}
                       </p>
                       <ul className="text-sm text-gray-600 space-y-4">
                         {[
@@ -507,7 +514,7 @@ export default function DonatePage() {
                               <>
                                 –{' '}
                                 <a
-                                  href="https://gofundme.com"
+                                  href={donationTab?.otherOptions[0]?.link}
                                   target="_blank"
                                   rel="noreferrer"
                                   className="text-[#C0392B] no-underline hover:underline"
@@ -523,8 +530,9 @@ export default function DonatePage() {
                               <>
                                 – contact us for details:{' '}
                                 <a
-                                  href="mailto:notebynoteaz@gmail.com"
+                                  href={donationTab?.otherOptions[1]?.link}
                                   className="text-[#C0392B] no-underline hover:underline"
+                                  target='_blank'
                                 >
                                   notebynoteaz@gmail.com
                                 </a>

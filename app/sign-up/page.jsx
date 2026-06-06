@@ -177,8 +177,8 @@ export default function SignUpPage() {
               <h1 className="text-center text-gray-800 mb-8">{head}</h1>
             </FadeUp>
             <div className="space-y-4">
-              {option.map((opt) => (
-                <FadeUp>
+              {option.map((opt,id) => (
+                <FadeUp key={id}>
                   <div
                     className={`flex gap-5 items-start p-7 rounded-2xl border transition-all hover:shadow-lg ${opt?.comingSoon}
                       ? 'bg-yellow-50 border-yellow-200 hover:border-yellow-300'

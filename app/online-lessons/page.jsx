@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { client } from '@/sanity/client'
+import { client,urlFor } from '@/sanity/client'
 import { onlineLessonsPageQuery } from '@/lib/queries'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -51,12 +51,12 @@ const ClockIcon = () => (
   </svg>
 )
 
-const features = [
-  { Icon: VideoIcon, title: 'Live, One-on-One Lessons', desc: 'Real-time instruction from our dedicated tutors.' },
-  { Icon: CalendarIcon, title: 'Flexible & Accessible', desc: 'Learn from home with a schedule that works for you.' },
-  { Icon: MusicNoteIcon, title: 'All Instruments Welcome', desc: 'Piano, strings, winds, woodwinds, and more.' },
-  { Icon: PeopleIcon, title: 'For Middle School Students', desc: 'Designed for students in grades 5–8.' },
-]
+// const features = [
+//   { Icon: VideoIcon, title: 'Live, One-on-One Lessons', desc: 'Real-time instruction from our dedicated tutors.' },
+//   { Icon: CalendarIcon, title: 'Flexible & Accessible', desc: 'Learn from home with a schedule that works for you.' },
+//   { Icon: MusicNoteIcon, title: 'All Instruments Welcome', desc: 'Piano, strings, winds, woodwinds, and more.' },
+//   { Icon: PeopleIcon, title: 'For Middle School Students', desc: 'Designed for students in grades 5–8.' },
+// ]
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -121,12 +121,12 @@ export default function OnlineLessonsPage() {
   return (
     <>
       <Navbar />
-
+      {console.log(hero, 'hero')}
       <main>
         {/* Banner */}
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
           <motion.img
-            src={hero?.imageURL}
+            src={hero?.imageUrl}
             alt="Student with headphones learning online"
             className="w-full h-full object-cover object-top"
             initial={{ scale: 1.15 }}
@@ -164,7 +164,7 @@ export default function OnlineLessonsPage() {
               </p>
             </motion.div>
 
-            {console.log(intro,'intro')}
+            {console.log(intro, 'intro')}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {intro?.features.map((feature, i) => (
                 <motion.div
@@ -180,13 +180,26 @@ export default function OnlineLessonsPage() {
                     boxShadow: '0px 18px 35px rgba(0,0,0,0.12)',
                   }}
                 >
-                  <motion.div
+                  {/* <motion.div
                     className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4"
                     whileHover={{ rotate: 8, scale: 1.15 }}
                     transition={{ type: 'spring', stiffness: 300 }}
-                  >
-                    {feature?.icon}
-                  </motion.div>
+                  > */}
+                    {/* <motion.img
+                      
+                    /> */}
+
+{/* {console.log(urlFor(feature?.image?.asset?._ref))} */}
+                    {/* <motion.img
+                      className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4"
+                      whileHover={{ rotate: 8, scale: 1.15 }}
+                      transition={{ type: 'spring', stiffness: 300 }} */}
+                      {/* // src={feature?.imageUrl}
+                      // alt="PayPal"
+                      className="flex-shrink-0" */}
+                    {/* /> */}
+
+                  {/* </motion.div> */}
 
                   <motion.h5
                     className="font-bold text-sm mb-2"
@@ -212,12 +225,12 @@ export default function OnlineLessonsPage() {
         </section>
 
         {/* CTA section */}
-        {console.log(cta,'cta')}
+        {console.log(cta, 'cta')}
         <section className="py-16 bg-[#FAFAF8]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.img
-                src={cta?.imageUrl }
+                src={cta?.image?.asset?.url}
                 alt="Student in online video lesson"
                 className="rounded-2xl shadow-xl w-full object-cover"
                 style={{ height: 340 }}
