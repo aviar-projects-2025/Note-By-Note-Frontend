@@ -186,7 +186,7 @@ export default function SignUpPage() {
                       }`}
                   >
                     <div className={`w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 ${opt?.icon}`}>
-                      {/* <opt.Icon /> */}
+                      <motion.img  src={opt?.image?.asset?.url} />
                     </div>
                     <div className="flex-1">
                       <h5 className={`font-bold text-base mb-1.5 ${opt?.theme}`}>{opt?.title}</h5>
