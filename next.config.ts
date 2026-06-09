@@ -13,14 +13,14 @@ const nextConfig = {
       },
     ],
   },
-  devIndicators: false,  // ← change this
+
+  devIndicators: false,
+
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  swcMinify: true,
+
   compress: true,
 }
 
-// module.exports = nextConfig
-
-export default nextConfig;
+export default nextConfig
