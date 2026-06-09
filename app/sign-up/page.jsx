@@ -177,7 +177,7 @@ export default function SignUpPage() {
               <h1 className="text-center text-gray-800 mb-8">{head}</h1>
             </FadeUp>
             <div className="space-y-4">
-              {option.map((opt,id) => (
+              {option.map((opt, id) => (
                 <FadeUp key={id}>
                   <div
                     className={`flex gap-5 items-start p-7 rounded-2xl border transition-all hover:shadow-lg ${opt?.comingSoon}
@@ -185,8 +185,14 @@ export default function SignUpPage() {
                       : 'bg-white border-gray-200 hover:border-[#C0392B]'
                       }`}
                   >
-                    <div className={`w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 ${opt?.icon}`}>
-                      <motion.img  src={opt?.image?.asset?.url} />
+                    <div
+                      className={`w-14 h-14 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0 ${opt?.icon}`}
+                    >
+                      <motion.img
+                        src={opt?.image?.asset?.url}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div className="flex-1">
                       <h5 className={`font-bold text-base mb-1.5 ${opt?.theme}`}>{opt?.title}</h5>
