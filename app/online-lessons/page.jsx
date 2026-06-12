@@ -1,55 +1,61 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { client,urlFor } from '@/sanity/client'
+import { client, urlFor } from '@/sanity/client'
 import { onlineLessonsPageQuery } from '@/lib/queries'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import {
+  Video,
+  CalendarClock,
+  Music,
+  GraduationCap,
+} from 'lucide-react';
 
-const VideoIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
-    <rect x="2" y="10" width="30" height="28" rx="4" stroke="#C0392B" strokeWidth="3" fill="none" />
-    <path d="M32 19l12-7v24l-12-7V19z" fill="#C0392B" />
-  </svg>
-)
+// const VideoIcon = () => (
+//   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
+//     <rect x="2" y="10" width="30" height="28" rx="4" stroke="#C0392B" strokeWidth="3" fill="none" />
+//     <path d="M32 19l12-7v24l-12-7V19z" fill="#C0392B" />
+//   </svg>
+// )
 
-const CalendarIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
-    <rect x="4" y="8" width="40" height="36" rx="4" stroke="#C0392B" strokeWidth="3" fill="none" />
-    <line x1="4" y1="18" x2="44" y2="18" stroke="#C0392B" strokeWidth="3" />
-    <line x1="14" y1="2" x2="14" y2="12" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" />
-    <line x1="34" y1="2" x2="34" y2="12" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" />
-    <polyline points="14,28 20,34 34,26" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-  </svg>
-)
+// const CalendarIcon = () => (
+//   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
+//     <rect x="4" y="8" width="40" height="36" rx="4" stroke="#C0392B" strokeWidth="3" fill="none" />
+//     <line x1="4" y1="18" x2="44" y2="18" stroke="#C0392B" strokeWidth="3" />
+//     <line x1="14" y1="2" x2="14" y2="12" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" />
+//     <line x1="34" y1="2" x2="34" y2="12" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" />
+//     <polyline points="14,28 20,34 34,26" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+//   </svg>
+// )
 
-const MusicNoteIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
-    <path d="M18 36V12l24-4v24" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-    <circle cx="12" cy="36" r="6" stroke="#C0392B" strokeWidth="3" fill="none" />
-    <circle cx="36" cy="32" r="6" stroke="#C0392B" strokeWidth="3" fill="none" />
-  </svg>
-)
+// const MusicNoteIcon = () => (
+//   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
+//     <path d="M18 36V12l24-4v24" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+//     <circle cx="12" cy="36" r="6" stroke="#C0392B" strokeWidth="3" fill="none" />
+//     <circle cx="36" cy="32" r="6" stroke="#C0392B" strokeWidth="3" fill="none" />
+//   </svg>
+// )
 
-const PeopleIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
-    <circle cx="16" cy="16" r="7" stroke="#C0392B" strokeWidth="3" fill="none" />
-    <path d="M2 40c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" fill="none" />
-    <circle cx="36" cy="14" r="5" stroke="#C0392B" strokeWidth="2.5" fill="none" />
-    <path d="M36 24c5.523 0 10 4.477 10 10" stroke="#C0392B" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-  </svg>
-)
+// const PeopleIcon = () => (
+//   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" aria-hidden="true">
+//     <circle cx="16" cy="16" r="7" stroke="#C0392B" strokeWidth="3" fill="none" />
+//     <path d="M2 40c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" fill="none" />
+//     <circle cx="36" cy="14" r="5" stroke="#C0392B" strokeWidth="2.5" fill="none" />
+//     <path d="M36 24c5.523 0 10 4.477 10 10" stroke="#C0392B" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+//   </svg>
+// )
 
-const ClockIcon = () => (
-  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 inline-block mr-2" aria-hidden="true">
-    <circle cx="24" cy="24" r="20" stroke="#C0392B" strokeWidth="3" fill="none" />
-    <line x1="24" y1="24" x2="24" y2="12" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" />
-    <line x1="24" y1="24" x2="33" y2="30" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" />
-  </svg>
-)
+// const ClockIcon = () => (
+//   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 inline-block mr-2" aria-hidden="true">
+//     <circle cx="24" cy="24" r="20" stroke="#C0392B" strokeWidth="3" fill="none" />
+//     <line x1="24" y1="24" x2="24" y2="12" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" />
+//     <line x1="24" y1="24" x2="33" y2="30" stroke="#C0392B" strokeWidth="3" strokeLinecap="round" />
+//   </svg>
+// )
 
 // const features = [
 //   { Icon: VideoIcon, title: 'Live, One-on-One Lessons', desc: 'Real-time instruction from our dedicated tutors.' },
@@ -166,60 +172,78 @@ export default function OnlineLessonsPage() {
 
             {console.log(intro, 'intro')}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {intro?.features.map((feature, i) => (
-                <motion.div
-                  key={i}
-                  className="text-center p-6 rounded-2xl bg-white shadow-sm cursor-pointer"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.15 }}
-                  whileHover={{
-                    y: -10,
-                    scale: 1.04,
-                    boxShadow: '0px 18px 35px rgba(0,0,0,0.12)',
-                  }}
-                >
-                  {/* <motion.div
-                    className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4"
-                    whileHover={{ rotate: 8, scale: 1.15 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
-                  > */}
-                    {/* <motion.img
+
+              {intro?.features.map((feature, index) => {
+
+                const icons = [
+                  Video,          // Live, One-on-One Lessons
+                  CalendarClock,  // Flexible & Accessible
+                  Music,          // All Instruments Welcome
+                  GraduationCap,  // For Middle School Students
+                ];
+
+                const Icon = icons[index % icons.length];
+
+                return (
+
+                  <motion.div
+                    key={index}
+                    className="text-center p-6 rounded-2xl bg-white shadow-sm cursor-pointer"
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.15 }}
+                    whileHover={{
+                      y: -10,
+                      scale: 1.04,
+                      boxShadow: '0px 18px 35px rgba(0,0,0,0.12)',
+                    }}
+                  >
+                    <motion.div
+                      className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4"
+                      whileHover={{ rotate: 8, scale: 1.15 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+
+                      <Icon size={20} className="text-[#C0392B]" />
+
+                      {/* <motion.img
                       
                     /> */}
 
-{/* {console.log(urlFor(feature?.image?.asset?._ref))} */}
-                    {/* <motion.img
-                      className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4"
-                      whileHover={{ rotate: 8, scale: 1.15 }}
-                      transition={{ type: 'spring', stiffness: 300 }} */}
-                      {/* // src={feature?.imageUrl}
-                      // alt="PayPal"
-                      className="flex-shrink-0" */}
-                    {/* /> */}
+                      {/* {console.log(urlFor(feature?.image?.asset?._ref))} */}
+                      {/* 
+                      <motion.img
+                        className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4"
+                        whileHover={{ rotate: 8, scale: 1.15 }}
+                        transition={{ type: 'spring', stiffness: 300 }}
+                        src={feature?.imageUrl}
+                        alt="PayPal"
+                        className="flex-shrink-0"
+                      /> */}
 
-                  {/* </motion.div> */}
+                    </motion.div>
 
-                  <motion.h5
-                    className="font-bold text-sm mb-2"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: i * 0.15 + 0.2 }}
-                  >
-                    {feature?.title}
-                  </motion.h5>
+                    <motion.h5
+                      className="font-bold text-sm mb-2"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: index * 0.15 + 0.2 }}
+                    >
+                      {feature?.title}
+                    </motion.h5>
 
-                  <motion.p
-                    className="text-gray-500 text-sm leading-relaxed"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: i * 0.15 + 0.3 }}
-                  >
-                    {feature?.description}
-                  </motion.p>
-                </motion.div>
-              ))}
+                    <motion.p
+                      className="text-gray-500 text-sm leading-relaxed"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: index * 0.15 + 0.3 }}
+                    >
+                      {feature?.description}
+                    </motion.p>
+                  </motion.div>
+                )
+              })}
             </div>
           </div>
         </section>

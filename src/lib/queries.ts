@@ -214,3 +214,51 @@ export const donatePageQuery = `
   }
 }
 `
+
+export const legalPagesQuery = `
+*[_type == "legalPage"]{
+  _id,
+  pageType,
+  title,
+  breadcrumb,
+  dateLabel,
+  date,
+  sections[]{
+    ...
+  },
+  backButtonLabel,
+  backButtonLink
+}
+`
+
+export const privacyPolicyQuery = `
+*[_type == "legalPage" && pageType == "privacyPolicy"][0]{
+  _id,
+  pageType,
+  title,
+  breadcrumb,
+  dateLabel,
+  date,
+  sections[]{
+    ...
+  },
+  backButtonLabel,
+  backButtonLink
+}
+`
+
+export const termsOfServiceQuery = `
+*[_type == "legalPage" && pageType == "termsOfService"][0]{
+  _id,
+  pageType,
+  title,
+  breadcrumb,
+  dateLabel,
+  date,
+  sections[]{
+    ...
+  },
+  backButtonLabel,
+  backButtonLink
+}
+`

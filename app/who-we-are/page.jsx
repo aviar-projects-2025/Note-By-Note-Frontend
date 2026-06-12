@@ -1034,7 +1034,7 @@ export default function WhoWeArePage() {
         </section>
 
         {/* ── VALUES ── */}
-        {console.log(val,'val')}
+        {console.log(val, 'val')}
         <section className="bg-[#FFFDF8] py-16 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Reveal className="text-center mb-10 sm:mb-14">
@@ -1048,12 +1048,13 @@ export default function WhoWeArePage() {
               whileInView="show"
               viewport={{ once: true }}
             >
-              {val?.values.map((v) => {
-                /* FIX: Map string icon names from Sanity to actual Lucide components */
-                const iconMap = {
-                  Heart, Users, Award, Music, Star, BookOpen,
-                }
-                const Icon = iconMap[v.icon] ?? Heart
+
+
+              {val?.values?.map((v, index) => {
+
+                const icons = [Heart, Users, Award, Music, Star, BookOpen];
+                
+                const Icon = icons[index % icons.length];
 
                 return (
                   <motion.div
