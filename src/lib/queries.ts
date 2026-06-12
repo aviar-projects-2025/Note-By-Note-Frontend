@@ -228,8 +228,7 @@ export const legalPagesQuery = `
   },
   backButtonLabel,
   backButtonLink
-}
-`
+}`
 
 export const privacyPolicyQuery = `
 *[_type == "legalPage" && pageType == "privacyPolicy"][0]{
@@ -247,7 +246,8 @@ export const privacyPolicyQuery = `
 }
 `
 
-export const termsOfServiceQuery = `
+export const termsOfServiceQuery = 
+`
 *[_type == "legalPage" && pageType == "termsOfService"][0]{
   _id,
   pageType,

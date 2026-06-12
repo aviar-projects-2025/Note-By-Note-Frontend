@@ -26,9 +26,6 @@ export default function PrivacyPolicyPage() {
   const [partyInformation, setPartyInformation] = useState(null);
   const [policyInformation, setPolicyInformation] = useState(null);
   const [contactInformation, setContactInformation] = useState(null);
-  // const [val, setVal] = useState(null);
-  // const [status, setStatus] = useState(null);
-  // const [cta, setCta] = useState(null);
 
 
   useEffect(() => {
@@ -67,27 +64,13 @@ export default function PrivacyPolicyPage() {
         } else if (section?.title === "Contact Us") {
           setContactInformation(section)
         }
-        //  else if (section._type === 'foundersSection') {
-        //   setFounders(section)
-        // } else if (section._type === 'valuesSection') {
-        //   setVal(section)
-        // } else if (section._type === 'statsSection') {
-        //   setStatus(section)
-        // } else if (section._type === 'ctaSection') {
-        //   setCta(section)
-        // }
+ 
       })
     }
     getData()
   }, [])
 
   console.log('ContactInformation:', contactInformation);
-  // console.log('story:', story)
-  // console.log('journey:', journey)
-  // console.log('founders:', founders)
-  // console.log('val:', val)
-  // console.log('status:', status)
-  // console.log('cta:', cta)
 
 
   return (
