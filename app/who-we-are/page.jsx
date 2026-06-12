@@ -712,10 +712,16 @@ function Counter({ target }) {
 }
 
 /* ─── Team Card ──────────────────────────────────────────────── */
-function TeamCard({ member }) {
+function TeamCard({ member, index }) {
 
   const [imgError, setImgError] = useState(false)
   const [hovered, setHovered] = useState(false)
+
+  const musicQuotes = [
+    "Music education opens minds, inspires creativity, and builds confidence.",
+    "Every note played is a step toward confidence and self-expression.",
+    "Through music, students learn harmony not only in sound but also in life.",
+  ];
 
   return (
     <motion.div
@@ -725,6 +731,11 @@ function TeamCard({ member }) {
       onHoverEnd={() => setHovered(false)}
       className="flex flex-col items-center group"
     >
+
+      <div className="mb-7 px-4 border-l-4 border-pink-500 text-gray-700 italic text-lg leading-relaxed">
+        {musicQuotes[index % musicQuotes.length]}
+      </div>
+
       <div className="relative w-full overflow-hidden rounded-2xl shadow-lg bg-gray-100 aspect-[3/4]">
         {/* FIX: Render the image when available and not errored; fallback to initials */}
         {member?.image?.asset?.url && !imgError ? (
@@ -1028,7 +1039,7 @@ export default function WhoWeArePage() {
               whileInView="show"
               viewport={{ once: true }}
             >
-              {founders?.founders.map(m => <TeamCard key={m.name} member={m} />)}
+              {founders?.founders.map((m, index) => <TeamCard key={m.name} member={m} index={index} />)}
             </motion.div>
           </div>
         </section>
@@ -1053,7 +1064,7 @@ export default function WhoWeArePage() {
               {val?.values?.map((v, index) => {
 
                 const icons = [Heart, Users, Award, Music, Star, BookOpen];
-                
+
                 const Icon = icons[index % icons.length];
 
                 return (

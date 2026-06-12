@@ -182,6 +182,8 @@ export default function BlogPage() {
   const [category, setCategory] = useState([])
   const [hero, setHero] = useState(null)
   const [active, setActive] = useState('All Posts')
+  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -215,6 +217,11 @@ export default function BlogPage() {
       ? post
       : post.filter((item) => item.category === active)
 
+  const handleReadMore = (item) => {
+    setSelectedBlog(item);
+    setIsModalOpen(true);
+  };
+
   // const MotionImage = motion(Image)
 
   return (
@@ -227,7 +234,7 @@ export default function BlogPage() {
           <motion.img
             src={hero?.image?.asset?.url}
             alt={hero?.title || 'Blog Banner'}
-             className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover object-top"
             initial={{ scale: 1.15 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.2, ease: 'easeOut' }}
@@ -278,8 +285,8 @@ export default function BlogPage() {
                       src={item?.image?.asset?.url}
                       alt={item?.title}
                       width={600}
-                      height={250}
-                      className="w-full h-[220px] object-cover"
+                      height={450}
+                      className="w-full h-[250px] object-fill"
                       loading={i === 0 ? 'eager' : 'lazy'}
                     />
 
@@ -300,12 +307,15 @@ export default function BlogPage() {
                         {item?.title}
                       </h3>
 
-                      <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">
+                      <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1 line-clamp-2">
                         {item?.excerpt}
                       </p>
 
-                      <button className="text-[#C0392B] font-semibold text-sm text-left hover:text-[#a93226]"
-                        style={{ cursor: "pointer" }}>
+                      <button
+                        onClick={() => handleReadMore(item)}
+                        className="text-[#C0392B] font-semibold text-sm text-left hover:text-[#a93226]"
+                        style={{ cursor: "pointer" }}
+                      >
                         Read More →
                       </button>
                     </div>
@@ -313,6 +323,65 @@ export default function BlogPage() {
                 </FadeUp>
               ))}
             </div>
+
+            {isModalOpen && selectedBlog && (
+              <div
+                className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
+                onClick={() => setIsModalOpen(false)}
+              >
+                <div
+                  className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Close Button */}
+                  <button
+                    onClick={() => setIsModalOpen(false)}
+                    className="absolute top-4 right-4 text-2xl font-bold text-white hover:text-white"
+                  >
+                    ×
+                  </button>
+
+                  {/* Image */}
+                  <Image
+                    src={selectedBlog?.image?.asset?.url}
+                    alt={selectedBlog?.title}
+                    width={1000}
+                    height={500}
+                    className="w-full h-[400px] object-fill"
+                  />
+
+                  <div className="p-6">
+                    {/* Date */}
+                    <p className="text-sm text-gray-500 mb-2">
+                      {new Date(selectedBlog?.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </p>
+
+                    {/* Category */}
+                    <p className="text-[#C0392B] font-medium mb-2">
+                      {selectedBlog?.category}
+                    </p>
+
+                    {/* Title */}
+                    <h2 className="text-3xl font-bold mb-4">
+                      {selectedBlog?.title}
+                    </h2>
+
+                    {/* Description */}
+                    <div className="text-gray-700 leading-relaxed">
+                      {selectedBlog?.description}
+                    </div>
+
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">
+                      {selectedBlog?.excerpt}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* No Posts */}
             {filtered.length === 0 && (
