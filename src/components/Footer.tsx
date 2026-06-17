@@ -107,7 +107,7 @@ export default function Footer() {
               </a>
               <a
                 href="/privacy-policy"
-                target="_blank"
+                // target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 text-white/70 hover:text-white text-base sm:text-sm py-2.5 sm:py-2 mb-2 no-underline transition-colors active:text-white"
               >
