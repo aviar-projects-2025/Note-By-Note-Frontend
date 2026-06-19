@@ -1,0 +1,9 @@
+{
+  "appId": "com.aviar.notebynote",
+  "appName": "Note By Note",
+  "webDir": "out",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}
