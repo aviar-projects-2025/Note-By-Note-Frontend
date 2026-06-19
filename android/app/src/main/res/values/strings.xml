@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Note By Note</string>
+    <string name="title_activity_main">Note By Note</string>
+    <string name="package_name">com.aviar.notebynote</string>
+    <string name="custom_url_scheme">com.aviar.notebynote</string>
+</resources>
