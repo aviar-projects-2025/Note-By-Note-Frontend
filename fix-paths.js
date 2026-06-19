@@ -3,11 +3,10 @@ const path = require('path');
 
 const folder = './out';
 
-function fixFile(filePath) {
+function addBaseTag(filePath) {
   let content = fs.readFileSync(filePath, 'utf8');
-  // Replace absolute paths with relative
-  content = content.replace(/href="\/(?!\/)/g, 'href="./');
-  content = content.replace(/src="\/(?!\/)/g, 'src="./');
+  // Insert <base href="./" /> right after <head>
+  content = content.replace(/<head>/, '<head><base href="./" />');
   fs.writeFileSync(filePath, content);
 }
 
@@ -18,11 +17,11 @@ function walk(dir) {
     const stat = fs.statSync(full);
     if (stat.isDirectory()) {
       walk(full);
-    } else if (full.endsWith('.html') || full.endsWith('.js') || full.endsWith('.css')) {
-      fixFile(full);
+    } else if (full.endsWith('.html')) {
+      addBaseTag(full);
     }
   }
 }
 
 walk(folder);
-console.log('✅ Paths fixed.');
+console.log('✅ <base> tag added to all HTML files.');
